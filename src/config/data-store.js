@@ -16,8 +16,6 @@
                 }
             })
 
-
-
             this.Director = DS.defineResource({
                 name: 'director',
                 endpoint: 'api/directors',
@@ -31,8 +29,6 @@
                 }
             })
 
-
-
             this.Camp = DS.defineResource({
                 name: 'camp',
                 endpoint: 'api/camps',
@@ -42,7 +38,9 @@
                             localField: 'year',
                             localKey: 'yearId',
                             parent: true
-                        },
+                        }
+                    },
+                    hasOne: {
                         director: {
                             localField: 'director',
                             localKey: 'directorId'
@@ -53,13 +51,13 @@
                             localField: 'reservation',
                             foreignKey: 'campId'
                         },
-                        scout:{
+                        scout: {
                             localField: 'scout',
-                            foreignKey:'campId'
+                            foreignKey: 'campId'
                         },
-                        leader:{
+                        leader: {
                             localField: 'leader',
-                            foreignKey:'campId'
+                            foreignKey: 'campId'
                         }
 
                     }
@@ -87,7 +85,7 @@
                             foreignKey: 'denId'
                         }
                     },
-                    hasOne:{
+                    hasOne: {
                         den: {
                             localField: 'den',
                             localKey: 'denId'
@@ -95,11 +93,6 @@
                     }
                 }
             })
-
-
-
-
-
 
             this.Den = DS.defineResource({
                 name: 'den',
@@ -128,7 +121,6 @@
                 }
             })
 
-
             this.Scout = DS.defineResource({
                 name: 'scout',
                 endpoint: 'api/scouts',
@@ -156,16 +148,7 @@
                     }
                 }
             })
-
-
-
-
-
         })
-
-
-
-
 
 
 } ());
