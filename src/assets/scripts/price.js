@@ -1,7 +1,6 @@
 var shirtPrice = 10.00;
 var shirtPriceXXL = 12.00;
 var goldCardMember = false;
-var now = Date.now();
 var earlyBird = new Date(2016, 5, 1).getTime();
 var earlyDiscount = earlyBird < now ? 5 : 0;
 

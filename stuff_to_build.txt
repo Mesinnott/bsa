@@ -1,0 +1,52 @@
+Admin
+    * Access All
+        * Form
+            * Google-like Search Options - one bar.
+        * Results 
+            * Table
+                * info
+                * Edit Button
+                * Check for Payment/Health Records
+    * Auth
+        * Login
+            * Form
+                -Username
+                -Password
+                -Confirmation
+                -Forgot My Password
+        * Edit
+            * Form
+                -New Password
+                -New Password Confirmation
+    * Create/Edit/Destroy
+        * Years
+            -Year 
+            * Create
+                * option/select
+        * Camps
+            * inputs
+                -Director 
+                -Date (date plugin) 
+                -Location
+                -Times
+                    -Check-in 
+                    -End
+                -orientation
+                    -date/time 
+                    -address
+                -Program
+                
+        * Directors
+            * Create
+                >sub-form
+                * inputs
+                    -email
+                    -name
+                    -phone#
+            * deactivate
+                **Confirmation
+            * activate
+
+
+        
+            
