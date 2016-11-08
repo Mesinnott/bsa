@@ -1,5 +1,6 @@
 import angular from 'angular'
 import {dependencies} from './components/components'
+import './main.sass'
 
 
 let App = angular.module('bsa', dependencies)
