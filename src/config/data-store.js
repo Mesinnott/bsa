@@ -47,7 +47,81 @@
                             localField: 'director',
                             localKey: 'directorId'
                         }
+                    },
+                    hasMany: {
+                        reservation: {
+                            localField: 'reservation',
+                            foreignKey: 'campId'
+                        },
+                        scout:{
+                            localField: 'scout',
+                            foreignKey:'campId'
+                        },
+                        leader:{
+                            localField: 'leader',
+                            foreignKey:'campId'
+                        }
 
+                    }
+
+                }
+            })
+
+            this.Reservation = DS.defineResource({
+                name: 'reservation',
+                endpoint: 'api/reservations',
+                relations: {
+                    belongsTo: {
+                        camp: {
+                            localField: 'camp',
+                            localKey: 'campId'
+                        }
+                    },
+                    hasMany: {
+                        scout: {
+                            localField: 'scout',
+                            foreignKey: 'reservationId'
+                        },
+                        leader: {
+                            localField: 'leader',
+                            foreignKey: 'denId'
+                        }
+                    },
+                    hasOne:{
+                        den: {
+                            localField: 'den',
+                            localKey: 'denId'
+                        },
+                    }
+                }
+            })
+
+
+
+
+
+
+            this.Den = DS.defineResource({
+                name: 'den',
+                endpoint: 'api/dens',
+                relations: {
+                    hasMany: {
+                        scout: {
+                            localField: 'scout',
+                            foreignKey: 'denId'
+                        },
+                        camp: {
+                            localField: 'camp',
+                            foreignKey: 'denId'
+                        },
+                        reservation: {
+                            localField: 'reservation',
+                            foreignKey: 'denId'
+                        },
+                        leader: {
+                            localField: 'leader',
+                            foreignKey: 'denId'
+                        }
 
                     }
 
@@ -55,14 +129,33 @@
             })
 
 
-            this.Den = DS.defineResource({
-                name: 'den',
-                endpoint: 'api/dens',
-                relations:{
-                    
+            this.Scout = DS.defineResource({
+                name: 'scout',
+                endpoint: 'api/scouts',
+                relations: {
+                    belongsTo: {
+                        den: {
+                            localField: 'den',
+                            localKey: 'denId',
+                            parent: true
+                        }
+                    }
                 }
             })
 
+            this.Leader = DS.defineResource({
+                name: 'leader',
+                endpoint: 'api/leaders',
+                relations: {
+                    belongsTo: {
+                        den: {
+                            localField: 'den',
+                            localKey: 'denId',
+                            parent: true
+                        }
+                    }
+                }
+            })
 
 
 
