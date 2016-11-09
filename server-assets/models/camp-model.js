@@ -57,7 +57,7 @@ function create(camp, cb) {
 }
 
 function getAll(query, cb) {
-    //Use the Resource Model to get all Galaxies
+    //Use the Resource Model to get all Years
     Camp.findAll({}).then(cb).catch(cb)
 }
 
