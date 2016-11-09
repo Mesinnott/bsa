@@ -3,7 +3,8 @@ function firebaseService() {
 
 	var _user = {};
 	var _campList = {};
-	var firebaseUrl = 'https://ore-ida.firebaseio.com/';
+	// var firebaseUrl = 'https://ore-ida.firebaseio.com/';
+	var firebaseUrl = 'https://oreidabsa-b4054.firebaseio.com/'
 	var firebaseLogin = new Firebase(firebaseUrl);
 
 	return {
