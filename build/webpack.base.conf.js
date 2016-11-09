@@ -1,6 +1,8 @@
 var path = require('path')
 var config = require('../config')
 var utils = require('./utils')
+__dirname = __dirname + "/public/"
+console.log(__dirname)
 var projectRoot = path.resolve(__dirname, '../')
 
 module.exports = {
