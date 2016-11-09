@@ -16,8 +16,12 @@ Admin
                 -Forgot My Password
         * Edit
             * Form
-                -New Password
-                -New Password Confirmation
+                * Password
+                    -New Password
+                    -New Password Confirmation
+                * Email 
+                    -new email
+                    -Password
     * Create/Edit/Destroy
         * Years
             -Year 
@@ -35,6 +39,8 @@ Admin
                     -date/time 
                     -address
                 -Program
+        * Campers
+            -(All)
                 
         * Directors
             * Create
@@ -46,6 +52,69 @@ Admin
             * deactivate
                 **Confirmation
             * activate
+                **Confirmation
+            * Edit
+                * inputs
+                    -(all)
+Directors
+    * Access Their Camps
+        * Results
+            * Table
+        -Camps : Initial View
+            *onclick = Campers View
+        -Campers
+            >nested in groups 
+            * Table
+    * Auth
+        * Login
+        * Signup
+            ?
+Pack
+    * Create
+        -Pack No.
+        -Camp No.
+            *select            
+        -First Contact
+            -First Name
+            -Last Name 
+            -Position
+            -Email
+            -Cell Phone No.
+        -Second Contact
+            -Same Attrs as First
+        -BSA Registered Adult
+            -YPT(Youth Protection Trained) Date
+            * Date registered = Object Property
+            -Shirt Size
+                -options list [Youth Medium, Youth Large,...Adult 5XL
+        -Campers
+            -Full Name
+            -Shirt Sizes
+                *options 
+        *Reciept
+            if(Weblos only)
+                Two day Camp
+                if(before April 6)
+                    cost = $45
+                else
+                    cost = $50
+            else
+                if(before April 6)
+                    cost = $30
+                else
+                    cost = $35
+
+            if(gold card discount)
+                total cost -= $5 * number of boys
+            
+            total cost += 10 * number of shirts
+            total cost += 2 * number of >= 2XL shirts
+        
+
+
+
+    
+
 
 
         
