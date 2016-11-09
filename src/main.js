@@ -1,2 +1,2 @@
-import App from './App'
-import './main.sass'
+var app = require('./App')
+require('./main.sass')

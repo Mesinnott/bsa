@@ -1,5 +1,6 @@
 import angular from 'angular'
-const Component = 'testComponent'
+const Component = 'potter'
+import './potter.scss'
 
 angular.module(`app.components.${Component}`, [])
   .component(Component,{

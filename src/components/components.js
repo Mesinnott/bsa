@@ -1,7 +1,7 @@
-import {testComponent} from './testing'
+import {potter} from './potter'
 
 let components = [
-  testComponent
+  potter
 ]
 
 const dependencies = components.map(c => { return `app.components.${c}`})
