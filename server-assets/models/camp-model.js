@@ -4,6 +4,40 @@ let dataAdapter = require('./data-adapter'),
     DS = dataAdapter.DS,
     formatQuery = dataAdapter.formatQuery;
 
+let Camp = DS.defineResource({
+    name: 'camp',
+    endpoint: 'api/camps',
+    relations: {
+        belongsTo: {
+            year: {
+                localField: 'year',
+                localKey: 'yearId',
+                parent: true
+            }
+        },
+        hasOne: {
+            director: {
+                localField: 'director',
+                localKey: 'directorId'
+            }
+        },
+        hasMany: {
+            reservation: {
+                localField: 'reservation',
+                foreignKey: 'campId'
+            },
+            scout: {
+                localField: 'scout',
+                foreignKey: 'campId'
+            },
+            leader: {
+                localField: 'leader',
+                foreignKey: 'campId'
+            }
+        }
+    }
+})
+
 
 function create(camp, cb) {
     

@@ -4,6 +4,18 @@ let dataAdapter = require('./data-adapter'),
     DS = dataAdapter.DS,
     formatQuery = dataAdapter.formatQuery;
 
+let Year = DS.defineResource({
+    name: 'year',
+    endpoint: 'api/years',
+    relations: {
+        hasMany: {
+            camp: {
+                localField: 'camp',
+                foreignKey: 'yearId'
+            }
+        }
+    }
+})
 
 function create(date, cb) {
     // Use the Resource Model to create a new planet
