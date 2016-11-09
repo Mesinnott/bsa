@@ -11,7 +11,6 @@
                             localField: 'camp',
                             foreignKey: 'yearId'
                         }
-
                     }
                 }
             })
@@ -59,9 +58,7 @@
                             localField: 'leader',
                             foreignKey: 'campId'
                         }
-
                     }
-
                 }
             })
 
@@ -115,9 +112,7 @@
                             localField: 'leader',
                             foreignKey: 'denId'
                         }
-
                     }
-
                 }
             })
 
