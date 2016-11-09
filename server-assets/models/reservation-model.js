@@ -35,21 +35,28 @@ let reservation = DS.defineResource({
 
 
 function create(reservation, cb) {
-    // Use the Resource Model to create a new star
-    Reservation.create({ 
-        id: uuid.v4(), 
-        denId: reservation.denId, 
-        campId: reservation.campId
-    }).then(cb).catch(cb)
+    
+    DS.find('camp', reservation.campId).then(function(camp) {
+        let reservationObj = {
+            id: uuid.v4(), 
+            denId: reservation.denId, 
+            campId: reservation.campId,
+            yearId: camp.yearId,
+            date: camp.date,
+            campNum: camp.campNum,
+            location: camp.location,
+            scoutLevels: camp.scoutLevels
+        }
+
+        Reservation.create(reservationObj).then(cb).catch(cb)
+    }).catch(cb)
 }
 
 function getAll(query, cb) {
-    //Use the Resource Model to get all Galaxies
     Reservation.findAll({}).then(cb).catch(cb)
 }
 
 function getById(id, query, cb) {
-    // use the Resource Model to get a single star by its id
     Reservation.find(id, formatQuery(query)).then(cb).catch(cb)
 }
 

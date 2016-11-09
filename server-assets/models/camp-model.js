@@ -43,16 +43,16 @@ function create(camp, cb) {
     
     Camp.create({ 
         id: uuid.v4(), 
-        name: camp.name, 
+        campNum: camp.campNum,
         yearId: camp.yearId,
         location: camp.location,
-        date: camp.date,
-        weekdays: camp.weekdays,
-        campNum: camp.campNum,
+        date: camp.date,                /////May want to redo these ones based on the front end input for 
+        endDate: camp.endDate || null,  /////the cub/webelos camp date selectors.
+        weekdays: camp.weekdays,        /////Use momentJS to determine days of week?
         directorId: camp.directorId,
         startTime: camp.startTime,
         endTime: camp.endTime,
-        scoutGroups: camp.scoutGroups
+        scoutLevels: camp.scoutLevels
     }).then(cb).catch(cb)
 }
 

@@ -17,9 +17,9 @@ let Year = DS.defineResource({
     }
 })
 
-function create(date, cb) {
+function create(YYYY, cb) {
     // Use the Resource Model to create a new planet
-    let year = { id: uuid.v4(), year: date };
+    let year = { id: uuid.v4(), year: YYYY };
     
     Year.create(year).then(cb).catch(cb)
 }
