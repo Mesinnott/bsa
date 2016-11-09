@@ -7,9 +7,7 @@ let uuid = require('node-uuid'),
     DS = new JsData.DS();
 
 let fbAdapter = new FBAdapter({
-    // basePath: 'https://universe-simulator.firebaseio.com/'
-
-    /////////////// THIS MUST BE CHANGED /////////////////
+    basePath: 'https://oreidabsa-b4054.firebaseio.com/'
 })
 
 function formatQuery(query) {
