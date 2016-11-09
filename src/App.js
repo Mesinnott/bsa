@@ -1,13 +1,12 @@
 import angular from 'angular'
 import {dependencies} from './components/components'
-import './main.sass'
 
 
-let App = angular.module('bsa', dependencies)
+let App = angular.module('app', dependencies)
 
 App.component('app', {
   template: `<div>
-    <test-component></test-component>
+    <potter></potter>
   </div>`,
   controller() { }
 })
