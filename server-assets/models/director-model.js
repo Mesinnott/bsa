@@ -48,13 +48,15 @@ function getById(id, query, cb) {
 }
 
 function editById(directorId, input, cb) {
+// NOTE----- to edit, you must put in a correct name and email************8
+
     let newName = input.name
     let newEmail = input.email
 
 
     Director.find(directorId).then(function (director) {
-        director[name] = newName
-        director[email] = newEmail
+        director.name = newName
+        director.email = newEmail
 
         Director.update(director.id, director)
             .then(cb)

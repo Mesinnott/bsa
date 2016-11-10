@@ -25,7 +25,7 @@ router.route('/:id?')
     })
   })
   .put(function (req, res, next) {
-    Director.editById(req.body.director, function (director) {
+    Director.editById(req.params.id, req.body.director, function (director) {
       if (director.stack) { return next(director) }
       return res.send(director)
     })
