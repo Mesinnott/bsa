@@ -29,6 +29,7 @@ function create(scout, cb) {
             name: scout.name,
             denNum: reservation.denNum,
             reservationId: reservation.id,
+            campId: reservation.campId,
             healthForm: false,
             paid: false,
             shirtSize: scout.shirtSize
