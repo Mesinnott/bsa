@@ -10,9 +10,9 @@ let Scout = DS.defineResource({
     endpoint: 'api/scouts',
     relations: {
         belongsTo: {
-            den: {
-                localField: 'den',
-                localKey: 'denId',
+            reservation: {
+                localField: 'reservation',
+                localKey: 'reservationId',
                 parent: true
             }
         }
@@ -22,13 +22,13 @@ let Scout = DS.defineResource({
 
 function create(scout, cb) {
 
-    DS.find('den', scout.denId).then(function (den) {
+    DS.find('reservation', scout.reservationId).then(function (reservation) {
 
         let scoutObj = {
             id: uuid.v4(),
             name: scout.name,
-            denId: scout.denId,
-            reservationId: scout.reservationId,
+            denNum: reservation.denNum,
+            reservationId: reservation.id,
             healthForm: false,
             paid: false,
             shirtSize: scout.shirtSize

@@ -11,9 +11,9 @@ let Leader = DS.defineResource({
     endpoint: 'api/leaders',
     relations: {
         belongsTo: {
-            den: {
-                localField: 'den',
-                localKey: 'denId',
+            reservation: {
+                localField: 'reservation',
+                localKey: 'reservationId',
                 parent: true
             }
         }
@@ -23,11 +23,11 @@ let Leader = DS.defineResource({
 
 function create(leader, cb) {
 
-    DS.find('den', leader.denId).then(function (den) {
+    DS.find('reservation', leader.reservationId).then(function (reservation) {
         let leaderObj = {
             id: uuid.v4(),
             name: leader.name,
-            denId: leader.denId,
+            denNum: reservation.denNum,
             reservationId: leader.reservationId,
             healthForm: false,
             paid: false,

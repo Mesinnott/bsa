@@ -19,15 +19,15 @@ router.route('/:id?')
       return res.send(reservation)
     })
   })
-  .put(function (req, res, next) {
-    Reservation.editById(req.body.reservation, function (reservation) {
-      if (reservation.stack) { return next(reservation) }
-      return res.send(reservation)
-    })
-  })
-  .delete(function (req, res, next) {
-    Reservation.deleteById(req.body.reservation.id, function (reservation) {
-      if (reservation.stack) { return next(reservation) }
-      return res.send('reservation' + reservation.reservationNum + ' deleted')
-    })
-  })
+//   .put(function (req, res, next) {
+//     Reservation.editById(req.body.reservation, function (reservation) {
+//       if (reservation.stack) { return next(reservation) }
+//       return res.send(reservation)
+//     })
+//   })
+//   .delete(function (req, res, next) {
+//     Reservation.deleteById(req.body.reservation.id, function (reservation) {
+//       if (reservation.stack) { return next(reservation) }
+//       return res.send('reservation' + reservation.reservationNum + ' deleted')
+//     })
+//   })

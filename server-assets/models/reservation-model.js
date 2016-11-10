@@ -4,7 +4,7 @@ let dataAdapter = require('./data-adapter'),
     DS = dataAdapter.DS,
     formatQuery = dataAdapter.formatQuery;
 
-let reservation = DS.defineResource({
+let Reservation = DS.defineResource({
     name: 'reservation',
     endpoint: 'api/reservations',
     relations: {
@@ -39,7 +39,7 @@ function create(reservation, cb) {
     DS.find('camp', reservation.campId).then(function(camp) {
         let reservationObj = {
             id: uuid.v4(), 
-            denId: reservation.denId, 
+            denNum: reservation.denNum, 
             campId: reservation.campId,
             yearId: camp.yearId,
             date: camp.date,
