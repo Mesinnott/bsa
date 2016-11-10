@@ -58,9 +58,6 @@ function getByAnyId(queryId, query, cb) {
             'campId': {
                 '|===': queryId
             },
-            'denId': {
-                '|===': queryId
-            }
         }
     }).then(cb).catch(cb)
 }
