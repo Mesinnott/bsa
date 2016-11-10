@@ -41,7 +41,7 @@ function getAll(query, cb){
 }
 
 
-function getByID(id, query, cb){
+function getById(id, query, cb){
 // use the Resource Model to get a single scout by its Id
 
     Director.find(id, formatQuery(query)).then(cb).catch(cb)
@@ -51,5 +51,5 @@ function getByID(id, query, cb){
 module.exports = {
     create,
     getAll,
-    getByID
+    getById
 }
