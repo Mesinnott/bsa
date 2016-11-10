@@ -24,9 +24,3 @@ router.route('/:id?')
       return res.send(year)
     })
   })
-  .put(function (req, res, next) {
-    res.send('We are working on it....')
-  })
-  .delete(function (req, res, next) {
-    res.send('We are working on it....')
-  })
