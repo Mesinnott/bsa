@@ -19,7 +19,7 @@ router.route('/:id?')
     }
   })
   .post(function (req, res, next) {
-    Year.create(req.body.name, function (year) {
+    Year.create(req.body.year, function (year) {
       if(year.stack) { return next(year) }
       return res.send(year)
     })
