@@ -1,33 +1,33 @@
 const router = require('express').Router();
-const Reservation = require('../models/reservation-model');
+const Scout = require('../models/scout-model');
 
-module.exports.mountPath = '/reservations'
+module.exports.mountPath = '/scouts'
 module.exports.router = router;
 
 router.route('/:id?')
   .get(function (req, res, next) {
     if (req.params.id) {
-      Reservation.getByAnyId(req.params.id, req.query.include, function (reservation) {
-        if (reservation.stack) { return next(reservation) }
-        return res.send(reservation)
+      Scout.getByAnyId(req.params.id, req.query.include, function (scout) {
+        if (scout.stack) { return next(scout) }
+        return res.send(scout)
       })
     }
   })
   .post(function (req, res, next) {
-    Reservation.create(req.body.reservation, function (reservation) {
-      if (reservation.stack) { return next(reservation) }
-      return res.send(reservation)
+    Scout.create(req.body.scout, function (scout) {
+      if (scout.stack) { return next(scout) }
+      return res.send(scout)
     })
   })
 //   .put(function (req, res, next) {
-//     Reservation.editById(req.body.reservation, function (reservation) {
-//       if (reservation.stack) { return next(reservation) }
-//       return res.send(reservation)
+//     Scout.editById(req.body.scout, function (scout) {
+//       if (scout.stack) { return next(scout) }
+//       return res.send(scout)
 //     })
 //   })
 //   .delete(function (req, res, next) {
-//     Reservation.deleteById(req.body.reservation.id, function (reservation) {
-//       if (reservation.stack) { return next(reservation) }
-//       return res.send('reservation' + reservation.reservationNum + ' deleted')
+//     Scout.deleteById(req.body.scout.id, function (scout) {
+//       if (scout.stack) { return next(scout) }
+//       return res.send('scout' + scout.scoutNum + ' deleted')
 //     })
 //   })
