@@ -43,17 +43,24 @@ function create(scout, cb) {
 }
 
 
-function getAll(query, cb) {
-    // Use the Resource Model to get all Leaders
 
-    Scout.findAll({}).then(cb).catch(cb)
-}
-
-
-function getById(id, query, cb) {
-    // use the Resource Model to get a single scout by its Id
-
-    Scout.find(id, formatQuery(query)).then(cb).catch(cb)
+function getByAnyId(queryId, query, cb) {
+    Scout.findAll({
+        where: {
+            'id': {
+                '|===': queryId
+            },
+            'yearId': {
+                '|===': queryId
+            },
+            'campId': {
+                '|===': queryId
+            },
+            'reservationId': {
+                '|===': queryId
+            }
+        }
+    }).then(cb).catch(cb)
 }
 
 
