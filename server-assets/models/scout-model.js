@@ -2,7 +2,7 @@ let dataAdapter = require('./data-Adapter'),
     uuid = dataAdapter.uuid,
     // schemator = dataAdapter.schemator,
     DS = dataAdapter.DS,
-    formatQuery = datAdapter.formatQuery;
+    formatQuery = dataAdapter.formatQuery;
 
 
 let Scout = DS.defineResource({
