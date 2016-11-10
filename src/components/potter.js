@@ -15,3 +15,4 @@ angular.module(`app.components.${Component}`, [])
 
 exports[Component] = Component
 
+// SDflk;jas;ldfl;j
