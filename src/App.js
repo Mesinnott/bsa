@@ -6,7 +6,7 @@ let App = angular.module('app', dependencies)
 
 App.component('app', {
   template: `<div>
-    <potter></potter>
+   <reg-component></reg-component>
   </div>`,
   controller() { }
 })

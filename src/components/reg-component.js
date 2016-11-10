@@ -1,6 +1,6 @@
 angular.module('reg')
     .component('regComponent', {
-        templateUrl: 'app/components/registration/reg.html',
+        templateUrl: '/reg.html',
         controller: RegController,
         
     })
