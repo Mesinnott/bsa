@@ -5,7 +5,7 @@ import './potter.scss'
 angular.module(`app.components.${Component}`, [])
   .component(Component,{
     template: `
-      <h1>Why Hello there {{$ctrl.test}}</h1>
+      <h1 ng-repeat='i in new Array>Why Hello there {{$ctrl.test}}</h1>
     `,
     controller () {
       let $ctrl = this;
