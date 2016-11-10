@@ -67,6 +67,5 @@ function getByAnyId(queryId, query, cb) {
 
 module.exports = {
     create,
-    getAll,
-    getById
+    getByAnyId
 }
