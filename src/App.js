@@ -6,9 +6,6 @@ let App = angular.module('bsa', dependencies)
 
 App.component('app', {
   template: `<div>
-
-   <reg-component></reg-component>
-
   YO ITS WORKING
     <reg></reg>
 

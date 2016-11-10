@@ -1,10 +1,10 @@
 
-angular.module('reg')
-    .component('regComponent', {
-        templateUrl: '/reg.html',
-        controller: RegController,
+// angular.module('reg')
+//     .component('regComponent', {
+//         templateUrl: '/reg.html',
+//         controller: RegController,
         
-    })
+//     })
 
 
 // import angular from 'angular'
