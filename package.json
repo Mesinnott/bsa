@@ -10,7 +10,11 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "angular": "^1.5.8"
+    "angular": "^1.5.8",
+    "cors": "^2.8.1",
+    "firebase": "^2",
+    "js-data": "^2.9.0",
+    "js-data-firebase": "^2.1.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",

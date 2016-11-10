@@ -9,7 +9,7 @@ angular.module(`app.components.${Component}`, [])
     `,
     controller () {
       let $ctrl = this;
-      $ctrl.test = 'This is just a test'
+      $ctrl.test = 'testing 123'
     } 
   })
 
