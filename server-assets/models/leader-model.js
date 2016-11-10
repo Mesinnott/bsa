@@ -4,8 +4,6 @@ let dataAdapter = require('./data-Adapter'),
     DS = dataAdapter.DS,
     formatQuery = dataAdapter.formatQuery;
 
-
-
 let Leader = DS.defineResource({
     name: 'leader',
     endpoint: 'api/leaders',
@@ -20,7 +18,6 @@ let Leader = DS.defineResource({
     }
 })
 
-
 function create(leader, cb) {
 
     DS.find('reservation', leader.reservationId).then(function (reservation) {
@@ -29,13 +26,11 @@ function create(leader, cb) {
             name: leader.name,
             denNum: reservation.denNum,
             reservationId: leader.reservationId,
+            campId: reservation.campId,
             healthForm: false,
             paid: false,
             shirtSize: leader.shirtSize || null
         };
-
-
-
 
         Leader.create(leaderObj).then(cb).catch(cb)
     }).catch(cb)
@@ -45,26 +40,29 @@ function create(leader, cb) {
     //     error.stack = true
     //     return cb(error);
     // }
-
 }
 
-
-function getAll(query, cb) {
-    // Use the Resource Model to get all Leaders
-
-    Leader.findAll({}).then(cb).catch(cb)
-}
-
-
-function getById(id, query, cb) {
-    // use the Resource Model to get a single scout by its Id
-
-    Leader.find(id, formatQuery(query)).then(cb).catch(cb)
+function getByAnyId(queryId, query, cb) {
+    Reservation.findAll({
+        where: {
+            'id': {
+                '|===': queryId
+            },
+            'yearId': {
+                '|===': queryId
+            },
+            'campId': {
+                '|===': queryId
+            },
+            'reservationId': {
+                '|===': queryId
+            }
+        }
+    }).then(cb).catch(cb)
 }
 
 
 module.exports = {
     create,
-    getAll,
-    getById
+    getByAnyId
 }
