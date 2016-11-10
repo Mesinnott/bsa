@@ -52,16 +52,26 @@ function create(reservation, cb) {
     }).catch(cb)
 }
 
-function getAll(query, cb) {
-    Reservation.findAll({}).then(cb).catch(cb)
-}
-
-function getById(id, query, cb) {
-    Reservation.find(id, formatQuery(query)).then(cb).catch(cb)
+function getByAnyId(queryId, query, cb) {
+    Reservation.findAll({
+        where: {
+            'id': {
+                '|===': queryId
+            },
+            'yearId': {
+                '|===': queryId
+            },
+            'campId': {
+                '|===': queryId
+            },
+            'denId': {
+                '|===': queryId
+            }
+        }
+    }).then(cb).catch(cb)
 }
 
 module.exports = {
     create,
-    getAll,
-    getById
+    getByAnyId
 }
