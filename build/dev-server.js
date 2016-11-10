@@ -5,6 +5,11 @@ var config = require('../config')
 var opn = require('opn')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
+// MIkey added these
+var routes = require('../server-assets/routes/index')
+var bodyParser = require('body-parser')
+var cors = require('cors')
+var handlers = require('./utils/handlers')
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
@@ -53,7 +58,18 @@ app.use(hotMiddleware)
 
 // serve pure static assets
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
+// app.use(staticPath, express.static('./static'))
+// Mikey added this in
+server.use(bodyParser.json())
+server.use(bodyParser.urlencoded({ extended: true }))
 app.use(staticPath, express.static('./static'))
+server.use('/api', cors(handlers.corsOptions), routes.router)
+server.use('/', handlers.defaultErrorHandler)
+
+
+
+
+
 
 module.exports = app.listen(port, function (err) {
   if (err) {
