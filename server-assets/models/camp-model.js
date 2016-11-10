@@ -56,16 +56,23 @@ function create(camp, cb) {
     }).then(cb).catch(cb)
 }
 
-function getByYearId(query, cb) {
-    Camp.findAll({}).then(cb).catch(cb)
-}
-
-function getById(id, query, cb) {
-    Camp.find(id, formatQuery(query)).then(cb).catch(cb)
+function getByAnyId(queryId, query, cb) {
+    Camp.findAll({
+        where: {
+            'id': {
+                '|===': queryId
+            },
+            'yearId': {
+                '|===': queryId
+            },
+            'directorId': {
+                '|===': queryId
+            }
+        }
+    }).then(cb).catch(cb)
 }
 
 module.exports = {
     create,
-    getByYearId,
-    getById
+    getByAnyId
 }
