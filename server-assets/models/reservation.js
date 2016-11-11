@@ -21,7 +21,7 @@ let Reservation = DS.defineResource({
             },
             leader: {
                 localField: 'leader',
-                foreignKey: 'denId'
+                foreignKey: 'reservationId'
             }
         }
     }

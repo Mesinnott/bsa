@@ -3,7 +3,7 @@ let dataAdapter = require('./data-Adapter'),
     // schemator = dataAdapter.schemator,
     DS = dataAdapter.DS,
     formatQuery = dataAdapter.formatQuery;
-
+    
 let Leader = DS.defineResource({
     name: 'leader',
     endpoint: 'api/leaders',
@@ -11,8 +11,7 @@ let Leader = DS.defineResource({
         belongsTo: {
             reservation: {
                 localField: 'reservation',
-                localKey: 'reservationId',
-                parent: true
+                localKey: 'reservationId'
             }
         }
     }

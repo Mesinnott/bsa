@@ -20,10 +20,10 @@ let Scout = DS.defineResource({
 })
 
 
-function create(scout, cb) {
-
+function create(scout, cb)  {
+    console.log('ds.find reservation')
     DS.find('reservation', scout.reservationId).then(function (reservation) {
-
+        console.log('DID WE GET HERE????', reservation)
         let scoutObj = {
             id: uuid.v4(),
             name: scout.name,

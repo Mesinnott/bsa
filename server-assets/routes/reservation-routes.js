@@ -11,6 +11,9 @@ router.route('/:id?')
         if (reservation.stack) { return next(reservation) }
         return res.send(reservation)
       })
+    }else{
+        res.send({error: 'Sorry you must provide an id'})
+    return 
     }
   })
   .post(function (req, res, next) {
