@@ -62,6 +62,12 @@ function getByAnyId(queryId, query, cb) {
     }).then(cb).catch(cb)
 }
 
+function editReservation(rewrite, cb) {
+    Reservation.find(rewrite.id).then(function(reservation) {
+        Reservation.update(reservation.id, rewrite).then(cb).catch(cb)
+    }).catch(cb)
+}
+
 module.exports = {
     create,
     getByAnyId
