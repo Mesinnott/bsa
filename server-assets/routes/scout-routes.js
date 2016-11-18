@@ -19,12 +19,12 @@ router.route('/:id?')
       return res.send(scout)
     })
   })
-//   .put(function (req, res, next) {
-//     Scout.editById(req.body.scout, function (scout) {
-//       if (scout.stack) { return next(scout) }
-//       return res.send(scout)
-//     })
-//   })
+  .put(function (req, res, next) {
+    Scout.editScout(req.body.scout, function (scout) {
+      if (scout.stack) { return next(scout) }
+      return res.send(scout)
+    })
+  })
 //   .delete(function (req, res, next) {
 //     Scout.deleteById(req.body.scout.id, function (scout) {
 //       if (scout.stack) { return next(scout) }

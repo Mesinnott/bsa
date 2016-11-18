@@ -20,7 +20,7 @@ router.route('/:id?')
     })
   })
   .put(function (req, res, next) {
-    Camp.campEditById(req.body.camp, function (camp) {
+    Camp.editCamp(req.body.camp, function (camp) {
       if (camp.stack) { return next(camp) }
       return res.send(camp)
     })

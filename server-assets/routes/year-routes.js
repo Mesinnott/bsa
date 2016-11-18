@@ -24,3 +24,9 @@ router.route('/:id?')
       return res.send(year)
     })
   })
+  .put(function (req, res, next) {
+    Year.editYear(req.body.year, function (year) {
+      if (year.stack) { return next(year) }
+      return res.send(year)
+    })
+  })
