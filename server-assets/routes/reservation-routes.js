@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Reservation = require('../models/reservation-model');
+const Reservation = require('../models/models');
 
 module.exports.mountPath = '/reservations'
 module.exports.router = router;
@@ -7,7 +7,7 @@ module.exports.router = router;
 router.route('/:id?')
   .get(function (req, res, next) {
     if (req.params.id) {
-      Reservation.getByAnyId(req.params.id, req.query.include, function (reservation) {
+      Reservation.reservationGetByAnyId(req.params.id, req.query.include, function (reservation) {
         if (reservation.stack) { return next(reservation) }
         return res.send(reservation)
       })
@@ -17,7 +17,7 @@ router.route('/:id?')
     }
   })
   .post(function (req, res, next) {
-    Reservation.create(req.body.reservation, function (reservation) {
+    Reservation.reservationCreate(req.body.reservation, function (reservation) {
       if (reservation.stack) { return next(reservation) }
       return res.send(reservation)
     })
