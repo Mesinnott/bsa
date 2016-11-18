@@ -27,7 +27,6 @@ let Reservation = DS.defineResource({
     }
 })
 
-
 function create(reservation, cb) {
     
     DS.find('camp', reservation.campId).then(function(camp) {
