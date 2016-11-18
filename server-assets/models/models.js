@@ -241,7 +241,9 @@ function reservationCreate(reservation, cb) {
             date: camp.date,
             campNum: camp.campNum,
             location: camp.location,
-            scoutLevels: camp.scoutLevels
+            scoutLevels: camp.scoutLevels,
+            email: reservation.email,
+            active: true
         }
 
         Reservation.create(reservationObj).then(cb).catch(cb)
