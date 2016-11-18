@@ -72,6 +72,12 @@ function campGetByAnyId(queryId, query, cb) {
     }).then(cb).catch(cb)
 }
 
+function editCamp(rewrite, cb) {
+    Camp.find(rewrite.id).then(function(camp) {
+        Camp.update(camp.id, rewrite).then(cb).catch(cb)
+    }).catch(cb)
+}
+
 
 let Director = DS.defineResource({
     name: 'director',
@@ -135,6 +141,7 @@ function directorEditById(directorId, input, cb) {
 
 
 
+
 let Leader = DS.defineResource({
     name: 'leader',
     endpoint: 'api/leaders',
@@ -191,6 +198,11 @@ function leaderGetByAnyId(queryId, query, cb) {
     }).then(cb).catch(cb)
 }
 
+function editLeader(rewrite, cb) {
+    Leader.find(rewrite.id).then(function(leader) {
+        Leader.update(leader.id, rewrite).then(cb).catch(cb)
+    }).catch(cb)
+}
 
 
 
@@ -251,6 +263,13 @@ function reservationGetByAnyId(queryId, query, cb) {
         }
     }).then(cb).catch(cb)
 }
+
+function editReservation(rewrite, cb) {
+    Reservation.find(rewrite.id).then(function(reservation) {
+        Reservation.update(reservation.id, rewrite).then(cb).catch(cb)
+    }).catch(cb)
+}
+
 
 
 
@@ -313,6 +332,12 @@ function scoutGetByAnyId(queryId, query, cb) {
     }).then(cb).catch(cb)
 }
 
+function editScout(rewrite, cb) {
+    Scout.find(rewrite.id).then(function(scout) {
+        Scout.update(scout.id, rewrite).then(cb).catch(cb)
+    }).catch(cb)
+}
+
 
 let Year = DS.defineResource({
     name: 'year',
@@ -342,6 +367,11 @@ function yearGetById(id, query, cb) {
     Year.find(id, formatQuery(query)).then(cb).catch(cb)
 }
 
+function editYear(rewrite, cb) {
+    Year.find(rewrite.id).then(function(year) {
+        Year.update(year.id, rewrite).then(cb).catch(cb)
+    }).catch(cb)
+}
 
 
 
@@ -356,17 +386,22 @@ function yearGetById(id, query, cb) {
 module.exports = {
     campGetByAnyId,
     campCreate,
+    editCamp,
     directorCreate,
     directorGetAll,
     directorGetById,
     directorEditById,
     leaderCreate,
     leaderGetByAnyId,
+    editLeader,
     reservationCreate,
     reservationGetByAnyId,
+    editReservation,
     scoutCreate,
     scoutGetByAnyId,
+    editScout,
     yearCreate,
     yearGetAll,
-    yearGetById
+    yearGetById,
+    editYear
 }
