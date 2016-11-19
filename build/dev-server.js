@@ -71,10 +71,10 @@ app.use('/api', (req, res, next) => {
   console.log(req.url);
 
   var urls = req.url.split('/') // Have to get the params straight from the url
-  var resource = urls[1].slice(0, -1)
+  var resource = urls[1].slice(0, -1) // Slice off the "s"
   var id = urls[2]
 
-  if (resource == 'directors') { // Isn't attached to any yearId
+  if (resource == 'director') { // Isn't attached to any yearId
     next(); // MUST CALL NEXT in every eventuality
     return;
   }
