@@ -65,37 +65,48 @@ app.use(hotMiddleware)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 // app.use('/', express.static('./'))
-app.use('/api',(req, res, next)=>{
-  console.log('active middleware');
-  Models.yearGetById(req.yearId).then(function(year) {
-    var timenow = Date.now();
-    if (year.lastAccess + 86400000 < timenow) {
-      Models.reservationGetByAnyId(year.id).then(function(reservationList){
-        reservationList.forEach(function(reservation) {
-          if (reservation.init + 604800000 < timenow) {
-            reservation.active = false;
-            Models.editReservation(reservation.id, reservation)
-          }
-        })
-      })
-      
 
+app.use('/api', (req, res, next) => {
+  console.log('active middleware');
+  console.log(req.url);
+
+  var urls = req.url.split('/')
+  var resource = urls[1].slice(0, -1)
+  var id = urls[2]
+
+  if (resource == 'directors') {
+    next();
+    return;
+  }
+
+  Models.findYearForUpdate(resource, id, function (year) {
+    if (year.stack) { return next() }
+
+    var timenow = Date.now();
+    if (year.lastAccess + 86400000 < timenow) { // 24 hours
 
       year.lastAccess = timenow
-      Models.editYear(year.id, year)
+      Models.editYear(year, ()=>{
+        Models.reservationGetByAnyId(year.id).then(function (reservationList) {
+          Promise.all(reservationList.filter(function (reservation) {
+            if (reservation.init + 604800000 < timenow) { // 7 days
+              reservation.active = false;
+              return Models.editReservation(reservation)
+            }
+          })).then((data)=>{
+            console.log(data)
+            next()
+          })
+
+        }).catch((error)=>{
+          console.log(error)
+          next()
+        })
+      })
     }
+    else{ next() }
+
   })
-
-
-  /**
-  * get a yearId and make a GET request for the date stamp
-  * Compare date stamp and determine whether it's been too long
-  * If it's been long enough, PUT the new date to the database.  Then,
-  * compare each reservation in that year, whether it has been 7 days.  If so,
-  * change the active status to false.
-  */
-
-  next()
 })
 app.use('/api', cors(handlers.corsOptions), routes.router)
 app.use('/', handlers.defaultErrorHandler)

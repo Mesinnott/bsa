@@ -257,7 +257,7 @@ function reservationCreate(reservation, cb) {
 }
 
 function reservationGetByAnyId(queryId, query, cb) {
-    Reservation.findAll({
+    return Reservation.findAll({
         where: {
             'id': {
                 '|===': queryId
@@ -273,9 +273,15 @@ function reservationGetByAnyId(queryId, query, cb) {
 }
 
 function editReservation(rewrite, cb) {
-    Reservation.find(rewrite.id).then(function (reservation) {
-        Reservation.update(reservation.id, rewrite).then(cb).catch(cb)
-    }).catch(cb)
+    return Reservation.find(rewrite.id).then(function (reservation) {
+        Reservation.update(reservation.id, rewrite).then((d) => {
+            if (cb) { cb(d) }
+        }).catch((e) => {
+            if (cb) { cb(e) }
+        })
+    }).catch((e) => {
+        if (cb) { cb(e) }
+    })
 }
 
 
@@ -386,7 +392,16 @@ function editYear(rewrite, cb) {
     }).catch(cb)
 }
 
-
+function findYearForUpdate(resource, id, cb) {
+    if (resource == 'year') {
+        Year.find(id).then(cb).catch(cb)
+    } else {
+        reservationGetByAnyId(id, {}, function (response) {
+            response = response || [{stack: 'something went very wrong'}]
+            Year.find(response[0].yearId).then(cb).catch(cb);
+        })
+    }
+}
 
 
 module.exports = {
@@ -410,5 +425,5 @@ module.exports = {
     yearGetAll,
     yearGetById,
     editYear,
-    expirationCheck
+    findYearForUpdate
 }
