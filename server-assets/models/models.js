@@ -257,7 +257,7 @@ function reservationCreate(reservation, cb) {
 }
 
 function reservationGetByAnyId(queryId, query, cb) {
-    return Reservation.findAll({
+    return Reservation.findAll({ //starting this with "return" ensures the function returns a promise without changing its function
         where: {
             'id': {
                 '|===': queryId
@@ -273,14 +273,14 @@ function reservationGetByAnyId(queryId, query, cb) {
 }
 
 function editReservation(rewrite, cb) {
-    return Reservation.find(rewrite.id).then(function (reservation) {
-        Reservation.update(reservation.id, rewrite).then((d) => {
-            if (cb) { cb(d) }
-        }).catch((e) => {
-            if (cb) { cb(e) }
+    return Reservation.find(rewrite.id).then(function (reservation) { //starting this with "return" ensures the function returns a promise without changing its function
+        Reservation.update(reservation.id, rewrite).then((data) => {
+            if (cb) { cb(data) } //allows us to not pass in a callback if we don't want to
+        }).catch((error) => {
+            if (cb) { cb(error) }
         })
-    }).catch((e) => {
-        if (cb) { cb(e) }
+    }).catch((error) => {
+        if (cb) { cb(error) }
     })
 }
 
@@ -398,7 +398,7 @@ function findYearForUpdate(resource, id, cb) {
     } else {
         reservationGetByAnyId(id, {}, function (response) {
             response = response || [{stack: 'something went very wrong'}]
-            Year.find(response[0].yearId).then(cb).catch(cb);
+            Year.find(response[0].yearId).then(cb).catch(cb); //"find" returns an array
         })
     }
 }

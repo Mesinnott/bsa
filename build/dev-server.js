@@ -70,25 +70,25 @@ app.use('/api', (req, res, next) => {
   console.log('active middleware');
   console.log(req.url);
 
-  var urls = req.url.split('/')
+  var urls = req.url.split('/') // Have to get the params straight from the url
   var resource = urls[1].slice(0, -1)
   var id = urls[2]
 
-  if (resource == 'directors') {
-    next();
+  if (resource == 'directors') { // Isn't attached to any yearId
+    next(); // MUST CALL NEXT in every eventuality
     return;
   }
 
-  Models.findYearForUpdate(resource, id, function (year) {
-    if (year.stack) { return next() }
+  Models.findYearForUpdate(resource, id, function (year) { 
+    if (year.stack) { return next() }  //If there's an error, don't bother going on
 
     var timenow = Date.now();
     if (year.lastAccess + 86400000 < timenow) { // 24 hours
 
       year.lastAccess = timenow
-      Models.editYear(year, ()=>{
+      Models.editYear(year, ()=>{ // Pass in the following as a callback
         Models.reservationGetByAnyId(year.id).then(function (reservationList) {
-          Promise.all(reservationList.filter(function (reservation) {
+          Promise.all(reservationList.filter(function (reservation) { //Promise.all ensures all promises have returned before the code moves on
             if (reservation.init + 604800000 < timenow) { // 7 days
               reservation.active = false;
               return Models.editReservation(reservation)
@@ -104,7 +104,7 @@ app.use('/api', (req, res, next) => {
         })
       })
     }
-    else{ next() }
+    else{ next() } // every endpoint of this function MUST run next()
 
   })
 })
