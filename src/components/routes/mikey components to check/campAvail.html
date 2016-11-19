@@ -1,0 +1,28 @@
+<div>
+    <table class='table' show-filter='true'>
+        <tr ng-repeat = "camp in $ctrl.camps">
+            <td title = "'Camp Number'" filter=" {campNum: 'number'}" sortable:'campNum'>
+                {{camp.campNum}}</td>
+            <td title = "'Start Date'" filter=" {date: 'number'}" sortable:'date'>
+                {{camp.date}}</td>
+            <td title = "'Max Size'" filter=" {maxSize: 'number'}">
+                {{camp.maxSize}}</td>
+            <td title = "'Availability'" filter=" {Availability: 'number'}" sortable:'availability'>
+                {{camp.availability}}</td>
+            <td title = "'Location'" filter=" {location: 'number'}" sortable:'location'>
+                {{camp.location}}</td>
+             <td title = "'Ages'" filter=" {scoutLevele: 'text'}" sortable:'scoutLevels'>
+                {{camp.scoutLevels}}</td>
+
+            <td title = "'Camp Number'" filter=" {campNum: 'number'}" sortable:'campNum'>
+                {{camp.campNum}}</td>
+            
+        </table>       
+<!--add a progress bar.  160 long. green for confirmed. red for pending.-->
+
+
+
+</div>
+
+
+<!-- to fix and refine, visit this url:  ng-table.com/#/-->

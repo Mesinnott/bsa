@@ -1,0 +1,16 @@
+<div>
+ <form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" ng-model = "lc.email">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" ng-model='lc.password'>
+  </div>
+ 
+  </div>
+  <button type="button" class="btn btn-primary" ng-click="lc.login()">Login</button>
+  <button type="button" class="btn btn-default" ng-click="lc.logOut()">Log Out</button>
+</form>
+</div>
