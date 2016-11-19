@@ -7,14 +7,14 @@ module.exports.router = router;
 router.route('/:id?')
   .get(function (req, res, next) {
     if (req.params.id) {
-      Leader.reservationGetByAnyId(req.params.id, req.query.include, function (leader) {
+      Leader.leaderGetByAnyId(req.params.id, req.query.include, function (leader) {
         if (leader.stack) { return next(leader) }
         return res.send(leader)
       })
     }
   })
   .post(function (req, res, next) {
-    Leader.reservationCreate(req.body.leader, function (leader) {
+    Leader.leaderCreate(req.body.leader, function (leader) {
       if (leader.stack) { return next(leader) }
       return res.send(leader)
     })

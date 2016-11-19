@@ -160,13 +160,13 @@ let Leader = DS.defineResource({
 })
 
 function leaderCreate(leader, cb) {
-
+    console.log("function firing");
     DS.find('reservation', leader.reservationId).then(function (reservation) {
         let leaderObj = {
             id: uuid.v4(),
             name: leader.name,
             denNum: reservation.denNum,
-            reservationId: leader.reservationId,
+            reservationId: reservation.id,
             campId: reservation.campId,
             healthForm: false,
             paid: false,
