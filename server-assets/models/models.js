@@ -185,7 +185,7 @@ function leaderCreate(leader, cb) {
 }
 
 function leaderGetByAnyId(queryId, query, cb) {
-    Reservation.findAll({
+    Leader.findAll({
         where: {
             'id': {
                 '|===': queryId
@@ -313,7 +313,7 @@ function scoutCreate(scout, cb) {
             denNum: reservation.denNum,
             reservationId: reservation.id,
             campId: reservation.campId,
-            yearId: reservataion.yearId,
+            yearId: reservation.yearId,
             healthForm: false,
             paid: false,
             shirtSize: scout.shirtSize
