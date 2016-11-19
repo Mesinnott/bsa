@@ -74,7 +74,7 @@ app.use('/api', (req, res, next) => {
   var resource = urls[1].slice(0, -1) // Slice off the "s"
   var id = urls[2]
 
-  if (resource == 'director') { // Isn't attached to any yearId
+  if (resource == 'director' || !id) { // Isn't attached to any yearId
     next(); // MUST CALL NEXT in every eventuality
     return;
   }
