@@ -4,6 +4,10 @@ let dataAdapter = require('./data-adapter'),
     DS = dataAdapter.DS,
     formatQuery = dataAdapter.formatQuery;
 
+
+
+
+
 let Camp = DS.defineResource({
     name: 'camp',
     endpoint: 'api/camps',
@@ -40,9 +44,9 @@ let Camp = DS.defineResource({
 
 
 function campCreate(camp, cb) {
-    
-    Camp.create({ 
-        id: uuid.v4(), 
+
+    Camp.create({
+        id: uuid.v4(),
         campNum: camp.campNum,
         yearId: camp.yearId,
         location: camp.location,
@@ -73,7 +77,7 @@ function campGetByAnyId(queryId, query, cb) {
 }
 
 function editCamp(rewrite, cb) {
-    Camp.find(rewrite.id).then(function(camp) {
+    Camp.find(rewrite.id).then(function (camp) {
         Camp.update(camp.id, rewrite).then(cb).catch(cb)
     }).catch(cb)
 }
@@ -123,7 +127,7 @@ function directorGetById(id, query, cb) {
 }
 
 function directorEditById(directorId, input, cb) {
-// NOTE----- to edit, you must put in a correct name and email************8
+    // NOTE----- to edit, you must put in a correct name and email************8
 
     let newName = input.name
     let newEmail = input.email
@@ -199,7 +203,7 @@ function leaderGetByAnyId(queryId, query, cb) {
 }
 
 function editLeader(rewrite, cb) {
-    Leader.find(rewrite.id).then(function(leader) {
+    Leader.find(rewrite.id).then(function (leader) {
         Leader.update(leader.id, rewrite).then(cb).catch(cb)
     }).catch(cb)
 }
@@ -231,11 +235,11 @@ let Reservation = DS.defineResource({
 
 
 function reservationCreate(reservation, cb) {
-    
-    DS.find('camp', reservation.campId).then(function(camp) {
+
+    DS.find('camp', reservation.campId).then(function (camp) {
         let reservationObj = {
-            id: uuid.v4(), 
-            denNum: reservation.denNum, 
+            id: uuid.v4(),
+            denNum: reservation.denNum,
             campId: reservation.campId,
             yearId: camp.yearId,
             date: camp.date,
@@ -243,6 +247,7 @@ function reservationCreate(reservation, cb) {
             location: camp.location,
             scoutLevels: camp.scoutLevels,
             email: reservation.email,
+            init: Date.now(),
             active: true
         }
 
@@ -267,7 +272,7 @@ function reservationGetByAnyId(queryId, query, cb) {
 }
 
 function editReservation(rewrite, cb) {
-    Reservation.find(rewrite.id).then(function(reservation) {
+    Reservation.find(rewrite.id).then(function (reservation) {
         Reservation.update(reservation.id, rewrite).then(cb).catch(cb)
     }).catch(cb)
 }
@@ -290,7 +295,7 @@ let Scout = DS.defineResource({
 })
 
 
-function scoutCreate(scout, cb)  {
+function scoutCreate(scout, cb) {
     console.log('ds.find reservation')
     DS.find('reservation', scout.reservationId).then(function (reservation) {
         console.log('DID WE GET HERE????', reservation)
@@ -335,7 +340,7 @@ function scoutGetByAnyId(queryId, query, cb) {
 }
 
 function editScout(rewrite, cb) {
-    Scout.find(rewrite.id).then(function(scout) {
+    Scout.find(rewrite.id).then(function (scout) {
         Scout.update(scout.id, rewrite).then(cb).catch(cb)
     }).catch(cb)
 }
@@ -355,8 +360,12 @@ let Year = DS.defineResource({
 })
 
 function yearCreate(YYYY, cb) {
-    let year = { id: uuid.v4(), year: YYYY };
-    
+    let year = {
+        id: uuid.v4(),
+        year: YYYY,
+        lastAccess: Date.now()
+    };
+
     Year.create(year).then(cb).catch(cb)
 }
 
@@ -370,7 +379,7 @@ function yearGetById(id, query, cb) {
 }
 
 function editYear(rewrite, cb) {
-    Year.find(rewrite.id).then(function(year) {
+    Year.find(rewrite.id).then(function (year) {
         Year.update(year.id, rewrite).then(cb).catch(cb)
     }).catch(cb)
 }
