@@ -7,10 +7,12 @@ let App = angular.module('bsa', dependencies)
 App.component('app', {
   template: `<div>
   YO ITS WORKING
-    <reg></reg>
+    <directory></directory>
 
   </div>`,
-  controller() { }
+  controller() { 
+    // $.material.init()
+  }
 })
 
 export {
