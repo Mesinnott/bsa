@@ -249,7 +249,8 @@ function reservationCreate(reservation, cb) {
             scoutLevels: camp.scoutLevels,
             email: reservation.email,
             init: Date.now(),
-            active: true
+            active: true,
+            paidInFull: false
         }
 
         Reservation.create(reservationObj).then(cb).catch(cb)

@@ -89,7 +89,7 @@ app.use('/api', (req, res, next) => {
       Models.editYear(year, ()=>{ // Pass in the following as a callback
         Models.reservationGetByAnyId(year.id).then(function (reservationList) {
           Promise.all(reservationList.filter(function (reservation) { //Promise.all ensures all promises have returned before the code moves on
-            if (reservation.init + 604800000 < timenow) { // 7 days
+            if (reservation.init + 604800000 < timenow && reservation.paidInFull === false) { // 7 days and unpaid
               reservation.active = false;
               return Models.editReservation(reservation)
             }
