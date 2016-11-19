@@ -4,14 +4,12 @@ const Scout = require('../models/models');
 module.exports.mountPath = '/scouts'
 module.exports.router = router;
 
-router.route('/:id?')
+router.route('/:id')
   .get(function (req, res, next) {
-    if (req.params.id) {
-      Scout.scoutGetByAnyId(req.params.id, req.query.include, function (scout) {
-        if (scout.stack) { return next(scout) }
-        return res.send(scout)
-      })
-    }
+    Scout.scoutGetByAnyId(req.params.id, req.query.include, function (scout) {
+      if (scout.stack) { return next(scout) }
+      return res.send(scout)
+    })
   })
   .post(function (req, res, next) {
     Scout.scoutCreate(req.body.scout, function (scout) {

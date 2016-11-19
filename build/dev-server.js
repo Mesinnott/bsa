@@ -1,15 +1,17 @@
-var path = require('path')
-var express = require('express')
-var webpack = require('webpack')
-var config = require('../config')
-var opn = require('opn')
-var proxyMiddleware = require('http-proxy-middleware')
-var webpackConfig = require('./webpack.dev.conf')
+var path = require('path');
+var express = require('express');
+var webpack = require('webpack');
+var config = require('../config');
+var opn = require('opn');
+var proxyMiddleware = require('http-proxy-middleware');
+var webpackConfig = require('./webpack.dev.conf');
 // MIkey added these
-var routes = require('../server-assets/routes/index')
-var bodyParser = require('body-parser')
-var cors = require('cors')
-var handlers = require('./utils/handlers')
+var routes = require('../server-assets/routes/index');
+var bodyParser = require('body-parser');
+var cors = require('cors');
+var handlers = require('./utils/handlers');
+
+var Models = require('../server-assets/models/models');
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
@@ -63,6 +65,38 @@ app.use(hotMiddleware)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 // app.use('/', express.static('./'))
+app.use('/api',(req, res, next)=>{
+  console.log('active middleware');
+  Models.yearGetById(req.yearId).then(function(year) {
+    var timenow = Date.now();
+    if (year.lastAccess + 86400000 < timenow) {
+      Models.reservationGetByAnyId(year.id).then(function(reservationList){
+        reservationList.forEach(function(reservation) {
+          if (reservation.init + 604800000 < timenow) {
+            reservation.active = false;
+            Models.editReservation(reservation.id, reservation)
+          }
+        })
+      })
+      
+
+
+      year.lastAccess = timenow
+      Models.editYear(year.id, year)
+    }
+  })
+
+
+  /**
+  * get a yearId and make a GET request for the date stamp
+  * Compare date stamp and determine whether it's been too long
+  * If it's been long enough, PUT the new date to the database.  Then,
+  * compare each reservation in that year, whether it has been 7 days.  If so,
+  * change the active status to false.
+  */
+
+  next()
+})
 app.use('/api', cors(handlers.corsOptions), routes.router)
 app.use('/', handlers.defaultErrorHandler)
 

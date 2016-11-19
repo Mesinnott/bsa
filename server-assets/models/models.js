@@ -168,6 +168,7 @@ function leaderCreate(leader, cb) {
             denNum: reservation.denNum,
             reservationId: reservation.id,
             campId: reservation.campId,
+            yearId: reservation.yearId,
             healthForm: false,
             paid: false,
             shirtSize: leader.shirtSize || null
@@ -305,6 +306,7 @@ function scoutCreate(scout, cb) {
             denNum: reservation.denNum,
             reservationId: reservation.id,
             campId: reservation.campId,
+            yearId: reservataion.yearId,
             healthForm: false,
             paid: false,
             shirtSize: scout.shirtSize
@@ -387,13 +389,6 @@ function editYear(rewrite, cb) {
 
 
 
-
-
-
-
-
-
-
 module.exports = {
     campGetByAnyId,
     campCreate,
@@ -414,5 +409,6 @@ module.exports = {
     yearCreate,
     yearGetAll,
     yearGetById,
-    editYear
+    editYear,
+    expirationCheck
 }
