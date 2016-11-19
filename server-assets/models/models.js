@@ -398,9 +398,9 @@ function findYearForUpdate(resource, id, cb) {
         Year.find(id).then(cb).catch(cb)
     } else {
         reservationGetByAnyId(id, {}, function (response) {
-            response = response || [{stack: 'something went very wrong'}];
-            if (!response[0]) {
-                response = [response];
+            if(response && response.length < 1){
+                response = response || [{stack: 'something went very wrong'}];
+                return cb(response)
             }
             Year.find(response[0].yearId).then(cb).catch(cb); //"find" returns an array
         })
