@@ -56,7 +56,10 @@ function campCreate(camp, cb) {
         directorId: camp.directorId,
         startTime: camp.startTime,
         endTime: camp.endTime,
-        scoutLevels: camp.scoutLevels
+        scoutLevels: camp.scoutLevels,
+        maxScouts: camp.maxScouts,
+        confirmedReservations: 0,
+        pendingReservations: 0
     }).then(cb).catch(cb)
 }
 
