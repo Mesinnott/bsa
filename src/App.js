@@ -7,7 +7,7 @@ let App = angular.module('bsa', dependencies)
 App.component('app', {
   template: `<div>
   YO ITS WORKING
-    <directory></directory>
+    // <reg></reg>
 
   </div>`,
   controller() { 

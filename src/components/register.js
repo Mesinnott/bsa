@@ -1,7 +1,10 @@
-; (function () {
-    let app = angular.module('register');
+import template from './directory.html'
+import './directory.scss'
+const Component = 'directory'
+// Use this as a template.
+angular.module(`app.components.${Component}`, [])
 
-    app.component('register', {
+    .component('register', {
         controller: RegisterController,
         controllerAs: 'rc',
         template: 'register.html'
@@ -36,8 +39,4 @@
         }
     }
 
-
-
-
-
-} ());
+exports[Component] = Component

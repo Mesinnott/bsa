@@ -1,7 +1,10 @@
-;(function(){
-    let app= angular.module('bsa');
+import template from './directory.html'
+import './directory.scss'
+const Component = 'login'
+// Use this as a template.
+angular.module(`app.components.${Component}`, [])
 
-    app.component('login',{
+    .component('login',{
         controller: LoginController,
         controllerAs: 'lc',
         templateUrl: 'login.html'
@@ -50,4 +53,4 @@
     }
  
 
-}());
+exports[Component] = Component

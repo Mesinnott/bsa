@@ -60,7 +60,7 @@ angular.module(`app.components.${Component}`, [])
 
 
 
-
+exports[Component] = Component
             
 
           
