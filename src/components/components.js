@@ -1,7 +1,10 @@
-import {potter} from './potter'
+import {reg} from './reg-component'
+import {directory} from './directory'
+// Import your components here
 
 let components = [
-  potter
+  reg,
+  directory
 ]
 
 const dependencies = components.map(c => { return `app.components.${c}`})
