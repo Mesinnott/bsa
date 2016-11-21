@@ -1,1 +1,1 @@
-angular.module('reg', [])
+// angular.module('reg', [])

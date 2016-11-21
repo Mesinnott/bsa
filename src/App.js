@@ -7,8 +7,7 @@ let App = angular.module('bsa', dependencies)
 App.component('app', {
   template: `<div>
   YO ITS WORKING
-    // <reg></reg>
-
+  <reg></reg>
   </div>`,
   controller() { 
     // $.material.init()

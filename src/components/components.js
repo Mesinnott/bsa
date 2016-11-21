@@ -1,7 +1,7 @@
 import {reg} from './reg-component'
 import {directory} from './directory'
 import {login} from './login-component'
-import {register} from './register'
+import {register} from './register-component'
 
 
 // Import your components here

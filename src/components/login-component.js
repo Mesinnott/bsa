@@ -1,5 +1,3 @@
-import template from './directory.html'
-import './directory.scss'
 const Component = 'login'
 // Use this as a template.
 angular.module(`app.components.${Component}`, [])
