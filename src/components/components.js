@@ -4,7 +4,9 @@ import {directory} from './directory'
 
 let components = [
   reg,
-  directory
+  directory,
+  login,
+  register
 ]
 
 const dependencies = components.map(c => { return `app.components.${c}`})
