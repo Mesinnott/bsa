@@ -1,7 +1,8 @@
-; (function () {
-    let app = angular.module('register');
+const Component = 'register'
+// Use this as a template.
+angular.module(`app.components.${Component}`, [])
 
-    app.component('register', {
+    .component('register', {
         controller: RegisterController,
         controllerAs: 'rc',
         template: 'register.html'
@@ -35,9 +36,3 @@
 
         }
     }
-
-
-
-
-
-} ());

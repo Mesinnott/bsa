@@ -1,5 +1,8 @@
 import {reg} from './reg-component'
 import {directory} from './directory'
+import {login} from './login-component'
+import {register} from './register'
+
 // Import your components here
 
 let components = [
