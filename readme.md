@@ -25,7 +25,7 @@ The CodeWorks Starter Pack :briefcase:
 * Run
 
 		npm run build
-### Working with <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/AngularJS_logo.svg/2000px-AngularJS_logo.svg.png" style='height:2em;margin-top:-0.25em'>
+### Working with <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/AngularJS_logo.svg/2000px-AngularJS_logo.svg.png" style='height:40px;margin-top:-10px'>
 
 * All components are nested within their own modules and injected into your main app module (in components/App.<span></span>js) at runtime.
 	* IIFE's are not neccessary because your code will be compiled by Node, thus global scope is not an issue.
@@ -71,26 +71,26 @@ The CodeWorks Starter Pack :briefcase:
        
        exports[Component] = Component
        ```
-     3. Set up your component for compilation in /src/components/components.js:
-     	```javascript
-        import {myComponentName} from './my-component-file.js'
-       
-        let components = [
-        	myComponentName
-        ]
+    3. Set up your component for compilation in /src/components/components.js:
+    ```javascript
+      import {myComponentName} from './my-component-file.js'
+      
+      let components = [
+        myComponentName
+      ]
 
-        const dependencies = components.map(c => { return `app.components.${c}`})
+      const dependencies = components.map(c => { return `app.components.${c}`})
 
-        export {
-          dependencies
-        }
+      export {
+        dependencies
+      }
 
-		```
- * Styling your components:
+  ```
+* Styling your components:
+
+    `my-component.js`
   
-      `my-component.js`
-   
-      ```javascript
-      	import './my-component-styles.scss'
-        // will be compiled to CSS and injected upon neccessity 
-      ```
+    ```javascript
+      import './my-component-styles.scss'
+      // will be compiled to CSS and injected upon neccessity 
+    ```
