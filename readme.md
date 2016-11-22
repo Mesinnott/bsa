@@ -25,7 +25,7 @@ The CodeWorks Starter Pack :briefcase:
 * Run
 
 		npm run build
-### Working with <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/AngularJS_logo.svg/2000px-AngularJS_logo.svg.png" style='height:40px;margin-top:-10px'>
+### Working with <img src="https://angularjs.org/img/AngularJS-large.png">
 
 * All components are nested within their own modules and injected into your main app module (in components/App.<span></span>js) at runtime.
 	* IIFE's are not neccessary because your code will be compiled by Node, thus global scope is not an issue.
