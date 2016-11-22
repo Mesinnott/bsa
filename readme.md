@@ -85,7 +85,7 @@ The CodeWorks Starter Pack :briefcase:
           dependencies
         }
 
-    ```
+      ```
 * Styling your components:
 
   `my-component.js`
