@@ -88,9 +88,9 @@ The CodeWorks Starter Pack :briefcase:
       ```
 * Styling your components:
 
-  `my-component.js`
+    `my-component.js`
 
-  ```javascript
-    import './my-component-styles.scss'
-    // will be compiled to CSS and injected upon neccessity 
-  ```
+    ```javascript
+      import './my-component-styles.scss'
+      // will be compiled to CSS and injected upon neccessity 
+    ```
