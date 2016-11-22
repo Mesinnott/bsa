@@ -1,5 +1,26 @@
+// colors from colorhunt.co/c/4804    
+
+$colorA: #243D44;
+$colorB: #167A8B;
+$colorC: #2DEA8F;
+$colorD: #24B273;
+// colors from colorhunt.co/c/38962    
+
+$colorA: #FAFAFA;
+$colorB: #C7EEFF;
+$colorC: #0077C0;
+$colorD: #1D242B;
+body{
+    background-color: $colorD;
+}
 .adult{
-    background-color: rgba(32, 168, 30, 0.5)
+    background-color: $colorC;
 }
 
-
+.elevated-box{
+    background-color:$colorA;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+    padding:15px;
+    margin:15px;
+    border-radius:4px;
+}

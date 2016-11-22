@@ -5,10 +5,7 @@ import {dependencies} from './components/components'
 let App = angular.module('bsa', dependencies)
 
 App.component('app', {
-  template: `<div>
-  YO ITS WORKING
-  <reg></reg>
-  </div>`,
+  template: `<reg></reg>`,
   controller() { 
     // $.material.init()
   }

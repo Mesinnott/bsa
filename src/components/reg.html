@@ -1,130 +1,110 @@
 <div ng-controller="RegController as rc" class="container">
     <div class="row">
-        <div class="col-xs-6">
-            <img src="http://images.memes.com/meme/605614" style="height: 350px; width: 350px; margin: 20px;">
-        </div>
-        <div class="col-xs-6 text-center">
+        <div class="col-sm-8 text-center col-sm-offset-2">
             <div class="row">
-                <div class="inputs">
-                    <div class="col-xs-6">
-                        <input ng-model="rc.packNum" type="text" placeholder="Pack Number">
-                    </div>
-                    <div class="col-xs-6">
-                        <input ng-model="rc.campNum" type="text" placeholder="Camp Number">
+                <div class="col-sm-12">
+                    <div class="elevated-box">
+                        <form class="form-horizontal">
+                                <input ng-model="rc.packNum" class="form-control" type="text" placeholder="Pack Number">
+                                <input ng-model="rc.campNum" class="form-control" type="text" placeholder="Camp Number">
+                        </form>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
-                    <div class="contacts">
-                        First Contact: <input ng-model="rc.firstContact.first" type="text" placeholder="First Name">
-                        <input ng-model="rc.firstContact.last" class="inputs" type="text" placeholder="Last Name">
-                        <input ng-model="rc.firstContact.position" class="inputs" type="text" placeholder="Position">
-                        <input ng-model="rc.firstContact.email" class="inputs" type="text" placeholder="Email">
-                        <input ng-model="rc.firstContact.phone" class="inputs" type="text" placeholder="Cell Phone">
+                <div class="col-sm-6">
+                    <div class="elevated-box">
+                        <form class="form-horizontal">
+                            <div class="contacts">
+                                <label for="">First Contact</label>
+                                <input ng-model="rc.firstContact.first" class="form-control" type="text" placeholder="First Name">
+                                <input ng-model="rc.firstContact.last" class="inputs form-control" type="text" placeholder="Last Name">
+                                <input ng-model="rc.firstContact.position" class="inputs form-control" type="text" placeholder="Position">
+                                <input ng-model="rc.firstContact.email" class="inputs form-control" type="text" placeholder="Email">
+                                <input ng-model="rc.firstContact.phone" class="inputs form-control" type="text" placeholder="Cell Phone">
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="col-xs-6">
-                    <div class="contacts">
-                        Second Contact: <input ng-model="rc.secondContact.first" type="text" placeholder="First Name">
-                        <input ng-model="rc.secondContact.last" class="inputs" type="text" placeholder="Last Name">
-                        <input ng-model="rc.secondContact.position" class="inputs" type="text" placeholder="Position">
-                        <input ng-model="rc.secondContact.email" class="inputs" type="text" placeholder="Email">
-                        <input ng-model="rc.secondContact.phone" class="inputs" type="text" placeholder="Cell Phone">
+                <div class="col-sm-6">
+                    <div class="elevated-box">
+                        <form class="form-horizontal contacts">
+                            <label for="">Second Contact</label>
+                            <input ng-model="rc.secondContact.first" class="form-control" type="text" placeholder="First Name">
+                            <input ng-model="rc.secondContact.last" class="inputs form-control" type="text" placeholder="Last Name">
+                            <input ng-model="rc.secondContact.position" class="inputs form-control" type="text" placeholder="Position">
+                            <input ng-model="rc.secondContact.email" class="inputs form-control" type="text" placeholder="Email">
+                            <input ng-model="rc.secondContact.phone" class="inputs form-control" type="text" placeholder="Cell Phone">
+                        </form>  
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <table class="table">
-            <h3>BSA Registered Adult:</h3>
-            <thead>
-                <tr>
-                    <th>Position</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Date Registered</th>
-                    <th>Shirt Size</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Den Leader</td>
-                    <td><input ng-model="rc.regAdult.first" type="text" placeholder="First Name" required></td>
-                    <td><input ng-model="rc.regAdult.last" type="text" placeholder="Last Name" required></td>
-                    <td><input ng-model="rc.regAdult.date" type="text" placeholder="Date Registered" required></td>
-                    <td>
-                        <select ng-model="rc.regAdult.shirt" class="form-control">
-                                <option>No Shirt</option>
-                                <option>Youth Medium</option>
-                                <option>Youth Large</option>
-                                <option>Adult Small</option>
-                                <option>Adult Medium</option>
-                                <option>Adult Large</option>
-                                <option>Adult XL</option>
-                                <option>Adult 2XL</option>
-                        </select>
-                    </td>
-                </tr>
-        </table>
-        <div class="adult" ng-show="rc.adultNeeded || rc.reg.adults.length == 0">
-        <h3>Add Adult</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Position</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Shirt Size</th>
-                </tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                    <td>Adult</td>
-                    <td><input ng-model="rc.currentAdult.first" type="text" placeholder="First Name" required></td>
-                    <td><input ng-model="rc.currentAdult.last" type="text" placeholder="Last Name" required></td>
-                    <td>                    
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="elevated-box">
+                <form action="" class="form-horizontal">
+                    <legend>BSA Registered Adult</legend>
+                    <fieldset>
+                            
+                            <label for="">First Name</label>
+                            <input ng-model="rc.regAdult.first" type="text" class="form-control" placeholder="First Name" required>
 
-                        <select ng-model="rc.currentAdult.shirt" class="form-control">
-                                <option>No Shirt</option>
-                                <option>Youth Medium</option>
-                                <option>Youth Large</option>
-                                <option>Adult Small</option>
-                                <option>Adult Medium</option>
-                                <option>Adult Large</option>
-                                <option>Adult XL</option>
-                                <option>Adult 2XL</option>
+                            <label>Last Name</label>
+                            <input ng-model="rc.regAdult.last" type="text" class="form-control" placeholder="Last Name" required>
+
+                            <label>Date Registered</label>
+                            <input ng-model="rc.regAdult.date" type="text" class="form-control" placeholder="Date Registered" required>
+
+                            <label>Shirt Size</label>
+                            <select ng-init="rc.regAdult.shirt = 'No Shirt'" ng-model="rc.regAdult.shirt" class="form-control">
+                                    <option selected>No Shirt</option>
+                                    <option>Youth Medium</option>
+                                    <option>Youth Large</option>
+                                    <option>Adult Small</option>
+                                    <option>Adult Medium</option>
+                                    <option>Adult Large</option>
+                                    <option>Adult XL</option>
+                                    <option>Adult 2XL</option>
                             </select>
-
-                    </td>
-                    <td><button class="btn btn-primary" ng-click="rc.addAdult(rc.currentAdult)">Submit</button></td>
-                </tr>
-            </tbody>
-        </table>
+                    </fieldset>
+                </form>
+            </div>
         </div>
-    
-        <div class="camper" ng-show="!rc.adultNeeded && rc.reg.adults.length !== 0">
-        <h3>Add Campers</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Position</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Shirt Size</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                
-                <tr>
-                    <td>Scout</td>
-                    <td><input ng-model="rc.currentCamper.first" type="text" placeholder="First Name" required></td>
-                    <td><input ng-model="rc.currentCamper.last" type="text" placeholder="Last Name" required></td>
-                    <td>
-                        <select ng-model="rc.currentCamper.shirt" class="form-control" required>
+    </div>
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="elevated-box adult" ng-show="rc.adultNeeded || rc.reg.adults.length == 0">
+            <h3>Add Adult</h3>
+                <label for="">First Name</label>
+                <input ng-model="rc.currentAdult.first" type="text" class="form-control" placeholder="First Name" required>
+                <label for="">Last Name</label>
+                <input ng-model="rc.currentAdult.last" type="text" class="form-control" placeholder="Last Name" required>
+                <label for="">Shirt Size</label>
+                <select ng-init="rc.currentAdult.shirt = 'No Shirt'" ng-model="rc.currentAdult.shirt" class="form-control">
+                    <option>No Shirt</option>
+                    <option>Youth Medium</option>
+                    <option>Youth Large</option>
+                    <option>Adult Small</option>
+                    <option>Adult Medium</option>
+                    <option>Adult Large</option>
+                    <option>Adult XL</option>
+                    <option>Adult 2XL</option>
+                </select>
+                <button class="btn btn-primary" ng-click="rc.addAdult(rc.currentAdult)">Submit</button>
+            </div>
+        </div>
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="elevated-box camper" ng-show="!rc.adultNeeded && rc.reg.adults.length !== 0">
+                <form action="" class="form-horizontal">
+                    <h3>Add Campers</h3>
+                        <label for="">First Name</label>
+                        <input ng-model="rc.currentCamper.first" class="form-control" type="text" placeholder="First Name" required>
+                        <label for="">Last Name</label>
+                        <input ng-model="rc.currentCamper.last" class="form-control" type="text" placeholder="Last Name" required>
+                        <label for="">Shirt Size</label>
+                        <select placeholder="choose shirt" ng-model="rc.currentCamper.shirt" class="form-control" required>
                                 <option>Youth Medium</option>
                                 <option>Youth Large</option>
                                 <option>Adult Small</option>
@@ -133,56 +113,59 @@
                                 <option>Adult XL</option>
                                 <option>Adult 2XL</option>
                         </select>
-                    </td>
-                    <td><button class="btn btn-success" ng-click="rc.addCamper(rc.currentCamper)">Submit</button></td>
-                </tr>
-            </tbody>
-        </table>
-
+                        <button class="btn btn-success" ng-click="rc.addCamper(rc.currentCamper)">Submit</button>
+                </form>
+            </div>
         </div>
-        <table class="table">
-            
-            <thead>
-                <tr>
-                    <th>Position</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Shirt Size</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="person in rc.reg.adults">
-                    <td>Adult</td>
-                    <td>{{ person.first }}</td>
-                    <td>{{ person.last }}</td>
-                    <td>{{ person.shirt }}</td>
-                </tr>
-               
-            </tbody>
-        </table>
-        <table class="table">
-            
-            <thead>
-                <tr>
-                    <th>Position</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Shirt Size</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="person in rc.reg.campers">
-                    <td>Scout</td>
-                    <td>{{ person.first }}</td>
-                    <td>{{ person.last }}</td>
-                    <td>{{ person.shirt }}</td>
-                </tr>
-                
-            </tbody>
-        </table>
-
-        <button ng-click="rc.sendForm()" class="btn btn-danger">Submit Form</button>
+        <div class="col-sm-10 col-sm-offset-1">
+            <div class="elevated-box">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Shirt Size</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="person in rc.reg.adults">
+                            <td>Adult</td>
+                            <td>{{ person.first }}</td>
+                            <td>{{ person.last }}</td>
+                            <td>{{ person.shirt }}</td>
+                        </tr>
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-10 col-sm-offset-1">
+            <div class="elevated-box">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Shirt Size</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="person in rc.reg.campers">
+                            <td>Scout</td>
+                            <td>{{ person.first }}</td>
+                            <td>{{ person.last }}</td>
+                            <td>{{ person.shirt }}</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-2 col-sm-offset-5 ">
+            <button ng-click="rc.sendForm()" class="text-center btn btn-lg btn-danger btn-raised">Submit Form</button>
+        </div>
     </div>
 
 </div>
