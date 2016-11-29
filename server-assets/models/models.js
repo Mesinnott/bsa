@@ -173,7 +173,8 @@ function leaderCreate(leader, cb) {
         let leaderObj = {
             id: uuid.v4(),
             name: leader.name,
-            denNum: reservation.denNum,
+            packNum: reservation.packNum,
+            packId: reservation.packId,
             reservationId: reservation.id,
             campId: reservation.campId,
             yearId: reservation.yearId,
@@ -206,7 +207,10 @@ function leaderGetByAnyId(queryId, query, cb) {
             },
             'reservationId': {
                 '|===': queryId
-            }
+            },
+            'packId': {
+                '|===': queryId
+            },
         }
     }).then(cb).catch(cb)
 }
@@ -248,7 +252,8 @@ function reservationCreate(reservation, cb) {
     DS.find('camp', reservation.campId).then(function (camp) {
         let reservationObj = {
             id: uuid.v4(),
-            denNum: reservation.denNum,
+            packNum: reservation.packNum,
+            packId: reservation.packId,
             campId: reservation.campId,
             yearId: camp.yearId,
             date: camp.date,
@@ -257,6 +262,7 @@ function reservationCreate(reservation, cb) {
             scoutLevels: camp.scoutLevels,
             email: reservation.email,
             init: Date.now(),
+            pack: reservation.pack,
             active: true,
             paidInFull: false
         }
@@ -305,6 +311,11 @@ let Scout = DS.defineResource({
                 localField: 'reservation',
                 localKey: 'reservationId',
                 parent: true
+            },
+            group: {
+                localField: 'group',
+                localKey: 'groupId',
+                parent: true
             }
         }
     }
@@ -318,7 +329,8 @@ function scoutCreate(scout, cb) {
         let scoutObj = {
             id: uuid.v4(),
             name: scout.name,
-            denNum: reservation.denNum,
+            packNum: reservation.packNum,
+            packId: reservation.packId,
             reservationId: reservation.id,
             campId: reservation.campId,
             yearId: reservation.yearId,
@@ -351,7 +363,10 @@ function scoutGetByAnyId(queryId, query, cb) {
             },
             'reservationId': {
                 '|===': queryId
-            }
+            },
+            'packId': {
+                '|===': queryId
+            },
         }
     }).then(cb).catch(cb)
 }
@@ -428,6 +443,7 @@ function addUser(user, cb) {
         name: user.name,
         email: user.email,
         admin: false,
+        office: false,
         campDirector: false,
         denLeader: false
     };
@@ -449,6 +465,160 @@ function editUser(rewrite, cb) {
     }).catch(cb)
 }
 
+let Group = DS.defineResource({
+    name: 'group',
+    endpoint: 'api/groups',
+    relations: {
+         belongsTo: {
+            camp: {
+                localField: 'camp',
+                localKey: 'campId',
+                parent: true
+            }
+        },
+        hasMany: {
+            scout: {
+                localField: 'scout',
+                foreignKey: 'groupId'
+            }
+        }
+    }
+})
+
+function groupCreate(color, id, cb) {
+    let group = {
+        id: uuid.v4(),
+        campId: id,
+        color: color
+    };
+
+    Group.create(group).then(cb).catch(cb)
+}
+
+
+function groupGetById(id, query, cb) {
+    Group.find(id, formatQuery(query)).then(cb).catch(cb)
+}
+
+function editGroup(rewrite, cb) {
+    Group.find(rewrite.id).then(function (group) {
+        Group.update(group.id, rewrite).then(cb).catch(cb)
+    }).catch(cb)
+}
+
+let District = DS.defineResource({
+    name: 'district',
+    endpoint: 'api/districts',
+    relations: {
+        hasMany: {
+            pack: {
+                localField: 'pack',
+                foreignKey: 'districtId'
+            },
+            scout: {
+                localField: 'scout',
+                foreignKey: 'districtId'
+            },
+        }
+    }
+})
+
+
+function districtCreate(district, cb) {
+
+    District.create({
+        id: uuid.v4(),
+        name: district.name,
+        number: district.number
+    }).then(cb).catch(cb)
+}
+
+function districtGetByAnyId(queryId, query, cb) {
+    District.findAll({
+        where: {
+            'id': {
+                '|===': queryId
+            },
+            'yearId': {
+                '|===': queryId
+            },
+            'campId': {
+                '|===': queryId
+            }
+        }
+    }).then(cb).catch(cb)
+}
+
+function editDistrict(rewrite, cb) {
+    District.find(rewrite.id).then(function (district) {
+        District.update(district.id, rewrite).then(cb).catch(cb)
+    }).catch(cb)
+}
+
+let Pack = DS.defineResource({
+    name: 'pack',
+    endpoint: 'api/packs',
+    relations: {
+        belongsTo: {
+            district: {
+                localField: 'district',
+                localKey: 'districtId',
+                parent: true
+            }
+        },
+        hasMany: {
+            scout: {
+                localField: 'scout',
+                foreignKey: 'packId'
+            },
+            leader: {
+                localField: 'leader',
+                foreignKey: 'campId'
+            }
+        }
+    }
+})
+
+
+function packCreate(pack, cb) {
+
+    Pack.create({
+        id: uuid.v4(),
+        Number: pack.number,
+        charter: pack.charter,
+    }).then(cb).catch(cb)
+}
+
+function packGetByAnyId(queryId, query, cb) {
+    Pack.findAll({
+        where: {
+            'id': {
+                '|===': queryId
+            },
+            'yearId': {
+                '|===': queryId
+            },
+            'districtId': {
+                '|===': queryId
+            },
+            'scoutId': {
+                '|===': queryId
+            },
+            'leaderId': {
+                '|===': queryId
+            },
+            'campId': {
+                '|===': queryId
+            },
+        }
+    }).then(cb).catch(cb)
+}
+
+function editPack(rewrite, cb) {
+    Pack.find(rewrite.id).then(function (pack) {
+        Pack.update(pack.id, rewrite).then(cb).catch(cb)
+    }).catch(cb)
+}
 
 
 module.exports = {
@@ -476,5 +646,14 @@ module.exports = {
     addUser,
     userGetAll,
     userGetById,
-    editUser
+    editUser,
+    groupCreate,
+    groupGetByAnyId,
+    editGroup,
+    districtCreate,
+    editDistrict,
+    districtGetByAnyId,
+    packCreate,
+    editPack,
+    packGetByAnyId
 }
