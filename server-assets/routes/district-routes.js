@@ -4,7 +4,7 @@ const District = require('../models/models');
 module.exports.mountPath = '/districts'
 module.exports.router = router;
 
-router.route('/:id')
+router.route('/:id?')
   .get(function (req, res, next) {
     District.districtGetByAnyId(req.params.id, req.query.include, function (district) {
       if (district.stack) { return next(district) }
