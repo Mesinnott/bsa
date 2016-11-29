@@ -448,7 +448,7 @@ function addUser(user, cb) {
         denLeader: false
     };
 
-    User.create(user).then(cb).catch(cb)
+    User.create(userObj).then(cb).catch(cb)
 }
 
 function userGetAll(query, cb) {
@@ -496,7 +496,7 @@ function groupCreate(color, id, cb) {
 }
 
 
-function groupGetById(id, query, cb) {
+function groupGetByAnyId(id, query, cb) {
     Group.find(id, formatQuery(query)).then(cb).catch(cb)
 }
 
@@ -525,13 +525,18 @@ let District = DS.defineResource({
 
 
 function districtCreate(district, cb) {
-
-    District.create({
+    let districtObj = {
         id: uuid.v4(),
         name: district.name,
         number: district.number
-    }).then(cb).catch(cb)
+    }
+
+    District.create(districtObj).then(cb).catch(cb)
 }
+
+
+
+
 
 function districtGetByAnyId(queryId, query, cb) {
     District.findAll({
@@ -586,8 +591,11 @@ function packCreate(pack, cb) {
         id: uuid.v4(),
         Number: pack.number,
         charter: pack.charter,
+        districtId: pack.districtId
     }).then(cb).catch(cb)
 }
+
+
 
 function packGetByAnyId(queryId, query, cb) {
     Pack.findAll({
