@@ -22,7 +22,7 @@ angular.module(`app.components.${Component}`, [])
             $http.get('/api/camps/' + campId)
                 .then(function(res) {
                     ds.currentCamp = res.data;
-                    return ds.currentCamp;
+                    $state.go('^.viewCamp/{campId}'); // Check this syntax.  Should it even be here?
                 })
         }
     })

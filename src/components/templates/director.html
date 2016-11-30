@@ -7,10 +7,10 @@
         <th></th>
     </tr>
     <tr ng-repeat="camp in $ctrl.campList">
-        <td>camp.campNum</td>
-        <td>camp.date</td>
-        <td>camp.location</td>
-        <td><button ui-sref="viewCamp">View/Edit Camp Details</button></td>
+        <td>{{camp.campNum}}</td>
+        <td>{{camp.date}}</td>
+        <td>{{camp.location}}</td>
+        <td><button ng-click="$ctrl.pullCampInfo($camp.id)">View/Edit Camp Details</button></td>
         <td><button ui-sref="groups">Build/View Groups</button></td>
     </tr>
 </table>
