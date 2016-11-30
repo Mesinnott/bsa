@@ -1,6 +1,6 @@
 import angular from 'angular'
-import './director.scss'
-import './group-builder'
+import './stylesheets/director.scss'
+import template from './templates/director.html'
 const Component = 'director';
 
 angular.module(`app.components.${Component}`, [])
@@ -8,7 +8,7 @@ angular.module(`app.components.${Component}`, [])
     .component('director',{
         controller: DirectorController,
         controllerAs: 'dc',
-        templateUrl: 'director.html'
+        template:template
     });
 
     DirectorController.$inject = [];

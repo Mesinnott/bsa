@@ -1,6 +1,5 @@
-import angular from 'angular'
-import template from './reg.html'
-import './reg.scss'
+import template from './templates/reg.html'
+import './stylesheets/reg.scss'
 const Component = 'reg'
 
 angular.module(`app.components.${Component}`, [])
@@ -39,8 +38,6 @@ angular.module(`app.components.${Component}`, [])
         this.shirt = shirt;
     }
 
-       
-
     function Camper(first, last, shirt){
         this.first = first;
         this.last = last;
@@ -55,21 +52,23 @@ angular.module(`app.components.${Component}`, [])
         this.phone = phone;
     }
 
-  
+//  Contact Functions
     rc.firstContact = {};
     rc.secondContact = {};
     rc.addContact = function(contact){
         var cont = new Contact(contact.first, contact.last, contact.position, contact.email, contact.phone);
         rc.reg.contacts.push(cont);
     }
+
+
+
+// Adult Functions
     rc.regAdult = {};
     rc.addRegAdult = function(person){
         var ra = new RegAdult(person.first, person.last, person.date, person.shirt);
         rc.reg.regAdult = ra
     }
 
-  
-    
     rc.currentAdult = {};
     rc.addAdult = function(adult){
         var ca = new Adult(adult.first, adult.last, adult.shirt);
@@ -77,7 +76,11 @@ angular.module(`app.components.${Component}`, [])
         rc.adultNeeded = false;
         rc.currentAdult = {};
     }
+    rc.removeAdult = function(index){
+        rc.reg.adults.splice(index, 1)
+    }
 
+// Camper Functions
     rc.currentCamper = {};
     rc.addCamper = function(camper){
         var cc = new Camper(camper.first, camper.last, camper.shirt); //cc = Constructed Camper
@@ -89,11 +92,14 @@ angular.module(`app.components.${Component}`, [])
         }
         rc.currentCamper = {};
     }
+    rc.removeCamper = function(index){
+        rc.reg.campers.splice(index, 1)
+    }
        
 
    
     
-
+// Submit
 
     rc.sendForm = function(){
         rc.addContact(rc.firstContact);
@@ -113,7 +119,10 @@ angular.module(`app.components.${Component}`, [])
     }
             
 
-        
+        //   $.material.init()
+        //   $.material.checkbox()
+        //   $.material.togglebutton()
+          
   }
 
 exports[Component] = Component

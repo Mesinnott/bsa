@@ -1,5 +1,5 @@
-import template from './directory.html'
-import './directory.scss'
+import template from './templates/directory.html'
+import './stylesheets/directory.scss'
 const Component = 'directory'
 // Use this as a template.
 angular.module(`app.components.${Component}`, [])

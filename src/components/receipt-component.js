@@ -1,11 +1,11 @@
 import angular from 'angular'
-import template from './reciept.html'
-const Component = 'reciept'
+import template from './templates/receipt.html'
+const Component = 'receipt'
 
 angular.module(`app.components.${Component}`, [])
   .component(Component,{
     template: template,
-    controller: RegController
+    controller: RecController
   })
 
   function RecController(){

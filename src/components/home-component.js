@@ -1,5 +1,6 @@
 import angular from 'angular'
-import './home.scss'
+import './stylesheets/home.scss'
+import template from './templates/home.html'
 const Component = 'home';
 
 angular.module(`app.components.${Component}`, [])
@@ -7,7 +8,7 @@ angular.module(`app.components.${Component}`, [])
     .component('home',{
         controller: HomeController,
         controllerAs: 'hc',
-        templateUrl: 'home.html'
+        template: template
     });
 
     HomeController.$inject = [];

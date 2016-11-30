@@ -1,5 +1,5 @@
-import template from './register.html'
-import './register.scss'
+import template from './templates/register.html'
+import './stylesheets/register.scss'
 const Component = 'register'
 // Use this as a template.
 angular.module(`app.components.${Component}`, [])
