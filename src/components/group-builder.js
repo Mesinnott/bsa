@@ -5,7 +5,10 @@
 
 // hardGroupCap is set to 16, according to BSA policy.
 
-function GroupBuilder(masterArray, numGroups, hardGroupCap) {
+// We may want to pass colorArray in from the front so it can be changed/expanded at a later date?
+// Current: ["red", "orange", "yellow", "lightGreen", "darkGreen", "lightBlue", "darkBlue", "purple", "black", "brown"]
+
+function GroupBuilder(masterArray, numGroups, hardGroupCap, colorArray) {
 
     // compiles a list of all reservations attached to a camp
     var listReservations = function (array) {
@@ -158,6 +161,28 @@ function GroupBuilder(masterArray, numGroups, hardGroupCap) {
     console.log(solutionChoices);
     var finalAnswer = solutionChoices[0].groups;  // Yes Regis, this is my final answer.
     console.log("OPTIMIZED TO " + solutionChoices[0].iteration + " ITERATIONS");
-    return finalAnswer;
+
+
+
+    // Assign each of the groups a color.  If we pass it in from the front, we can remove this hard-coding.
+    // The Webelos camps only have nine groups, so colorArray[9]="brown" is never used.
+    var colorArray = [
+        "red", 
+        "orange", 
+        "yellow", 
+        "lightGreen", 
+        "darkGreen", 
+        "lightBlue", 
+        "darkBlue", 
+        "purple", 
+        "black", 
+        "brown"
+    ];
+    var groupsByColor = [];
+    for (var i = 0; i < finalAnswer.length; i++) {
+        groupsByColor.push({color: colorArray[i], group: finalAnswer[i]})
+    }
+    
+    return groupsByColor;
 
 }
