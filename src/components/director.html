@@ -1,0 +1,16 @@
+<table>
+    <tr>
+        <th>Camp</th>
+        <th>Date</th>
+        <th>Location</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr ng-repeat="camp in camps">
+        <td>camp.campNum</td>
+        <td>camp.date</td>
+        <td>camp.location</td>
+        <td><button ui-sref="viewCamp">View/Edit Camp Details</button></td>
+        <td><button ui-sref="groups">Build/View Groups</button></td>
+    </tr>
+</table>
