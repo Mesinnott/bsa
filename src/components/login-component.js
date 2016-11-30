@@ -1,3 +1,5 @@
+import template from './templates/login.html'
+
 const Component = 'login'
 // Use this as a template.
 angular.module(`app.components.${Component}`, [])
@@ -5,7 +7,7 @@ angular.module(`app.components.${Component}`, [])
     .component('login',{
         controller: LoginController,
         controllerAs: 'lc',
-        templateUrl: 'login.html'
+        template: template
     });
 
     LoginController.$inject = [];

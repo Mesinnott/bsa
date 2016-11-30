@@ -1,5 +1,5 @@
-import template from './campAvail.html'
-import './campAvail.scss'
+import template from './templates/campAvail.html'
+import './stylesheets/campAvail.scss'
 const Component = 'campAvail'
 // Use this as a template.
 angular.module(`app.components.${Component}`, [])
@@ -23,7 +23,7 @@ angular.module(`app.components.${Component}`, [])
     $ctrl.test = 'testing 123'
     this.camps=availabilityService.checkAllCamps()
   })
-  .component(Component, {
+  .component(Component, { 
     template: template,
     controller: 'availabilityController'
 
