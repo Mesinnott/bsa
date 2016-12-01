@@ -3,31 +3,29 @@ import './stylesheets/campavail.scss'
 const Component = 'campavail'
 // Use this as a template.
 angular.module(`app.components.${Component}`, [])
-  .service('availabilityService', function ($http) {
+  .service('avService', function ($http) {
     var av = this;
+    av.camps = [''];
     // var url1 = 'https://bcw-getter.herokuapp.com/?url=http%3A%2F%2Fquotesondesign.com%2Fapi%2F3.0%2Fapi-3.0.json'
-    // var yearId= 'ss'
-    av.checkAllCamps = () => {
-      $http.get('/api/camps/' + yearId)
+    var yearId= '62cde5b1-e09f-41ca-b45e-ccf4c45f0df8'
+    av.checkAllCamps = (cb) => {
+      $http.get('/api/camps?yearId=' + yearId)
         .then(function (res) {
-          console.log(res.data)
           av.camps = res.data
           av.camps = av.camps.sort(function(a,b){
             return a.date-b.date
-          })
+          },0)
+        cb(av.camps)
         })
-        return av.camps
     }
   })
-  .controller('availabilityController', function (availabilityService, $http) {
+  .controller('avController', function (avService, $http) {
     let $ctrl = this;
     $ctrl.test = 'testing 123'
-    this.camps=availabilityService.checkAllCamps()
+    this.camps=avService.checkAllCamps(console.log)
   })
   .component(Component, { 
-    template: template,
-    controller: 'availabilityController'
-
+    template: template
   })
 
 exports[Component] = Component

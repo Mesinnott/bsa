@@ -15,6 +15,15 @@ District = require('./district-model'),
 Director = require('./director-model'),
 Reservation = require('./reservation-model')
 
+function getAnyByProp(resourceName, query, cb){
+    let querySyntax = {where:{}}
+    for(var thing in query){
+        querySyntax.where[thing] = {}
+        querySyntax.where[thing]['=='] = query[thing]
+    }
+    DS.findAll(resourceName, querySyntax).then(cb).catch(cb)
+}
+
 let reservationGetByAnyId = Reservation.reservationGetByAnyId
 function findYearForUpdate(resource, id, cb) {
     if (resource == 'year') {
@@ -42,6 +51,6 @@ module.exports = {
     District,
     Director,
     Reservation,
-    anyGetByAnyId,
+    getAnyByProp,
     findYearForUpdate
 }

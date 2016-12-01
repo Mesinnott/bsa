@@ -1,25 +1,23 @@
-<div>
+<div ng-controller="avController as av">
     <table class='table' show-filter='true'>
             <h1>IDK</h1>
-        <tr ng-repeat="camp in $ctrl.camps">
-            <script>
-                camp.getAvailability();
-            </script>
-            <td title="'Camp Number'" filter=" {campNum: 'number'}" sortable: 'campNum'>
+        <tr ng-repeat="camp in av.camps">
+            <td >
                 {{camp.campNum}}</td>
-            <td title="'Start Date'" filter=" {date: 'number'}" sortable: 'date'>
+            <td title="'Start Date'" >
                 {{camp.date}}</td>
-            <td title="'Max Size'" filter=" {maxSize: 'number'}">
+            <td title="'Max Size'" >
                 {{camp.maxSize}}</td>
-            <td title="'Availability'" filter=" {Availability: 'number'}" sortable: 'availability'>
+            <td title="'Availability'">
                 {{camp.availability}}</td>
-            <td title="'Location'" filter=" {location: 'number'}" sortable: 'location'>
+            <td title="'Location'" >
                 {{camp.location}}</td>
-            <td title="'Ages'" filter=" {scoutLevelx: 'text'}" sortable: 'scoutLevels'>
+            <td title="'Ages'">
                 {{camp.scoutLevels}}</td>
 
-            <td title="'Camp Number'" filter=" {campNum: 'number'}" sortable: 'campNum'>
+            <td title="'Camp Number'">
                 {{camp.campNum}}</td>
+        </tr>
 
     </table>
     <!--add a progress bar.  160 long. green for confirmed. red for pending.-->
