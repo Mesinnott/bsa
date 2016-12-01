@@ -264,7 +264,11 @@ function reservationCreate(reservation, cb) {
             init: Date.now(),
             pack: reservation.pack,
             active: true,
-            paidInFull: false
+            confirmed: false,
+            balance: 0,
+            totalScouts: reservation.totalScouts,
+            totalLeaders: reservation.totalLeaders
+
         }
 
         Reservation.create(reservationObj).then(cb).catch(cb)
