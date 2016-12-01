@@ -1,26 +1,45 @@
-<div>
-    <h1> HOWDY  this is a proof of concept       </h1>
-    <table class='table' show-filter='true'>
-            <h1>IDK</h1>
-        <tr ng-repeat="camp in $ctrl.camps">
-            <script>
-                camp.getAvailability();
-            </script>
-            <td title="'Camp Number'" filter=" {campNum: 'number'}" sortable: 'campNum'>
-                {{camp.campNum}}</td>
-            <td title="'Start Date'" filter=" {date: 'number'}" sortable: 'date'>
-                {{camp.date}}</td>
-            <td title="'Max Size'" filter=" {maxSize: 'number'}">
-                {{camp.maxSize}}</td>
-            <td title="'Availability'" filter=" {availability: 'number'}" sortable: 'availability'>
-                {{camp.availability}}</td>
-            <td title="'Location'" filter=" {location: 'number'}" sortable: 'location'>
-                {{camp.location}}</td>
-            <td title="'Ages'" filter=" {scoutLevels: 'text'}" sortable: 'scoutLevels'>
-                {{camp.scoutLevels}}</td>
 
-            <td title="'Camp Number'" filter=" {campNum: 'number'}" sortable: 'campNum'>
-                {{camp.campNum}}</td>
+<div class="elevated-box">
+    <table class='table' show-filter='true'>
+        <thead>
+            <tr>
+                <th>Camp Number</th>
+                <th>Camp Date</th>
+                <th>Ages</th>
+                <th>Location</th>
+                <th>Max Size</th>
+                <th>Availability</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="camp in $ctrl.camps">
+                <!--<script>
+                    camp.getAvailability();
+                </script>-->
+                <td title="'Camp Number'" filter=" {campNum: 'number'}" sortable: 'campNum'>
+                    {{camp.campNum}}</td>
+                <td title="'Start Date'" filter=" {date: 'number'}" sortable: 'date'>
+                    {{camp.date}}</td>
+                <td title="'Ages'" filter=" {scoutLevelx: 'text'}" sortable: 'scoutLevels'>
+                    {{camp.scoutLevels}}</td>
+                <td title="'Location'" filter=" {location: 'number'}" sortable: 'location'>
+                    {{camp.location}}</td>
+                <td title="'Max Size'" filter=" {maxSize: 'number'}">
+                    {{camp.maxSize}}</td>
+                <td title="'Availability'" filter=" {Availability: 'number'}" sortable: 'availability'>
+                    {{camp.availability}}</td>
+                <td>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{camp.confirmedReservations}}" aria-valuemin="0" aria-valuemax="{{camp.maxScouts}}" style="width: {{camp.confirmedReservations}}%;">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+
+
+        
 
     </table>
     <!--add a progress bar.  160 long. green for confirmed. red for pending.-->

@@ -423,6 +423,12 @@ function yearGetAll(query, cb) {
 function yearGetById(id, query, cb) {
     Year.find(id, formatQuery(query)).then(cb).catch(cb)
 }
+function yearGetByYear(year, query, cb) {
+    Year.findAll({where:{
+        year:{
+            "==":year}
+        }}, formatQuery(query)).then(cb).catch(cb)
+}
 
 function editYear(rewrite, cb) {
     Year.find(rewrite.id).then(function (year) {
@@ -669,6 +675,7 @@ module.exports = {
     yearCreate,
     yearGetAll,
     yearGetById,
+    yearGetByYear,
     editYear,
     findYearForUpdate,
 
