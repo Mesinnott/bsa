@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Director = require('../models/models');
+const Director = require('../models/models').Director;
 
 module.exports.mountPath = '/directors'
 module.exports.router = router;

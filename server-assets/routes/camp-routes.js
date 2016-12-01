@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Camp = require('../models/models');
+const Camp = require('../models/models').Camp
 
 module.exports.mountPath = '/camps'
 module.exports.router = router;
