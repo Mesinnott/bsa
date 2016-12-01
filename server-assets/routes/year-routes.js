@@ -1,5 +1,7 @@
 const router = require('express').Router();
-const Year = require('../models/models');
+const Models = require('../models/models'),
+      Year = Models.Year,
+      getAnyByProp = Models.getAnyByProp
 
 module.exports.mountPath = '/years'
 module.exports.router = router;
