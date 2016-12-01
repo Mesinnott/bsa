@@ -29,15 +29,11 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                     template:'<home></home>'
                 })
                 .state({
-<<<<<<< HEAD
-                    name:'campAvail',
-                    url:'/campavail',
-                    template:'<campavail><campavail>'
-=======
+
                     name:'campavail',
                     url:'/campavail',
                     template:'<campavail></campvail>'
->>>>>>> ca0b7bbf53f13e444b83f0ff23d01bd0072a7a3a
+
                 })
             $urlRouterProvider.otherwise('/'); // we may want to change this
         })
