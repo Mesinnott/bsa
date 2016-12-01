@@ -29,11 +29,14 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                     template:'<home></home>'
                 })
                 .state({
-
                     name:'campavail',
                     url:'/campavail',
                     template:'<campavail></campvail>'
-
+                })
+                .state({
+                    name:'viewCamp',
+                    url:'/viewCamp/:campId',
+                    template:'<viewCamp></viewCamp>'
                 })
             $urlRouterProvider.otherwise('/'); // we may want to change this
         })
