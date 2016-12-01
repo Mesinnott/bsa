@@ -36,3 +36,12 @@ router.route('/:id?')
       return res.send(director.name + ' deleted')
     })
   })
+router.route('/camps/:id?')
+  .get(function (req, res, next) {
+    if (req.params.id) {
+      Director.getCurrentCamps(req.params.id, req.query.include, function (director) {
+        if (director.stack) { return next(director) }
+        return res.send(director)
+      });
+    }
+  })

@@ -34,9 +34,14 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                     template:'<campavail></campvail>'
                 })
                 .state({
-                    name:'viewCamp',
-                    url:'/viewCamp/:campId',
-                    template:'<viewCamp></viewCamp>'
+                    name:'viewcamp',
+                    url:'/viewcamp/:campId',
+                    template:'<viewcamp></viewcamp>'
+                })
+                .state({
+                    name:'director',
+                    url:'/director/:directorId',
+                    template:'<director></director>'
                 })
             $urlRouterProvider.otherwise('/'); // we may want to change this
         })

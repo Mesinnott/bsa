@@ -122,15 +122,25 @@ function directorCreate(director, cb) {
 
 
 function directorGetAll(query, cb) {
-    // Use the Resource Model to get all Directors
-
     Director.findAll({}).then(cb).catch(cb)
 }
 
+function getCurrentCamps(id, query, cb) {
+    Year.findAll({where: {year: {'>=': new Date(Date.now()).getFullYear() }}}).then(function(year) {
+        Camp.findAll({
+            where: {
+                directorId: {
+                    '==': id
+                },
+                yearId: {
+                    '==': year.id
+                }
+            }
+        }).then(cb).catch(cb)
+    }).catch(cb)
+}
 
 function directorGetById(id, query, cb) {
-    // use the Resource Model to get a single scout by its Id
-
     Director.find(id, formatQuery(query)).then(cb).catch(cb)
 }
 
@@ -642,35 +652,45 @@ module.exports = {
     campGetByAnyId,
     campCreate,
     editCamp,
+
     directorCreate,
     directorGetAll,
+    getCurrentCamps,
     directorGetById,
     directorEditById,
+
     leaderCreate,
     leaderGetByAnyId,
     editLeader,
+
     reservationCreate,
     reservationGetByAnyId,
     editReservation,
+
     scoutCreate,
     scoutGetByAnyId,
     editScout,
+
     yearCreate,
     yearGetAll,
     yearGetById,
     yearGetByYear,
     editYear,
     findYearForUpdate,
+
     addUser,
     userGetAll,
     userGetById,
     editUser,
+
     groupCreate,
     groupGetByAnyId,
     editGroup,
+
     districtCreate,
     editDistrict,
     districtGetByAnyId,
+    
     packCreate,
     editPack,
     packGetByAnyId
