@@ -62,6 +62,7 @@ function leaderGetByAnyId(queryId, query, cb) {
 }
 
 
+
 function editLeader(rewrite, cb) {
     Leader.find(rewrite.id).then(function (leader) {
         Leader.update(leader.id, rewrite).then(cb).catch(cb)
