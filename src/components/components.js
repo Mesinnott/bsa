@@ -4,7 +4,7 @@ import {login} from './login-component'
 import {register} from './register-component'
 import {home} from './home-component'
 import {receipt} from './receipt-component'
-import {campAvail} from './campAvail-component'
+import {campavail} from './campavail-component'
 // Import your components here
 let components = [
   reg,
@@ -12,7 +12,7 @@ let components = [
   login,
   register,
   home,
-  campAvail,
+  campavail,
   receipt
 ]
 

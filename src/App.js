@@ -29,9 +29,9 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                     template:'<home></home>'
                 })
                 .state({
-                    name:'campAvail',
-                    url:'/campAvail',
-                    template:'<campAvail><campAvail>'
+                    name:'campavail',
+                    url:'/campavail',
+                    template:'<campavail></campvail>'
                 })
             $urlRouterProvider.otherwise('/register'); // we may want to change this
         })
