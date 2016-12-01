@@ -42,6 +42,9 @@ module.exports = {
     ],
     loaders: [
       {
+        test: /\.json$/, loader: 'json-loader'
+      },
+      {
         test: /\.vue$/,
         loader: 'vue'
       },
@@ -91,5 +94,11 @@ module.exports = {
         browsers: ['last 2 versions']
       })
     ]
+  },
+  node: {
+    console: true,
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
   }
 }

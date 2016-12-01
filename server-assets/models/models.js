@@ -30,6 +30,22 @@ function findYearForUpdate(resource, id, cb) {
     }
 }
 
+function anyGetByAnyId(resourceName, queryId, query, cb) {
+   DS.findAll(resourceName, {
+        where: {
+            'id': {
+                '|===': queryId
+            },
+            'yearId': {
+                '|===': queryId
+            },
+            'directorId': {
+                '|===': queryId
+            }
+        }
+    }).then(cb).catch(cb)
+}
+
 module.exports = {
     Year,
     User,
@@ -41,5 +57,6 @@ module.exports = {
     District,
     Director,
     Reservation,
+    anyGetByAnyId,
     findYearForUpdate
 }

@@ -46,8 +46,33 @@ function leaderCreate(leader, cb) {
 function leaderGetByAnyId(queryId, query, cb) {
     console.log(query)
     console.log("QUERY")
-    Leader.findAll(formatQuery(query)).then(cb).catch(cb)
+    Leader.findAll({
+        where: {
+            'id': {
+                '|===': queryId
+            },
+            'yearId': {
+                '|===': queryId
+            },
+            'directorId': {
+                '|===': queryId
+            }
+        }
+    }).then(cb).catch(cb)
 }
+//    Camp.findAll({
+//         where: {
+//             'id': {
+//                 '|===': queryId
+//             },
+//             'yearId': {
+//                 '|===': queryId
+//             },
+//             'directorId': {
+//                 '|===': queryId
+//             }
+//         }
+//     }).then(cb).catch(cb)
 
 function editLeader(rewrite, cb) {
     Leader.find(rewrite.id).then(function (leader) {
