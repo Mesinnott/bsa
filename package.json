@@ -13,12 +13,14 @@
     "angular": "^1.5.8",
     "angular-ui-router": "^0.3.2",
     "body-parser": "^1.15.2",
+    "bootstrap-material-design": "^0.5.10",
     "cors": "^2.8.1",
     "firebase": "^2",
     "fs": "0.0.1-security",
     "glob": "^7.1.1",
     "js-data": "^2.9.0",
-    "js-data-firebase": "^2.1.1"
+    "js-data-firebase": "^2.1.1",
+    "node-uuid": "^1.4.7"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
