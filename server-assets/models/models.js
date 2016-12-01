@@ -30,21 +30,6 @@ function findYearForUpdate(resource, id, cb) {
     }
 }
 
-function anyGetByAnyId(resourceName, queryId, query, cb) {
-   DS.findAll(resourceName, {
-        where: {
-            'id': {
-                '|===': queryId
-            },
-            'yearId': {
-                '|===': queryId
-            },
-            'directorId': {
-                '|===': queryId
-            }
-        }
-    }).then(cb).catch(cb)
-}
 
 module.exports = {
     Year,
