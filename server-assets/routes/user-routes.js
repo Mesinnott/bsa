@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const User = require('../models/models');
+const User = require('../models/models').User;
 
 module.exports.mountPath = '/users'
 module.exports.router = router;

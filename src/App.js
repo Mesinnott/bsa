@@ -3,7 +3,6 @@ import uiRouter from "angular-ui-router"
 import {dependencies} from './components/components'
 import styles from 'bootstrap-material-design'
 
-
 let App = angular.module('bsa', [...dependencies, uiRouter])
 App.config(function ($urlRouterProvider, $stateProvider) {
             

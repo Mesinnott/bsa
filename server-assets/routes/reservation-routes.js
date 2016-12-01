@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Reservation = require('../models/models');
+const Reservation = require('../models/models').Reservation;
 
 module.exports.mountPath = '/reservations'
 module.exports.router = router;

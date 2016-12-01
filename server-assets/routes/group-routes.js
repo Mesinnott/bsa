@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Group = require('../models/models');
+const Group = require('../models/group-model').Group;
 
 module.exports.mountPath = '/groups'
 module.exports.router = router;

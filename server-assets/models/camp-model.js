@@ -1,5 +1,5 @@
-let dataAdapter = require('./data-adapter'),
-    uuid = dataAdapter.uuid,
+let dataAdapter = require('./data-adapter')
+let uuid = dataAdapter.uuid,
     // schemator = dataAdapter.schemator,
     DS = dataAdapter.DS,
     formatQuery = dataAdapter.formatQuery;
@@ -7,6 +7,11 @@ let dataAdapter = require('./data-adapter'),
 let Camp = DS.defineResource({
     name: 'camp',
     endpoint: 'api/camps',
+    computed: {
+        getAvailability: function () {
+            this.availability = this.maxScouts - this.confirmedReservations - this.pendingReservations
+        }
+    },
     relations: {
         belongsTo: {
             year: {
@@ -39,10 +44,10 @@ let Camp = DS.defineResource({
 })
 
 
-function create(camp, cb) {
-    
-    Camp.create({ 
-        id: uuid.v4(), 
+function campCreate(camp, cb) {
+
+    Camp.create({
+        id: uuid.v4(),
         campNum: camp.campNum,
         yearId: camp.yearId,
         location: camp.location,
@@ -52,11 +57,14 @@ function create(camp, cb) {
         directorId: camp.directorId,
         startTime: camp.startTime,
         endTime: camp.endTime,
-        scoutLevels: camp.scoutLevels
+        scoutLevels: camp.scoutLevels,
+        maxScouts: camp.maxScouts,
+        confirmedReservations: 0,
+        pendingReservations: 0
     }).then(cb).catch(cb)
 }
 
-function getByAnyId(queryId, query, cb) {
+function campGetByAnyId(queryId, query, cb) {
     Camp.findAll({
         where: {
             'id': {
@@ -72,7 +80,14 @@ function getByAnyId(queryId, query, cb) {
     }).then(cb).catch(cb)
 }
 
+function editCamp(rewrite, cb) {
+    Camp.find(rewrite.id).then(function (camp) {
+        Camp.update(camp.id, rewrite).then(cb).catch(cb)
+    }).catch(cb)
+}
+
 module.exports = {
-    create,
-    getByAnyId
+    campGetByAnyId,
+    campCreate,
+    editCamp
 }

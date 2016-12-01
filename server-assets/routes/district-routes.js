@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const District = require('../models/models');
+const District = require('../models/models').District;
 
 module.exports.mountPath = '/districts'
 module.exports.router = router;
