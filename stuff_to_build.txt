@@ -7,6 +7,7 @@ Admin
                 * info
                 * Edit Button
                 * Check for Payment/Health Records
+                * Colors?
     * Auth
         * Login
             * Form
@@ -57,11 +58,16 @@ Admin
                 * inputs
                     -(all)
 Directors
+    * Sign up 
+        -phone #
+        -email
+        -Password
+
     * Access Their Camps
         * Results
             * Table
         -Camps : Initial View
-            *onclick = Campers View
+            *onclick = Campers View 
         -Campers
             >nested in groups 
             * Table
@@ -110,7 +116,8 @@ Pack
             total cost += 10 * number of shirts
             total cost += 2 * number of >= 2XL shirts
         
-
+        * Camp selector
+            -Select Year (do get request and show current & future years)
 
 
     Check- in the middlewear, will the "pending reservation size" be updated after it times out?

@@ -1,5 +1,7 @@
 <div>
+    <h1> HOWDY  this is a proof of concept       </h1>
     <table class='table' show-filter='true'>
+            <h1>IDK</h1>
         <tr ng-repeat="camp in $ctrl.camps">
             <script>
                 camp.getAvailability();
@@ -10,11 +12,11 @@
                 {{camp.date}}</td>
             <td title="'Max Size'" filter=" {maxSize: 'number'}">
                 {{camp.maxSize}}</td>
-            <td title="'Availability'" filter=" {Availability: 'number'}" sortable: 'availability'>
+            <td title="'Availability'" filter=" {availability: 'number'}" sortable: 'availability'>
                 {{camp.availability}}</td>
             <td title="'Location'" filter=" {location: 'number'}" sortable: 'location'>
                 {{camp.location}}</td>
-            <td title="'Ages'" filter=" {scoutLevelx: 'text'}" sortable: 'scoutLevels'>
+            <td title="'Ages'" filter=" {scoutLevels: 'text'}" sortable: 'scoutLevels'>
                 {{camp.scoutLevels}}</td>
 
             <td title="'Camp Number'" filter=" {campNum: 'number'}" sortable: 'campNum'>
