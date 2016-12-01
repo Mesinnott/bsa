@@ -11,7 +11,13 @@ router.route('/:id?')
         if(year.stack) { return next(year) }
         return res.send(year)
       })
-    } else {
+    } else if(req.query.year){
+      Year.yearGetByYear(req.query.year, req.query.include, function (year){
+        if(year.stack){return next(year)}
+        return res.send(year)
+      })
+    
+    }else{
       Year.yearGetAll(req.query.include, function (years) {
         if(years.stack) { return next(years) }
         return res.send(years);

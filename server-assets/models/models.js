@@ -264,7 +264,11 @@ function reservationCreate(reservation, cb) {
             init: Date.now(),
             pack: reservation.pack,
             active: true,
-            paidInFull: false
+            confirmed: false,
+            balance: 0,
+            totalScouts: reservation.totalScouts,
+            totalLeaders: reservation.totalLeaders
+
         }
 
         Reservation.create(reservationObj).then(cb).catch(cb)
@@ -408,6 +412,12 @@ function yearGetAll(query, cb) {
 
 function yearGetById(id, query, cb) {
     Year.find(id, formatQuery(query)).then(cb).catch(cb)
+}
+function yearGetByYear(year, query, cb) {
+    Year.findAll({where:{
+        year:{
+            "==":year}
+        }}, formatQuery(query)).then(cb).catch(cb)
 }
 
 function editYear(rewrite, cb) {
@@ -649,6 +659,7 @@ module.exports = {
     yearCreate,
     yearGetAll,
     yearGetById,
+    yearGetByYear,
     editYear,
     findYearForUpdate,
     addUser,

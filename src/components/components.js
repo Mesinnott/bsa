@@ -4,7 +4,8 @@ import {login} from './login-component'
 import {register} from './register-component'
 import {home} from './home-component'
 import {receipt} from './receipt-component'
-import {campavail} from './campavail-component'
+import {campavail} from './campAvail-component'
+
 // Import your components here
 let components = [
   reg,

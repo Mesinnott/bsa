@@ -20,7 +20,7 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                 })
                 .state({
                     name:'directory',
-                    url:'/directory',
+                    url:'/admin/directory',
                     template:'<directory></directory>'
                 })
                 .state({
@@ -33,7 +33,12 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                     url:'/campavail',
                     template:'<campavail></campvail>'
                 })
-            $urlRouterProvider.otherwise('/register'); // we may want to change this
+                .state({
+                    name:'viewCamp',
+                    url:'/viewCamp/:campId',
+                    template:'<viewCamp></viewCamp>'
+                })
+            $urlRouterProvider.otherwise('/'); // we may want to change this
         })
 
 App.component('app', {
