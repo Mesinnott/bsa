@@ -30,10 +30,10 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                 })
                 .state({
                     name:'campAvail',
-                    url:'/campAvail',
-                    template:'<campAvail><campAvail>'
+                    url:'/campavail',
+                    template:'<campavail><campavail>'
                 })
-            $urlRouterProvider.otherwise('/register'); // we may want to change this
+            $urlRouterProvider.otherwise('/'); // we may want to change this
         })
 
 App.component('app', {

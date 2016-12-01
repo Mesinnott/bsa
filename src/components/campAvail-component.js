@@ -1,6 +1,6 @@
 import template from './templates/campAvail.html'
 import './stylesheets/campAvail.scss'
-const Component = 'campAvail'
+const Component = 'campavail'
 // Use this as a template.
 angular.module(`app.components.${Component}`, [])
   .service('availabilityService', function () {
@@ -18,7 +18,7 @@ angular.module(`app.components.${Component}`, [])
         return av.camps
     }
   })
-  .controller('availablilityController', function (availablilityService) {
+  .controller('availabilityController', function (availabilityService) {
     let $ctrl = this;
     $ctrl.test = 'testing 123'
     this.camps=availabilityService.checkAllCamps()
