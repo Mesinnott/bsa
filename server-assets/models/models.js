@@ -3,6 +3,7 @@ let uuid = dataAdapter.uuid,
     // schemator = dataAdapter.schemator,
     DS = dataAdapter.DS,
     formatQuery = dataAdapter.formatQuery;
+
 let 
     Year = require('./year-model'),
     User = require('./user-model'),
@@ -30,6 +31,9 @@ function getAnyByProp(resourceName, query, cb){
 }
 
 let reservationGetByAnyId = Reservation.reservationGetByAnyId
+
+
+
 
 function findYearForUpdate(resource, id, cb) {
     if (resource == 'year') {

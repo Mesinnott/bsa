@@ -5,7 +5,7 @@ const Component = 'director';
 
 angular.module(`app.components.${Component}`, [])
 
-    .service('directorService', function() {
+    .service('directorService', function($http) {
         var ds = this;
         ds.populateCamps = function(directorId) { // Need to pass in their own id. How?
             $http.get('/api/camps/' + directorId)
@@ -18,19 +18,25 @@ angular.module(`app.components.${Component}`, [])
             return ds.campList;
         }
 
-        ds.pullCampInfo = function(campId) {
-            $http.get('/api/camps/' + campId)
-                .then(function(res) {
-                    ds.currentCamp = res.data;
-                    $state.go('^.viewCamp/{campId}'); // Check this syntax.  Should it even be here?
-                })
+        ds.goToCamp = function(id) {
+            $state.href("viewcamp", {campId: id});
+            // $http.get('/api/camps/' + campId)
+            //     .then(function(res) {
+            //         ds.currentCamp = res.data;
+            //          // Check this syntax.  Should it even be here?
+            //     })
         }
     })
 
-    .controller('directorController', function(directorService) {
+    .controller('directorController', function(directorService, $http) {
         let $ctrl = this;
-        $ctrl.camp = ds.pullCampInfo(campId)
-        $ctrl.campList = ds.populateCamps(directorId) // How to pass in directorId?
+        this.goToCamp = function(campId) {
+            ds.goToCamp(campId)
+        }
+        this.campList = function(directorId) {
+            ds.populateCamps(directorId) // How to pass in directorId?
+        }
+        this.campList(directorId); // Invoking above function
     })
 
     .component('director',{
