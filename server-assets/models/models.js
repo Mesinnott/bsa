@@ -22,8 +22,10 @@ module.exports = {
     User,
     Camp,
     Pack,
+    Group,
     Scout,
     Leader,
+    District,
     Director,
     Reservation
 }
