@@ -1,5 +1,8 @@
-
-
+let dataAdapter = require('./data-adapter')
+let uuid = dataAdapter.uuid,
+    // schemator = dataAdapter.schemator,
+    DS = dataAdapter.DS,
+    formatQuery = dataAdapter.formatQuery;
 
 let Year = DS.defineResource({
     name: 'year',
@@ -39,24 +42,24 @@ function editYear(rewrite, cb) {
     }).catch(cb)
 }
 
-function findYearForUpdate(resource, id, cb) {
-    if (resource == 'year') {
-        Year.find(id).then(cb).catch(cb)
-    } else {
-        reservationGetByAnyId(id, {}, function (response) {
-            if (response && response.length < 1) {
-                response = response || [{ stack: 'something went very wrong' }];
-                return cb(response)
-            }
-            Year.find(response[0].yearId).then(cb).catch(cb); //"find" returns an array
-        })
-    }
-}
+// function findYearForUpdate(resource, id, cb) {
+//     if (resource == 'year') {
+//         Year.find(id).then(cb).catch(cb)
+//     } else {
+//         reservationGetByAnyId(id, {}, function (response) {
+//             if (response && response.length < 1) {
+//                 response = response || [{ stack: 'something went very wrong' }];
+//                 return cb(response)
+//             }
+//             Year.find(response[0].yearId).then(cb).catch(cb); //"find" returns an array
+//         })
+//     }
+// }
 
 module.exports={
     yearCreate,
     yearGetAll,
     yearGetById,
     editYear,
-    findYearForUpdate,
 }
+// Removed findYearForUpdate

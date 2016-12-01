@@ -15,7 +15,20 @@ District = require('./district-model'),
 Director = require('./director-model'),
 Reservation = require('./reservation-model')
 
-
+let reservationGetByAnyId = Reservation.reservationGetByAnyId
+function findYearForUpdate(resource, id, cb) {
+    if (resource == 'year') {
+        DS.find("Year", id).then(cb).catch(cb)
+    } else {
+        reservationGetByAnyId(id, {}, function (response) {
+            if (response && response.length < 1) {
+                response = response || [{ stack: 'something went very wrong' }];
+                return cb(response)
+            }
+            DS.find("Year", response[0].yearId).then(cb).catch(cb); //"find" returns an array
+        })
+    }
+}
 
 module.exports = {
     Year,
@@ -27,5 +40,6 @@ module.exports = {
     Leader,
     District,
     Director,
-    Reservation
+    Reservation,
+    findYearForUpdate
 }

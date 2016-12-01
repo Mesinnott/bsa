@@ -1,4 +1,8 @@
-
+let dataAdapter = require('./data-adapter')
+let uuid = dataAdapter.uuid,
+    // schemator = dataAdapter.schemator,
+    DS = dataAdapter.DS,
+    formatQuery = dataAdapter.formatQuery;
 
 let Camp = DS.defineResource({
     name: 'camp',
