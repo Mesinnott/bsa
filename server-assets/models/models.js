@@ -547,8 +547,7 @@ let District = DS.defineResource({
 function districtCreate(district, cb) {
     let districtObj = {
         id: uuid.v4(),
-        name: district.name,
-        number: district.number
+        name: district.name
     }
 
     District.create(districtObj).then(cb).catch(cb)
