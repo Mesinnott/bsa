@@ -1,52 +1,56 @@
-<div class="" ng-controller="avController as av">
-    <select name="" id="">
-        <option value="" ng-repeat="av.years"></option>
-    </select>
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2" ng-controller="avController as av">
+        <div class="elevated-box">
+            <select name="" id="">
+                <option value="" ng-repeat="year in av.years">{{year.year}}</option>
+            </select>
+        </div>
 
-    <div class="elevated-box">
-        <table class='table' show-filter='true'>
-            <thead>
-                <tr>
-                    <th>Camp Number</th>
-                    <th>Camp Date</th>
-                    <th>Ages</th>
-                    <th>Location</th>
-                    <th>Max Size</th>
-                    <th>Availability</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="camp in av.camps">
-                    <!--<script>
-                        camp.getAvailability();
-                    </script>-->
-                    <td title="'Camp Number'" filter=" {campNum: 'number'}" sortable: 'campNum'>
-                        {{camp.campNum}}</td>
-                    <td title="'Start Date'" filter=" {date: 'number'}" sortable: 'date'>
-                        {{camp.date}}</td>
-                    <td title="'Ages'" filter=" {scoutLevelx: 'text'}" sortable: 'scoutLevels'>
-                        {{camp.scoutLevels}}</td>
-                    <td title="'Location'" filter=" {location: 'number'}" sortable: 'location'>
-                        {{camp.location}}</td>
-                    <td title="'Max Size'" filter=" {maxSize: 'number'}">
-                        {{camp.maxScouts}}</td>
-                    <td title="'Availability'" filter=" {Availability: 'number'}" sortable: 'availability'>
-                        {{camp.availability}} Spots Available
-                       <a href="/#/register/{{camp.campNum}}" target="_blank"> <button class="btn btn-primary" > CLICK HERE to Join Camp {{camp.campNum}}</button></a>
-                    <div class="progress">
-                            <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"  style="width: {{(camp.confirmedReservations/camp.maxScouts)*100}}%;">
+        <div class="elevated-box">
+            <table class='table' show-filter='true'>
+                <thead>
+                    <tr>
+                        <th>Camp Number</th>
+                        <th>Camp Date</th>
+                        <th>Ages</th>
+                        <th>Location</th>
+                        <th>Max Size</th>
+                        <th>Availability</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="camp in av.camps">
+                        <!--<script>
+                            camp.getAvailability();
+                        </script>-->
+                        <td title="'Camp Number'" filter=" {campNum: 'number'}" sortable: 'campNum'>
+                            {{camp.campNum}}</td>
+                        <td title="'Start Date'" filter=" {date: 'number'}" sortable: 'date'>
+                            {{camp.date}}</td>
+                        <td title="'Ages'" filter=" {scoutLevelx: 'text'}" sortable: 'scoutLevels'>
+                            {{camp.scoutLevels}}</td>
+                        <td title="'Location'" filter=" {location: 'number'}" sortable: 'location'>
+                            {{camp.location}}</td>
+                        <td title="'Max Size'" filter=" {maxSize: 'number'}">
+                            {{camp.maxScouts}}</td>
+                        <td title="'Availability'" filter=" {Availability: 'number'}" sortable: 'availability'>
+                            {{camp.availability}} Spots Available
+                        <a href="/#/register/{{camp.campNum}}" target="_blank"> <button class="btn btn-primary" > CLICK HERE to Join Camp {{camp.campNum}}</button></a>
+                        <div class="progress">
+                                <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"  style="width: {{(camp.confirmedReservations/camp.maxScouts)*100}}%;">
+                                </div>
+                                <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar"  style="width: {{(camp.pendingReservations/camp.maxScouts)*100}}%;">
+                                </div>
+                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"  style="width: {{(camp.availability/camp.maxScouts)*100}}%;">                            </div>
                             </div>
-                            <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar"  style="width: {{(camp.pendingReservations/camp.maxScouts)*100}}%;">
-                            </div>
-                            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"  style="width: {{(camp.availability/camp.maxScouts)*100}}%;">                            </div>
-                        </div>
-                    </td>
-                    
-                    
+                        </td>
+                        
+                        
 
-                </tr>
-            </tbody>
-        </table>
-        <!--add a progress bar.  160 long. green for confirmed. red for pending.-->
+                    </tr>
+                </tbody>
+            </table>
+            <!--add a progress bar.  160 long. green for confirmed. red for pending.-->
+        </div>
     </div>
 </div>

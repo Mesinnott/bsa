@@ -1,0 +1,66 @@
+@import './variables';
+
+// colors from colorhunt.co/c/4804    
+
+$colorA: #243D44;
+$colorB: #167A8B;
+$colorC: #2DEA8F;
+$colorD: #24B273;
+// colors from colorhunt.co/c/38962    
+
+$colorA: #FAFAFA;
+$colorB: #C7EEFF;
+$colorC: #0077C0;
+$colorD: #1D242B;
+
+$black: #272727;
+@keyframes grow-in{
+    from{
+        height: 0;
+    }
+    to{
+        height:auto;
+    }
+}
+.animation-grow-in{
+    animation: grow-in 1s ease-out;
+}
+html{
+    /*box-shadow: 20px -20px 100px rgba(0,0,0,0.8) inset, -20px 20px 100px rgba(0,0,0,0.8) inset;*/
+    z-index: 3;
+}
+
+body{
+    background-color: $colorD;
+}
+
+.header-fixed-top{
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+}
+.buffer-section{
+    padding:0.75%;
+}
+.header-awesome{
+    background-color:$colorD;
+    color: $colorA;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.5);
+    width:100%;
+    padding:5%;
+    h1{
+        font-size:2rem;
+    }
+}
+.adult{
+    background-color: $colorC;
+}
+
+.elevated-box{
+    background-color:$colorA;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.5);
+    padding:15px;
+    margin:15px;
+    border-radius:4px;
+}

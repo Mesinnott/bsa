@@ -1,5 +1,5 @@
 import template from './templates/login.html'
-
+import './stylesheets/login.scss'
 const Component = 'login'
 // Use this as a template.
 angular.module(`app.components.${Component}`, [])
