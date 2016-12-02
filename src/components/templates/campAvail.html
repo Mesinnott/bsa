@@ -32,7 +32,7 @@
                         {{camp.maxScouts}}</td>
                     <td title="'Availability'" filter=" {Availability: 'number'}" sortable: 'availability'>
                         {{camp.availability}} Spots Available
-                        <button class="btn btn-primary" > CLICK HERE to Join Camp {{camp.campNum}}</button>
+                       <a href="/#/register/{{camp.campNum}}" target="_blank"> <button class="btn btn-primary" > CLICK HERE to Join Camp {{camp.campNum}}</button></a>
                     <div class="progress">
                             <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"  style="width: {{(camp.confirmedReservations/camp.maxScouts)*100}}%;">
                             </div>

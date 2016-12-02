@@ -10,11 +10,11 @@ angular.module(`app.components.${Component}`, [])
 
   })
 
-  function RegController($http){
+  function RegController($http, $state){
     let rc = this
     
     rc.adultNeeded = false;
-    rc.campNum = '';
+    rc.campNum = $state.params.campnum || '';
     rc.packNum = '';
     rc.reg = {
         campers: [],
