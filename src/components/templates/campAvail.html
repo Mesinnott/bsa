@@ -13,7 +13,6 @@
                     <th>Location</th>
                     <th>Max Size</th>
                     <th>Availability</th>
-                    <th>Click To Sign Up</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,17 +29,21 @@
                     <td title="'Location'" filter=" {location: 'number'}" sortable: 'location'>
                         {{camp.location}}</td>
                     <td title="'Max Size'" filter=" {maxSize: 'number'}">
-                        {{camp.maxSize}}</td>
+                        {{camp.maxScouts}}</td>
                     <td title="'Availability'" filter=" {Availability: 'number'}" sortable: 'availability'>
-                        {{camp.availability}}
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{camp.confirmedReservations}}" aria-valuemin="0" aria-valuemax="{{camp.maxScouts}}" style="width: {{camp.confirmedReservations}}%;">
+                        {{camp.availability}} Spots Available
+                        <button class="btn btn-primary" > CLICK HERE to Join Camp {{camp.campNum}}</button>
+                    <div class="progress">
+                            <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"  style="width: {{(camp.confirmedReservations/camp.maxScouts)*100}}%;">
                             </div>
+                            <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar"  style="width: {{(camp.pendingReservations/camp.maxScouts)*100}}%;">
+                            </div>
+                            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"  style="width: {{(camp.availability/camp.maxScouts)*100}}%;">                            </div>
                         </div>
-                        </td>
-                    <td>
-                        <button>Click To Sign Up</button>
                     </td>
+                    
+                    
+
                 </tr>
             </tbody>
         </table>
