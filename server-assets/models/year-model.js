@@ -12,6 +12,14 @@ let Year = DS.defineResource({
             camp: {
                 localField: 'camp',
                 foreignKey: 'yearId'
+            },
+            reservation: {
+                localField: 'reservation',
+                foreignKey: 'yearId'
+            },
+            scout:{
+                localField:'scout',
+                foreignKey: 'yearId'
             }
         }
     }

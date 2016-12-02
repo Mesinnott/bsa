@@ -20,11 +20,6 @@ angular.module(`app.components.${Component}`, [])
 
         ds.goToCamp = function(id) {
             $state.href("viewcamp", {campId: id});
-            // $http.get('/api/camps/' + campId)
-            //     .then(function(res) {
-            //         ds.currentCamp = res.data;
-            //          // Check this syntax.  Should it even be here?
-            //     })
         }
     })
 
@@ -33,10 +28,10 @@ angular.module(`app.components.${Component}`, [])
         this.goToCamp = function(campId) {
             ds.goToCamp(campId)
         }
-        this.campList = function(directorId) {
-            ds.populateCamps(directorId) // How to pass in directorId?
+        this.getCamps = function(directorId) {
+            this.camplist = ds.populateCamps(directorId) // How to pass in directorId?
         }
-        this.campList(directorId); // Invoking above function
+        this.getCamps(directorId); // Invoking above function
     })
 
     .component('director',{

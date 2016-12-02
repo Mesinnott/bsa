@@ -8,21 +8,6 @@ App.config(function ($urlRouterProvider, $stateProvider) {
             
             $stateProvider
                 .state({
-                    name:'reg',
-                    url:'/register',
-                    template:'<reg></reg>'
-                })
-                .state({
-                    name: 'login',
-                    url: '/login',
-                    template:'<login></login>'
-                })
-                .state({
-                    name:'directory',
-                    url:'/admin/directory',
-                    template:'<directory></directory>'
-                })
-                .state({
                     name:'home',
                     url:'/',
                     template:'<home></home>'
@@ -33,14 +18,44 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                     template:'<campavail></campvail>'
                 })
                 .state({
-                    name:'viewcamp',
-                    url:'/viewcamp/:campId',
-                    template:'<viewcamp></viewcamp>'
-                })
-                .state({
                     name:'director',
                     url:'/director/:directorId',
                     template:'<director></director>'
+                })
+                .state({
+                    name:'directory',
+                    url:'/admin/directory',
+                    template:'<directory></directory>'
+                })
+                .state({
+                    name:'groups',
+                    url:'/groups/:campId',
+                    template:'<groups></groups>'
+                })
+                .state({
+                    name: 'login',
+                    url: '/login',
+                    template:'<login></login>'
+                })
+                .state({
+                    name:'receipt',
+                    url:'/receipt',
+                    template:'<receipt></receipt>'
+                })
+                .state({
+                    name:'reg',
+                    url:'/register',
+                    template:'<reg></reg>'
+                })
+                .state({
+                    name:'register',
+                    url:'/signup',
+                    template:'<register></register>'
+                })
+                .state({
+                    name:'viewcamp',
+                    url:'/viewcamp/:campId',
+                    template:'<viewcamp></viewcamp>'
                 })
             $urlRouterProvider.otherwise('/'); // we may want to change this
         })
