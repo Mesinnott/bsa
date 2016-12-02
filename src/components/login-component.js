@@ -1,4 +1,6 @@
+import angular from 'angular'
 import template from './templates/login.html'
+// import firebase from 'firebase'
 
 const Component = 'login'
 // Use this as a template.
@@ -19,7 +21,8 @@ angular.module(`app.components.${Component}`, [])
         lc.email = '';
         lc.password = '';
 
-        firebase.auth().onAuthStateChanged(function(user){
+        firebase.auth()
+        .onAuthStateChanged(function(user){
             if (user){
 
                 firebase.database().ref('/users/' + user.uid).once('value', (snapshot) =>{
@@ -40,7 +43,6 @@ angular.module(`app.components.${Component}`, [])
 
         lc.login =function(){
 
-            debugger
             firebase.auth().signInWithEmailAndPassword(lc.email, lc.password)
             .then((user) => {
 
