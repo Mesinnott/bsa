@@ -7,6 +7,7 @@
   let router = require('express').Router();
   router.route('/:resourceName/:id?')
     .get(function (req, res, next) {
+      
       if(req.query && !req.params.id){
         let resourceName = req.params.resourceName.split('')
         resourceName.pop()
@@ -15,8 +16,9 @@
           if (camp.stack) { return next(camp) }
           return res.send(camp)
         })
-        return;
+        return
       }
+      next()
     })
   exports.router = router
 
