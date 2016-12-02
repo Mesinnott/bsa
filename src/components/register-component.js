@@ -27,6 +27,7 @@ angular.module(`app.components.${Component}`, [])
                     firebase.database().ref('/users/' + newUser.uid).set({
                         id: newUser.uid,
                         email: newUser.email,
+
                         
 
                     })
@@ -37,17 +38,6 @@ angular.module(`app.components.${Component}`, [])
                     console.log(error);
                 });
 
-
-                var user= firebase.auth().currentUser;
-                console.log(rc.name)
-                user.updateProfile({
-                    
-                    displayName: rc.name
-                }).then(function(){
-                    console.log("update successful, name is:")
-                }, function (error){
-                    console.log("there was an error" + error)
-                })
         }
     }
 
