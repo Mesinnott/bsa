@@ -7,7 +7,7 @@ angular.module(`app.components.${Component}`, [])
     .component('register', {
         controller: RegisterController,
         controllerAs: 'rc',
-        template: 'register.html'
+        template: template
     });
 
     RegisterController.$inject = [];
@@ -19,24 +19,38 @@ angular.module(`app.components.${Component}`, [])
         rc.email = '';
         rc.password = '';
 
-        rc.register = function () {
-
-            firebase.auth().createuserWithEmailAndPassword(rc.email, rc.password)
+        rc.register = function ($state) {
+            $state.transitionTo('my.state', {arg:''})
+            firebase.auth().createUserWithEmailAndPassword(rc.email, rc.password)
                 .then((newUser) => {
-
+                    
                     firebase.database().ref('/users/' + newUser.uid).set({
-                        id: newUSer.uid,
-                        email: newUser.email
+                        id: newUser.uid,
+                        email: newUser.email,
+                        
 
                     })
-                    console.log(newUser);
 
+                    newUser.sendEmailVerification();
+                    console.log(newUser);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
 
+
+                var user= firebase.auth().currentUser;
+                console.log(rc.name)
+                user.updateProfile({
+                    
+                    displayName: rc.name
+                }).then(function(){
+                    console.log("update successful, name is:")
+                }, function (error){
+                    console.log("there was an error" + error)
+                })
         }
+
     }
 
 exports[Component] = Component
