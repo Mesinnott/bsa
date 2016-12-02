@@ -15,7 +15,7 @@ angular.module(`app.components.${Component}`, [])
     })
 
     .component('groups', {
-        controller: GroupController,
+        controller: "GroupController",
         template: template
     });
 
