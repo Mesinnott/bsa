@@ -57,6 +57,10 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                     url:'/viewcamp/:campId',
                     template:'<viewcamp></viewcamp>'
                 })
+                .state({
+                    name:'loading',
+                    template:'<i class="fa fa-spinner" aria-hidden="true"></i>'
+                })
             $urlRouterProvider.otherwise('/'); // we may want to change this
         })
 

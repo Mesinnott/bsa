@@ -19,11 +19,11 @@ angular.module(`app.components.${Component}`, [])
         rc.email = '';
         rc.password = '';
 
-        rc.register = function () {
-
+        rc.register = function ($state) {
+            $state.transitionTo('my.state', {arg:''})
             firebase.auth().createUserWithEmailAndPassword(rc.email, rc.password)
                 .then((newUser) => {
-
+                    
                     firebase.database().ref('/users/' + newUser.uid).set({
                         id: newUser.uid,
                         email: newUser.email,
@@ -31,14 +31,16 @@ angular.module(`app.components.${Component}`, [])
                         
 
                     })
-                    console.log(newUser);
 
+                    newUser.sendEmailVerification();
+                    console.log(newUser);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
 
         }
+
     }
 
 exports[Component] = Component

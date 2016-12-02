@@ -1,5 +1,7 @@
 import angular from 'angular'
 import template from './templates/login.html'
+import './stylesheets/login.scss'
+
 // import firebase from 'firebase'
 
 const Component = 'login'
@@ -24,7 +26,6 @@ angular.module(`app.components.${Component}`, [])
         firebase.auth()
         .onAuthStateChanged(function(user){
             if (user){
-
                 firebase.database().ref('/users/' + user.uid).once('value', (snapshot) =>{
                     console.log('logged in:', snapshot.val());
                 });
