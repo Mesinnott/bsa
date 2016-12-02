@@ -44,7 +44,7 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                 })
                 .state({
                     name:'reg',
-                    url:'/register',
+                    url:'/register/:campNum?',
                     template:'<reg></reg>'
                 })
                 .state({

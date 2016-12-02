@@ -16,7 +16,7 @@
           if (camp.stack) { return next(camp) }
           return res.send(camp)
         })
-        return
+        return;
       }
       next()
     })
