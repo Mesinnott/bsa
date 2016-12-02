@@ -13,6 +13,7 @@
                     <th>Location</th>
                     <th>Max Size</th>
                     <th>Availability</th>
+                    <th>Click To Sign Up</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,12 +32,14 @@
                     <td title="'Max Size'" filter=" {maxSize: 'number'}">
                         {{camp.maxSize}}</td>
                     <td title="'Availability'" filter=" {Availability: 'number'}" sortable: 'availability'>
-                        {{camp.availability}}</td>
-                    <td>
+                        {{camp.availability}}
                         <div class="progress">
                             <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{camp.confirmedReservations}}" aria-valuemin="0" aria-valuemax="{{camp.maxScouts}}" style="width: {{camp.confirmedReservations}}%;">
                             </div>
                         </div>
+                        </td>
+                    <td>
+                        <button>Click To Sign Up</button>
                     </td>
                 </tr>
             </tbody>
