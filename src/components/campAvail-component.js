@@ -13,9 +13,9 @@ angular.module(`app.components.${Component}`, [])
     av.getCurrentYears = (cb)=>{
       let currentYear = new Date().getFullYear()
       let nextYear = currentYear++
-      $http.get(`/api/years?yearId=${currentYear}&yearId=${nextYear}`)
+      $http.get(`/api/years?year=${currentYear}&year=${nextYear}`)
         .then(function(res){
-          
+          cb(res.data)
         })
     }
     av.checkAllCamps = (cb) => {
