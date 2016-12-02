@@ -62,4 +62,5 @@ module.exports = {
     Director,
     Reservation,
     getAnyByProp,
+    findYearForUpdate
  }
