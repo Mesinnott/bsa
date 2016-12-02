@@ -14,7 +14,8 @@ angular.module(`app.components.${Component}`, [])
     let rc = this
     console.log($state)
     rc.adultNeeded = false;
-    rc.campNum = $state.params.campNum || ''
+
+    rc.campNum = $state.params.campnum || '';
     rc.packNum = '';
     rc.reg = {
         campers: [],
