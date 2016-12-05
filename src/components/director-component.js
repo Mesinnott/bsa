@@ -5,38 +5,46 @@ const Component = 'director';
 
 angular.module(`app.components.${Component}`, [])
 
-    .service('directorService', function($http) {
+    .service('directorService', function ($http) {
         var ds = this;
-        ds.populateCamps = function(directorId) { // Need to pass in their own id. How?
-            $http.get('/api/camps/' + directorId)
-                .then(function(res) {
-                    ds.campList = res.data;
-                    ds.campList = ds.campList.sort(function(a,b) {
-                        return a.date - b.date;
-                    })
+        debugger;
+        ds.populateCamps = function (directorId, cb) { // Need to pass in their own id. How?
+            $http({
+                method: 'GET',
+                url: '/api/camps/' + directorId
+            }).then(function (res) {
+                // debugger;
+                ds.campList = res.data;
+                ds.campList = ds.campList.sort(function (a, b) {
+                    return a.date - b.date;
                 })
-            return ds.campList;
+                return cb(ds.campList);
+            })
         }
 
-        ds.goToCamp = function(id) {
-            $state.href("viewcamp", {campId: id});
+        ds.goToCamp = function (id) {
+            $state.href("viewcamp", { campId: id });
         }
     })
 
-    .controller('directorController', function(directorService, $http) {
+    .controller('directorController', function (directorService, $http) {
         let $ctrl = this;
-        this.goToCamp = function(campId) {
+        var dc = this;
+        this.goToCamp = function (campId) {
             ds.goToCamp(campId)
         }
-        this.getCamps = function(directorId) {
-            this.camplist = ds.populateCamps(directorId) // How to pass in directorId?
+        this.getCamps = function (directorId) {
+            directorService.populateCamps(directorId, function(list) {
+                dc.campList = list;
+            }) // How to pass in directorId?
         }
-        this.getCamps(directorId); // Invoking above function
+        // debugger;
+        this.getCamps("4ad02250-3304-49a2-a2b5-3762432272c3"); // Invoking above function // Hard coded
     })
 
-    .component('director',{
+    .component('director', {
         controller: 'directorController',
-        template:template
+        template: template
     });
 
 exports[Component] = Component;
