@@ -3,24 +3,16 @@ import './stylesheets/register.scss'
 const Component = 'register'
 // Use this as a template.
 angular.module(`app.components.${Component}`, [])
-
-    .component('register', {
-        controller: RegisterController,
-        controllerAs: 'rc',
-        template: template
-    });
-
-    RegisterController.$inject = [];
-
-    function RegisterController() {
+    .controller('RegisterController', function RegisterController($state) {
 
         let rc = this;
 
         rc.email = '';
         rc.password = '';
-
-        rc.register = function ($state) {
-            $state.transitionTo('my.state', {arg:''})
+        console.log($state)
+        rc.register = function () {
+            $state.transitionTo('loading', {arg:''})
+            console.log($state)
             firebase.auth().createUserWithEmailAndPassword(rc.email, rc.password)
                 .then((newUser) => {
                     
@@ -51,6 +43,14 @@ angular.module(`app.components.${Component}`, [])
                 })
         }
 
-    }
+    })
+    .component('register', {
+        controller: 'RegisterController',
+        controllerAs: 'rc',
+        template: template
+    });
+
+
+
 
 exports[Component] = Component
