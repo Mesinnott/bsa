@@ -17,7 +17,7 @@ angular.module(`app.components.${Component}`, [])
     LoginController.$inject = [];
 
 
-    function LoginController() {
+    function LoginController($state) {
         let lc = this;
 
         lc.email = '';
@@ -46,7 +46,8 @@ angular.module(`app.components.${Component}`, [])
 
             firebase.auth().signInWithEmailAndPassword(lc.email, lc.password)
             .then((user) => {
-
+                // $state.transitionTo('director', {directorId: "4ad02250-3304-49a2-a2b5-3762432272c3"})
+                 $state.go("director", { directorId: "4ad02250-3304-49a2-a2b5-3762432272c3" })
                 console.log('logged in: ' + user);
             })
             .catch ((error)=> {
