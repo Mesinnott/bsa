@@ -8,6 +8,7 @@ import {receipt} from './receipt-component'
 import {reg} from './reg-component'
 import {register} from './register-component'
 import {viewcamp} from './viewCamp-component'
+import {admin} from './admin-component'
 
 // Import your components here
 
@@ -21,7 +22,8 @@ let components = [
   receipt,
   reg,
   register,
-  viewcamp
+  viewcamp,
+  admin
 ]
 
 
