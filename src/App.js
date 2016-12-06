@@ -61,6 +61,11 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                     name:'loading',
                     template:'<i class="fa fa-spinner" aria-hidden="true"></i>'
                 })
+                .state({
+                    name:'admin',
+                    url:'/admin',
+                    template:'<admin></admin>'
+                })
             $urlRouterProvider.otherwise('/'); // we may want to change this
         })
 

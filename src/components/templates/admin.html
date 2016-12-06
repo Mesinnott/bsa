@@ -1,0 +1,62 @@
+<div class='elevated-box'>
+    <form>
+        <div class="form-group">
+            <label for="reservation">Reservation Number</label>
+            <input type="" class="form-control" id="reservation" placeholder="Reservation Number" ng-model="ad.reservationNum">
+
+            <button type="button" class="btn btn-primary" ng-click="ad.reservations(ad.reservationNum)">View Reservation</button>
+
+    </form>
+    </div>
+</div>
+
+
+
+<!--<div class="row">
+    <div class="col-sm-8 col-sm-offset-2" ng-controller="adController as ad">
+        <div class="elevated-box">
+            <select name="" id="">
+                <option value="" ng-repeat="year in ad.years">{{year.year}}</option>
+            </select>
+        </div>-->
+
+        <div class="elevated-box">
+            <table class='table' show-filter='true'>
+                <thead>
+                    <tr>
+                        <th>Den Number</th>
+                        <th>Name</th>
+                        <th>Shirt Size</th>
+                        <th>Paid</th>
+                        <th>Health Form</th>
+                        <th>Confirm Changes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="scout in ad.reservation">
+                        <!--<script>
+                            camp.getAvailability();
+                        </script>-->
+                        <form>
+                        <td title="'Den Number'" filter=" {denNum: 'number'}" sortable: 'denNum'>
+                            {{scout.denNum}}</td>
+                        <td title="'Scout Name'" filter=" {name: 'text'}" sortable: 'name'>
+                            {{scout.name}}</td>
+                        <td title="'ShirtSize'" filter=" {shirtSize: 'text'}" sortable: 'shirtSize'>
+                            {{scout.shirtSize}}</td>
+                        <td title="'Paid'" filter=" {paid: 'number'}" sortable: 'paid'>
+                            {{scout.paid}}</td>
+                        <td title="'Health Form'" filter=" {healthForm: 'number'}">
+                            <input type="checkbox" value="true"></input>
+                            {{scout.healthForm}}</td>
+                        <td title="'Save'">
+                            <button type="button" id={{scout.id}} class="btn btn-primary" ng-click="ad.save(id)">Save Reservation</button>
+                            </td>    
+                            </form>
+                    </tr>
+                </tbody>
+            </table>
+                <button type="button" class="btn btn-primary" ng-click="ad.save()">Save Reservation</button>
+        </div>
+    </div>
+</div>

@@ -5,7 +5,7 @@ const Component = 'director';
 
 angular.module(`app.components.${Component}`, [])
 
-    .service('directorService', function ($http) {
+    .service('directorService', function ($http, $state) {
         var ds = this;
         debugger;
         ds.populateCamps = function (directorId, cb) { // Need to pass in their own id. How?
@@ -23,7 +23,8 @@ angular.module(`app.components.${Component}`, [])
         }
 
         ds.goToCamp = function (id) {
-            $state.href("viewcamp", { campId: id });
+            debugger
+            $state.go("viewcamp", { campId: id });
         }
     })
 
@@ -31,7 +32,7 @@ angular.module(`app.components.${Component}`, [])
         let $ctrl = this;
         var dc = this;
         this.goToCamp = function (campId) {
-            ds.goToCamp(campId)
+            directorService.goToCamp(campId)
         }
         this.getCamps = function (directorId) {
             directorService.populateCamps(directorId, function(list) {
