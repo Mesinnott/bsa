@@ -9,38 +9,34 @@ angular.module(`app.components.${Component}`, [])
 
         rc.email = '';
         rc.password = '';
-        console.log($state)
+        rc.fullName = '';
         rc.register = function () {
             $state.transitionTo('loading', {arg:''})
-            console.log($state)
+
             firebase.auth().createUserWithEmailAndPassword(rc.email, rc.password)
-                .then((newUser) => {
+                .then(
+                    (newUser) => {
                     
                     firebase.database().ref('/users/' + newUser.uid).set({
-                        id: newUser.uid,
                         email: newUser.email,
+                        displayName: rc.fullName,
+                        super: false,
+                        admin: false,
+                        director: false,
+                        reservation: false
+
+
                         
 
-                    })
-
-                    newUser.sendEmailVerification();
-                    console.log(newUser);
+                    }).then(console.info, console.error)
+                    
+                    setTimeout(newUser.sendEmailVerification, 4000)
+                    // console.log(newUser);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
 
-
-                var user= firebase.auth().currentUser;
-                console.log(rc.name)
-                user.updateProfile({
-                    
-                    displayName: rc.name
-                }).then(function(){
-                    console.log("update successful, name is:")
-                }, function (error){
-                    console.log("there was an error" + error)
-                })
         }
 
     })

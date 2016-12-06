@@ -24,6 +24,10 @@ function getAnyByProp(resourceName, query, cb){
         if(typeof query[thing]=='string'){
             query[thing] = [query[thing]]
         }
+        console.error("                                         " + resourceName + "RESOURCE NAME")
+        if(resourceName.includes("year")){
+            query[thing] = query[thing].map(str=>parseInt(str))
+        }
         querySyntax.where[thing]['in'] = query[thing]
         console.log(JSON.stringify(querySyntax))
     }
