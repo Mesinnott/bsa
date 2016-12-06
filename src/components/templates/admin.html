@@ -30,6 +30,7 @@
                         <th>Paid</th>
                         <th>Health Form</th>
                         <th>Confirm Changes</th>
+                        <th>Remove Scout</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,19 +45,22 @@
                             {{scout.name}}</td>
                         <td title="'ShirtSize'" filter=" {shirtSize: 'text'}" sortable: 'shirtSize'>
                             {{scout.shirtSize}}</td>
-                        <td title="'Paid'" filter=" {paid: 'number'}" sortable: 'paid'>
-                            {{scout.paid}}</td>
-                        <td title="'Health Form'" filter=" {healthForm: 'number'}">
-                            <input type="checkbox" value="true"></input>
-                            {{scout.healthForm}}</td>
+                        <td title="'Paid'" class="text-center" filter=" {paid: 'number'}" sortable: 'paid'>
+                            <input type="checkbox" class="form-control" ng-model="scout.paid">
+                            </td>
+                        <td title="'Health Form'" class="text-center" filter=" {healthForm: 'number'}">
+                            <input type="checkbox" class="form-control" ng-model="scout.healthForm">
+                            </td>
                         <td title="'Save'">
-                            <button type="button" id={{scout.id}} class="btn btn-primary" ng-click="ad.save(id)">Save Reservation</button>
+                            <button type="button" id="scout.id" class="btn btn-primary" ng-click="ad.save(scout.id, scout)">Save Individual Scout</button>
                             </td>    
+                        <td title = "'Remove'">
+                            <button type= "button" class="btn btn-danger" ng-click="ad.remove(scout.id, scout, $index)"> Remove Scout from Reservation</button>
                             </form>
                     </tr>
                 </tbody>
             </table>
-                <button type="button" class="btn btn-primary" ng-click="ad.save()">Save Reservation</button>
+                <button type="button" class="btn btn-primary" ng-click="ad.saveAll(ad.reservation)">Save All Scout Changes</button>
         </div>
     </div>
 </div>
