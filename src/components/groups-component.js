@@ -7,6 +7,14 @@ const Component = 'groups';
 angular.module(`app.components.${Component}`, [])
     .service('groupService', function ($http) {
         var gs = this;
+        gs.getCamp = function(campId, cb) {
+            $http({
+                method: 'GET',
+                url: 'api/camps/' + campId
+            }).then(function(res) {
+                return cb(res.data);
+            });
+        }
         gs.getGroups = function (campId, cb) {
             $http({
                 method: 'GET',
@@ -20,6 +28,15 @@ angular.module(`app.components.${Component}`, [])
     .controller('GroupController', function (groupService, $http) {
         let $ctrl = this;
         var gc = this;
+        this.campId = ''; //how to set?
+
+        this.getCamp = function(campId, cb) {
+            groupService.getCamp(campId, cb);
+        }
+        this.getCamp(campId, function(camp) {
+            gc.currentCamp = camp;
+        })
+
         this.listGroups = function (campId, cb) {
             groupService.getGroups(campId, cb)
         }

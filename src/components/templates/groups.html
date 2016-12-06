@@ -1,0 +1,35 @@
+<div class="sort-buttons">
+    <button class="btn btn-primary">Sort by Color</button>
+    <button class="btn btn-success">Sort by Unit</button>
+    <button class="btn btn-danger">Sort by Name</button>
+</div>
+<div class="group-button-well">
+    <button class="group-button">Sort Scouts into Groups</button>
+</div>
+<div class="scout-table">
+    <table>
+        <tr>
+            <th>Pack</th>
+            <th>Name</th>
+            <th>Camp Group</th>
+        </tr>
+        <tr ng-repeat="scout in $ctrl.scoutList">
+            <th>Pack {{ scout.denNum }}</th>
+            <th>{{ scout.name }}</th>
+            <th>
+                <select name="color" ng-model="scout.color" id="{{ scout.id }}">
+                    <option value="red" style="background-color: #e71800"></option>
+                    <option value="orange" style="background-color: #de7206"></option>
+                    <option value="yellow" style="background-color: #f3f016"></option>
+                    <option value="lightgreen" style="background-color: #21da00"></option>
+                    <option value="darkgreen" style="background-color: #127500"></option>
+                    <option value="lightblue" style="background-color: #369eff"></option>
+                    <option value="darkblue" style="background-color: #03019b"></option>
+                    <option value="purple" style="background-color: #6903af"></option>
+                    <option value="black" style="background-color: #1c1c1c"></option>
+                    <option ng-if="$ctrl.camp.scoutLevels == 'all'" value="brown" style="background-color: #643f25"></option>
+                </select>
+            </th>
+        </tr>
+    </table>
+</div>
