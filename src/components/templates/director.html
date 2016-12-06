@@ -12,6 +12,6 @@
         <td>{{camp.date}}</td>
         <td>{{camp.location}}</td>
         <td><button ng-click="$ctrl.goToCamp(camp.id)">View/Edit Camp Details</button></td>
-        <td><button ui-sref="groups">Build/View Groups</button></td>
+        <td><button ui-sref="groups({campId: camp.id})">Build/View Groups</button></td>
     </tr>
 </table>
