@@ -10,44 +10,57 @@ angular.module(`app.components.${Component}`, [])
         template: template
     });
 
-    RegisterController.$inject = [];
+RegisterController.$inject = [];
 
-    function RegisterController() {
+function RegisterController() {
 
-        let rc = this;
+    let rc = this;
 
-        rc.email = '';
-        rc.password = '';
-        rc.fullName= '';
-
-        rc.register = function ($state) {
-            // $state.transitionTo('my.state', {arg:''})
-            firebase.auth().createUserWithEmailAndPassword(rc.email, rc.password)
-                .then((newUser) => {
-                    
-                    firebase.database().ref('/users/' + newUser.uid).set({
-                        id: newUser.uid,
-                        email: newUser.email,
-                        displayName: rc.fullName,
-                        super: false,
-                        admin: false,
-                        director: false,
-                        reservation: false,
+    rc.email = '';
+    rc.password = '';
+    rc.fullName = "";
 
 
-                        
+    rc.register = function ($state) {
+        // $state.transitionTo('my.state', {arg:''})
+        firebase.auth().createUserWithEmailAndPassword(rc.email, rc.password)
+            .then((newUser) => {
 
-                    })
+                firebase.database().ref('/users/' + newUser.uid).set({
+                    id: newUser.uid,
+                    email: newUser.email,
+                    displayName: rc.fullName,
+                    super: false,
+                    admin: false,
+                    director: false,
+                    reservation: false,
 
-                    newUser.sendEmailVerification();
-                    console.log(newUser);
+
+
+
                 })
-                .catch((error) => {
-                    console.log(error);
+
+                var user = firebase.auth().currentUser;
+
+
+                user.updateProfile({
+                    displayName: rc.fullName,
+                }).then(function () {
+                newUser.sendEmailVerification();
+                console.log(newUser);
+                    // Update successful.
+                }, function (error) {
+                    // An error happened.
                 });
 
-        }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
 
     }
+
+}
 
 exports[Component] = Component
