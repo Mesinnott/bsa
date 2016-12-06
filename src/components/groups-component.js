@@ -24,6 +24,12 @@ angular.module(`app.components.${Component}`, [])
                 return cb(gs.scoutList);
             })
         }
+        gs.updateGroup = function(scoutId, cb) {
+            $http({
+                method: 'PUT',
+                url: '/api/scouts/' + scoutId
+            }).then(cb);
+        }
     })
     .controller('GroupController', function (groupService, $http) {
         let $ctrl = this;
@@ -44,6 +50,23 @@ angular.module(`app.components.${Component}`, [])
             gc.scoutList = list;
             gc.initialSort(gc.scoutList);
         });
+
+        this.groupCap = 16; //Need ng-model with front end, default=16
+        this.createGroups = function() {
+            var numGroups = (gc.currentCamp.scoutLevels === 'all' ? 10 : 9);
+            gc.scoutList = GroupBuilder(gc.scoutList, numGroups, gc.groupCap);
+            gc.colorPackSort(gc.scoutList);
+            gc.saveGroupColorChanges(gc.scoutList, function() {
+                return true; //Couldn't think of anything to do here
+            })
+        }
+
+        this.saveGroupColorChanges = function(scoutList, cb) {
+            scoutList.forEach(function(scout) {
+                groupService.updateGroup(scout.id, cb);
+            });
+            gc.colorPackSort(scoutList);
+        }
 
         this.initialSort = function (scoutList) {
             scoutList = scoutList.sort(function (a, b) {

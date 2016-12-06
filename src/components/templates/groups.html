@@ -4,7 +4,8 @@
     <button class="btn btn-danger">Sort by Name</button>
 </div>
 <div class="group-button-well">
-    <button class="group-button">Sort Scouts into Groups</button>
+    <button class="group-button" ng-click="$ctrl.createGroups()">Sort Scouts into New Groups</button>
+    <button class="save-button">Save Changes and Re-Sort</button>
 </div>
 <div class="scout-table">
     <table>
@@ -17,7 +18,7 @@
             <th>Pack {{ scout.denNum }}</th>
             <th>{{ scout.name }}</th>
             <th>
-                <select name="color" ng-model="scout.color" id="{{ scout.id }}">
+                <select name="color" ng-show="scout.color" ng-model="scout.color" id="{{ scout.id }}">
                     <option value="red" style="background-color: #e71800"></option>
                     <option value="orange" style="background-color: #de7206"></option>
                     <option value="yellow" style="background-color: #f3f016"></option>
