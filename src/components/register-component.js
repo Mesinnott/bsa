@@ -3,7 +3,6 @@ import './stylesheets/register.scss'
 const Component = 'register'
 // Use this as a template.
 angular.module(`app.components.${Component}`, [])
-
     .component('register', {
         controller: RegisterController,
         controllerAs: 'rc',
@@ -13,9 +12,7 @@ angular.module(`app.components.${Component}`, [])
 RegisterController.$inject = [];
 
 function RegisterController() {
-
     let rc = this;
-
     rc.email = '';
     rc.password = '';
     rc.fullName = "";
@@ -34,9 +31,6 @@ function RegisterController() {
                     admin: false,
                     director: false,
                     reservation: false,
-
-
-
 
                 })
 
@@ -60,6 +54,9 @@ function RegisterController() {
 
 
     }
+
+
+
 
 }
 

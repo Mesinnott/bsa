@@ -13,10 +13,14 @@ angular.module(`app.components.${Component}`, [])
       let currentYear = new Date().getFullYear()
       currentYear = 2016
       let nextYear = currentYear++
-      $http.get(`/api/years?year=${currentYear}&year=${nextYear}`)
+      let route = `/api/years?year=${currentYear}&year=${nextYear}`
+      console.log(route)
+      $http.get(route)
         .then(function(res){
           cb(res.data)
-        })
+          console.log(res.data)
+          console.log("resdata^^^^")
+        }).catch(console.error)
     }
     av.getCampsByYear = (yearId, cb) => {
       $http.get('/api/camps?yearId=' + yearId)
@@ -31,21 +35,32 @@ angular.module(`app.components.${Component}`, [])
         return av.camps
     }
   })
-  .controller('avController', function (avService, $http) {
+  .controller('avController', function (avService, $http, $scope) {
     let av = this;
-    av.test = 'testing 123'
+    let S = $scope
+    av.selectedYearIndex = 0
+    av.currentYear = new Date().getFullYear()
+    av.camps = []
+    S.years = []
     avService.getCurrentYears(
       function(years){
-        av.years = years
-        console.log(years)
+        S.years = years
+        av.setCamps()
       }
     )
+    av.setCamps = function setCamps(){
       avService.getCampsByYear(
-        av.yearId,
+        S.years[av.selectedYearIndex].id,
         camps=>{
-          av.camps = camps
+          av.camps = camps.sort(
+            (a,b)=>{
+              return a.campNum - b.campNum
+            },0
+          )
+          av.currentYear = S.years[av.selectedYearIndex].year
         }
       )
+    }
 
   })
   .component(Component, { 
