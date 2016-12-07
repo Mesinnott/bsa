@@ -1,27 +1,23 @@
 <div class='elevated-box'>
     <form>
         <div class="form-group">
-            <label for="reservation">Reservation Number</label>
-            <input type="" class="form-control" id="reservation" placeholder="Reservation Number" ng-model="ad.reservationNum">
-            
-            
-            <select ng-model="ad.resource">
-                <option value="scouts">Scouts</option>
-                <option value="leaders">Leaders</option>
-                <option value="reservations">Reservation</option>
-                <option value = "camps">Camps</option>
-                <option value = "dens">Dens</option>
-                <option value = "groups">Groups</option>
+                        
+            <Label> I want to find ... (Scouts, Camps, etc.) </label>
+            <select class="form-control" ng-model="ad.resource">
+                <option ng-repeat="resource in ad.resources" value=" {{$index}} ">{{resource.displayName}} </option>
                 </select>
-
-                <select ng-model="ad.param">
-                <option value="denNum">Den Num</option>
-                <option value="id">Id</option>
-                <option value="reservationId">Reservation Id</option>
+                <label> By their...</label>
+                <select class="form-control"  ng-model="ad.prop">
+                <option ng-repeat="prop in ad.resources[ad.resource].props" value="prop.name">{{prop.displayName}}</option>
+                <!--<option value="id">Id</option>
+                <option value="reservationId">Reservation Id</option>-->
                 
                 </select>
 
-            <button type="button" class="btn btn-primary" ng-click="ad.reservations(ad.reservationNum)">View Reservation</button>
+                <label for="reservation">With the value of...</label>
+            <input type="" class="form-control" id="reservation" placeholder="123, test@email.com, Johnny Q. Scout, etc." ng-model="ad.reservationNum">
+
+            <button type="button" class="btn btn-primary" ng-click="ad.reservations(ad.reservationNum)">View Query</button>
 
     </form>
     </div>
@@ -46,7 +42,6 @@
                         <th>Shirt Size</th>
                         <th>Paid</th>
                         <th>Health Form</th>
-                        <th>Confirm Changes</th>
                         <th>Remove Scout</th>
                     </tr>
                 </thead>
@@ -63,14 +58,11 @@
                         <td title="'ShirtSize'" filter=" {shirtSize: 'text'}" sortable: 'shirtSize'>
                             {{scout.shirtSize}}</td>
                         <td title="'Paid'" class="text-center" filter=" {paid: 'number'}" sortable: 'paid'>
-                            <input type="checkbox" class="form-control" ng-model="scout.paid">
+                            <input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.paid">
                             </td>
                         <td title="'Health Form'" class="text-center" filter=" {healthForm: 'number'}">
-                            <input type="checkbox" class="form-control" ng-model="scout.healthForm">
-                            </td>
-                        <td title="'Save'">
-                            <button type="button" id="scout.id" class="btn btn-primary" ng-click="ad.save(scout.id, scout)">Save Individual Scout</button>
-                            </td>    
+                            <input type="checkbox" ng-change="ad.save(scout.id, scout)" class="form-control" ng-model="scout.healthForm">
+                            </td>  
                         <td title = "'Remove'">
                             <button type= "button" class="btn btn-danger" ng-click="ad.remove(scout.id, scout, $index)"> Remove Scout from Reservation</button>
                             </form>
