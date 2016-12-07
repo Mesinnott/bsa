@@ -170,10 +170,10 @@ function GroupBuilder(masterArray, numGroups, hardGroupCap, colorArray) {
         "red", 
         "orange", 
         "yellow", 
-        "lightGreen", 
-        "darkGreen", 
-        "lightBlue", 
-        "darkBlue", 
+        "lightgreen", 
+        "darkgreen", 
+        "lightblue", 
+        "darkblue", 
         "purple", 
         "black", 
         "brown"
@@ -182,7 +182,17 @@ function GroupBuilder(masterArray, numGroups, hardGroupCap, colorArray) {
     for (var i = 0; i < finalAnswer.length; i++) {
         groupsByColor.push({color: colorArray[i], group: finalAnswer[i]})
     }
+
+    // Return a single simple array of scout objects with colors added.
+    var scoutsWithColors = [];
+    for (var i = 0; i < groupsByColor.length; i++) {
+        for (var j = 0; j < groupsByColor[i].length; j++) {
+            var scout = groupsByColor[i].group[j];
+            scout.color = groupsByColor[i].color;
+            scoutsWithColors.push(scout);
+        }
+    }
     
-    return groupsByColor;
+    return scoutsWithColors;
 
 }
