@@ -3,6 +3,23 @@
         <div class="form-group">
             <label for="reservation">Reservation Number</label>
             <input type="" class="form-control" id="reservation" placeholder="Reservation Number" ng-model="ad.reservationNum">
+            
+            
+            <select ng-model="ad.resource">
+                <option value="scouts">Scouts</option>
+                <option value="leaders">Leaders</option>
+                <option value="reservations">Reservation</option>
+                <option value = "camps">Camps</option>
+                <option value = "dens">Dens</option>
+                <option value = "groups">Groups</option>
+                </select>
+
+                <select ng-model="ad.param">
+                <option value="denNum">Den Num</option>
+                <option value="id">Id</option>
+                <option value="reservationId">Reservation Id</option>
+                
+                </select>
 
             <button type="button" class="btn btn-primary" ng-click="ad.reservations(ad.reservationNum)">View Reservation</button>
 
