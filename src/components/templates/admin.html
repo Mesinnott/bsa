@@ -8,7 +8,7 @@
                 </select>
             <label> By their...</label>
             <select class="form-control" ng-model="ad.prop">
-                <option ng-if="ad.resources[ad.resource].name == 'directors' || ad.resources[ad.resource].name == 'packs'" value=''>All</option>
+                <option ng-if="ad.resources[ad.resource].name == 'directors' || ad.resources[ad.resource].name == 'packs' || ad.resources[ad.resource].name == 'users'" value=''>All</option>
                 
                 <option ng-repeat="prop in ad.resources[ad.resource].props" value="{{prop.name}}">{{prop.displayName}}</option>
                 <!--<option value="id">Id</option>
