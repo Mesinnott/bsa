@@ -192,21 +192,21 @@ angular.module(`app.components.${Component}`, [])
                 ]
 
             },
-            {
-                name: "directors",
-                displayName: "Camp Director",
-                props: [
-                    {
-                        name: "email",
-                        displayName: "Email"
-                    },
-                    {
-                        name: "name",
-                        displayName: "Name"
-                    }
+            // {
+            //     name: "directors",
+            //     displayName: "Camp Director",
+            //     props: [
+            //         {
+            //             name: "email",
+            //             displayName: "Email"
+            //         },
+            //         {
+            //             name: "name",
+            //             displayName: "Name"
+            //         }
 
-                ]
-            },
+            //     ]
+            // },
             {
                 name: "reservations",
                 displayName: "Reservation",
@@ -391,21 +391,21 @@ angular.module(`app.components.${Component}`, [])
                 ]
 
             },
-            {
-                name: "directors",
-                displayName: "Camp Director",
-                props: [
-                    {
-                        name: "email",
-                        displayName: "Email"
-                    },
-                    {
-                        name: "name",
-                        displayName: "Name"
-                    }
+            // {
+            //     name: "directors",
+            //     displayName: "Camp Director",
+            //     props: [
+            //         {
+            //             name: "email",
+            //             displayName: "Email"
+            //         },
+            //         {
+            //             name: "name",
+            //             displayName: "Name"
+            //         }
 
-                ]
-            },
+            //     ]
+            // },
             {
                 name: "reservations",
                 displayName: "Reservation",
