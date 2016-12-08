@@ -1,0 +1,31 @@
+                    <div class="elevated-box">
+                        <ng-form action="" class="form-horizontal">
+                            <legend>
+                                <!--Account Box-->
+                                <i class="material-icons">&#xE851;</i>
+                                BSA Registered Adult
+                            </legend>
+                            <fieldset>
+                                    <label for="">First Name</label>
+                                    <input ng-model="rc.regAdult.first" type="text" class="form-control" placeholder="First Name" required>
+
+                                    <label>Last Name</label>
+                                    <input ng-model="rc.regAdult.last" type="text" class="form-control" placeholder="Last Name" required>
+
+                                    <label>Date Registered</label>
+                                    <input ng-model="rc.regAdult.date" type="text" class="form-control" placeholder="Date Registered" required>
+
+                                    <label>Shirt Size</label>
+                                    <select ng-init="rc.regAdult.shirt = 'No Shirt'" ng-model="rc.regAdult.shirt" class="form-control">
+                                            <option selected>No Shirt</option>
+                                            <option>Youth Medium</option>
+                                            <option>Youth Large</option>
+                                            <option>Adult Small</option>
+                                            <option>Adult Medium</option>
+                                            <option>Adult Large</option>
+                                            <option>Adult XL</option>
+                                            <option>Adult 2XL</option>
+                                    </select>
+                            </fieldset>
+                        </ng-form>
+                    </div>

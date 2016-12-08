@@ -1,0 +1,24 @@
+                    <div class="elevated-box" ng-show="rc.reg.adults.length">
+                        <legend>Adults</legend>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Position</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Shirt Size</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="person in rc.reg.adults" class="animation-grow-in">
+                                    <td>Adult</td>
+                                    <td>{{ person.first }}</td>
+                                    <td>{{ person.last }}</td>
+                                    <td>{{ person.shirt }}</td>
+                                    <td><button class="btn btn-default" ng-click="rc.removeAdult($index)"><i class="material-icons">delete_forever</i></button></td>
+                                </tr>
+                            
+                            </tbody>
+                        </table>
+                    </div>
