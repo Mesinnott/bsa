@@ -36,7 +36,8 @@ angular.module(`app.components.${Component}`, [])
                 }).catch(a => console.log(a))
             return ab.camps
         }
-        ab.getResByDen = (resource, param, value, cb) => {
+        ab.getByAnyProp = (resource, param, value, cb) => {
+            // console.log("args..." +resource+param+value)
             $http.get('/api/' + resource + "?" + param + "=" + value)
                 .then(function (res) {
                     cb(res.data)
@@ -252,6 +253,233 @@ angular.module(`app.components.${Component}`, [])
                 ]
             }
         ]
+        
+        let templates = {
+            healthForm: `<input type="checkbox" ng-change="ad.save(scout.id, scout)" class="form-control" ng-model="scout.healthForm">`,
+            paid:`<input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.paid">`,
+            super:`<input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.super">`,
+            admin:`<input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.admin">`,
+            director:`<input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.director">`,
+            leader:`<input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.leader">`
+        }
+        ad.tableProps=[
+            {
+                name: "camps",
+                displayName: "Camps",
+                props: [
+                    {
+                        name: "campNum",
+                        displayName: "Camp Number"
+                    },
+                    {
+                        name: "scoutLevels",
+                        displayName: "Scout Ages"
+                    },
+                    {
+                        name: "date",
+                        displayName: "Date"
+                    },
+                    {
+                        name: "location",
+                        displayName: "Location"
+                    },
+                    {
+                        name:"date",
+                        displayName:"Start Date"
+                    },
+                    {
+                        name:"endDate",
+                        displayName:"End Date"
+                    },
+                    {
+                        name: "maxScouts",
+                        displayName: "Max"
+                    },
+                    {
+                        name:"confirmedReservations",
+                        displayName: "Confirmed"
+                    },
+                    {
+                        name:"pendingReservations",
+                        displayName:"Pending"
+                    },
+                    {
+                        name:"availability",
+                        displayName:"Availability"
+                    },
+                ]
+            },
+            {
+                name: "packs",
+                displayName: "Packs",
+                props: [
+                    {
+                        name: "number",
+                        displayName: "Pack Number"
+                    },
+                    {
+                        name: "zone",
+                        displayName: "Pack Zone"
+                    },
+
+                ]
+            },
+            {
+                name:"scouts",
+                displayName: "Scouts",
+                props:[
+                    {
+                        name: "denNum",
+                        displayName: "Pack Number"
+                    },
+                    {
+                        name: "shirtSize",
+                        displayName: "Shirt Size"
+                    },
+                    {
+                        name: "reservationId",
+                        displayName: "Reservation Id"
+                    },
+                    {
+                        name: "name",
+                        displayName: "Name"
+                    },
+                    {
+                        name: "healthForm",
+                        displayName: "Health Form",
+                        template: templates.healthForm
+                    },
+                    {
+                        name: "paid",
+                        displayName:"Paid",
+                        template: templates.paid
+                    }
+                ]
+            },
+            {
+                name:"leaders",
+                displayName: "Leaders",
+                props:[
+                    {
+                        name: "denNum",
+                        displayName: "Pack Number"
+                    },
+                    {
+                        name: "shirtSize",
+                        displayName: "Shirt Size"
+                    },
+                    {
+                        name: "reservationId",
+                        displayName: "Reservation Id"
+                    },
+                    {
+                        name: "name",
+                        displayName: "Name"
+                    },
+                    {
+                        name: "healthForm",
+                        displayName: "Health Form",
+                        template: templates.healthForm
+                    },
+                    {
+                        name: "paid",
+                        displayName:"Paid",
+                        template: templates.paid
+                    }
+                ]
+
+            },
+            {
+                name: "directors",
+                displayName: "Camp Director",
+                props: [
+                    {
+                        name: "email",
+                        displayName: "Email"
+                    },
+                    {
+                        name: "name",
+                        displayName: "Name"
+                    }
+
+                ]
+            },
+            {
+                name: "reservations",
+                displayName: "Reservation",
+                props:[
+                    {
+                        name: "campNum",
+                        displayName: "Camp Number"
+                    },
+                    {
+                        name: "denNum",
+                        displayName: "Pack Number"
+                    },
+                    {
+                        name: "email",
+                        displayName: "Email Address"
+                    },
+                    {
+                        name: "id",
+                        displayName: "Reservation ID"
+                    },
+                    {
+                        name:"location",
+                        displayName:"Camp Location"
+                    },
+                    {
+                        name:"date",
+                        displayName:"Camp Date",
+                    }
+                ]
+            },
+            {
+                name: "districts",
+                displayName: "Districts",
+                props:[
+                    {
+                        name: "name",
+                        displayName: "Name"
+                    }
+                ]
+            },
+            {
+                name: "users",
+                displayName: "Users",
+                props: [
+                    {
+                        name: "displayName",
+                        displayName: "Name"
+                    },
+                    {
+                        name: "email",
+                        displayName: "Email"
+                    },
+                    {
+                        name: "super",
+                        displayName:"Super Admin Approved",
+                        template:templates.super
+                    },
+                    {
+                        name: "admin",
+                        displayName:"Admin Approved",
+                        template:templates.admin
+                    },
+                    {
+                        name:"director",
+                        displayName:"Camp Director",
+                        template:templates.director
+                    },
+                    {
+                        name:"reservation",
+                        displayName:"Camp Leader",
+                        template:templates.leader
+                    }
+
+                ]
+            }
+        ]
 
 
 
@@ -276,11 +504,17 @@ angular.module(`app.components.${Component}`, [])
                 }
             )
         }
+        ad.setResource=function(index){
+            // console.log(ad.resources[index].name)
+            return ad.resources[index].name
+
+
+        }
 
         ad.reservations = function (value) {
             debugger
             console.log('its working...')
-            abService.getResByDen(ad.resource, ad.param, value, function (res) {
+            abService.getByAnyProp(ad.setResource(ad.resource), ad.prop, value, function (res) {
                 ad.reservation = res
             })
 

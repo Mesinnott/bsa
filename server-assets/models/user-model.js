@@ -7,19 +7,19 @@ let uuid = dataAdapter.uuid,
 
 let User = DS.defineResource({
     name: 'user',
-    endpoint: 'api/user',
+    endpoint: 'api/users',
 })
 
 
 function addUser(user, cb) {
     let userObj = {
-        id: uuid.v4(),
+        // id: uuid.v4(),
         name: user.name,
         email: user.email,
         admin: false,
-        office: false,
-        campDirector: false,
-        denLeader: false
+        super: false,
+        director: false,
+        reservation: false
     };
 
     User.create(userObj).then(cb).catch(cb)
