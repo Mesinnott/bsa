@@ -25,7 +25,7 @@ angular.module(`app.components.${Component}`, [])
 
     let $ctrl = this;
     $ctrl.test = 'testing 123'
-    this.camps=availabilityService.checkAllCamps()
+    this.camps=availabilityService.checkAllCamps();
   })
   .component(Component, { 
     template: template,
