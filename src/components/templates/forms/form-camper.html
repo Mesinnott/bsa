@@ -1,0 +1,33 @@
+                    <div class="elevated-box camper" ng-show="true || !rc.adultNeeded && rc.reg.adults.length == 1">
+                        <ng-form class="form-horizontal" ng-submit="rc.addCamper(rc.currentCamper)">
+                            <legend>
+                                <!--Walking Person-->
+                                <i class="material-icons">&#xE536;</i>
+                                Add Camper
+                            </legend>
+                                <label for="">First Name</label>
+                                <input ng-model="rc.currentCamper.first" class="form-control" type="text" placeholder="First Name" required>
+                                <label for="">Last Name</label>
+                                <input ng-model="rc.currentCamper.last" class="form-control" type="text" placeholder="Last Name" required>
+                                <label for="">Shirt Size</label>
+                                <select ng-init="rc.currentCamper.shirt = 'Youth Large'" placeholder="choose shirt" ng-model="rc.currentCamper.shirt" class="form-control" required>
+                                        <option>Youth Medium</option>
+                                        <option>Youth Large</option>
+                                        <option>Adult Small</option>
+                                        <option>Adult Medium</option>
+                                        <option>Adult Large</option>
+                                        <option>Adult XL</option>
+                                        <option>Adult 2XL</option>
+                                </select>
+                                <div class="">
+                                        <label>
+                                            Health Form
+                                        </label>
+                                        <div class="">
+                                            <i class="material-icons" style="cursor:pointer;" ng-click="rc.healthBoxChecked = !rc.healthBoxChecked">{{rc.healthBoxChecked? 'check_box' : 'check_box_outline_blank'}}</i>
+                                        </div>
+                                </div>
+
+                                <button href="javascript:void(0)" type="submit" class="btn btn-primary"><i class="material-icons">person_add</i></button>
+                        </ng-form>
+                    </div>   

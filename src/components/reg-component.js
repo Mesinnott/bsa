@@ -1,20 +1,71 @@
 import template from './templates/reg.html'
 import './stylesheets/reg.scss'
+import {
+    campForm,
+    adultForm,
+    camperForm,
+    bsaAdultForm,
+    firstContactForm,
+    secondContactForm
+} from './templates/forms/forms.js'
+import {
+    adultsTable,
+    campersTable
+} from './templates/tables/tables.js'
 const Component = 'reg'
 
 angular.module(`app.components.${Component}`, [])
   .controller('RegController', RegController )
-  .component(Component,{
-    template: template,
-    controller: RegController
-
+    .directive("formCamp", function(){
+        return {
+            template: campForm,
+        }
+    })
+    .directive("formAdult", function(){
+        return {
+            template: adultForm,
+        }
+    })
+    .directive("formCamper", function(){
+        return {
+            template: camperForm,
+        }
+    })
+    .directive("formBsaAdult", function(){
+        return {
+            template: bsaAdultForm,
+        }
+    })
+    .directive("formFirstContact", function(){
+        return {
+            template: firstContactForm,
+        }
+    })
+    .directive("formSecondContact", function(){
+        return {
+            template: secondContactForm,
+        }
+    })
+    .directive("tableAdults", function(){
+        return {
+            template: adultsTable,
+        }
+    })
+    .directive("tableCampers", function(){
+        return {
+            template: campersTable,
+        }
+    })
+  .component(Component,{ 
+    template: template
   })
 
   function RegController($http, $state){
     let rc = this
-    console.log($state)
-    rc.adultNeeded = false;
 
+
+    rc.adultNeeded = false;
+    rc.healthBoxChecked = false;
     rc.campNum = $state.params.campnum || '';
     rc.packNum = '';
     rc.reg = {
@@ -91,17 +142,20 @@ angular.module(`app.components.${Component}`, [])
         }else{
             rc.adultNeeded = false
         }
+        rc.healthBoxChecked = false;
         rc.currentCamper = {};
     }
     rc.removeCamper = function(index){
-        rc.reg.campers.splice(index, 1)
+        if(window.confirm(`Are you sure you want to delete this?`)){
+            // DO SOMETHING
+        }
     }
        
 
    
     
 // Submit
-
+    
     rc.sendForm = function(){
         rc.addContact(rc.firstContact);
         rc.addContact(rc.secondContact);
@@ -109,14 +163,7 @@ angular.module(`app.components.${Component}`, [])
         rc.reg.campNum = rc.campNum;
         rc.reg.packNum = rc.packNum;
 
-        console.log(rc.reg)
-        $http.post("/api/something", rc.reg)
-        .then(function(data){
-            console.log(data)
-        })
-        .catch(function(err){
-            console.error('NOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!!!!!!!')
-        })
+        // $http
     }
             
 
@@ -127,8 +174,3 @@ angular.module(`app.components.${Component}`, [])
   }
 
 exports[Component] = Component
-
-
-
-
-

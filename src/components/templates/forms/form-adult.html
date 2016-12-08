@@ -1,0 +1,25 @@
+                    <div class="elevated-box adult" ng-show="rc.adultNeeded || rc.reg.adults.length == 0">
+                        <ng-form class="form-horizontal" ng-submit="rc.addAdult(rc.currentAdult)">
+                            <legend>
+                                <!--Account Box-->
+                                <i class="material-icons">&#xE851;</i>
+                                Add Adult
+                            </legend>
+                                <label for="">First Name</label>
+                                <input ng-model="rc.currentAdult.first" type="text" class="form-control" placeholder="First Name" required>
+                                <label for="">Last Name</label>
+                                <input ng-model="rc.currentAdult.last" type="text" class="form-control" placeholder="Last Name" required>
+                                <label for="">Shirt Size</label>
+                                <select ng-init="rc.currentAdult.shirt = 'No Shirt'" ng-model="rc.currentAdult.shirt" class="form-control">
+                                    <option>No Shirt</option>
+                                    <option>Youth Medium</option>
+                                    <option>Youth Large</option>
+                                    <option>Adult Small</option>
+                                    <option>Adult Medium</option>
+                                    <option>Adult Large</option>
+                                    <option>Adult XL</option>
+                                    <option>Adult 2XL</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary"><i class="material-icons">person_add</i></button>
+                        </ng-form>
+                    </div>    
