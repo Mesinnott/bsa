@@ -38,9 +38,11 @@ angular.module(`app.components.${Component}`, [])
         }
     })
 
-    .controller('directorController', function (directorService, $http) {
+    .controller('directorController', function (directorService, $http, $state) {
         let $ctrl = this;
         var dc = this;
+        dc.directNum = $state.params.directorId || '';
+        
         this.goToCamp = function (campId) {
             directorService.goToCamp(campId)
         }
@@ -54,9 +56,9 @@ angular.module(`app.components.${Component}`, [])
                 dc.dirObj = dirObj
             })
         }
-        this.getDirector("4ad02250-3304-49a2-a2b5-3762432272c3")
+        this.getDirector(dc.directNum)
         // debugger;
-        this.getCamps("4ad02250-3304-49a2-a2b5-3762432272c3"); // Invoking above function // Hard coded
+        this.getCamps(dc.directNum); // Invoking above function // Hard coded
     })
 
     .component('director', {
