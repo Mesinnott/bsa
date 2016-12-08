@@ -23,7 +23,7 @@ function RegisterController() {
         firebase.auth().createUserWithEmailAndPassword(rc.email, rc.password)
             .then((newUser) => {
 
-                firebase.database().ref('/users/' + newUser.uid).set({
+                firebase.database().ref('/api/users/' + newUser.uid).set({
                     id: newUser.uid,
                     email: newUser.email,
                     displayName: rc.fullName,

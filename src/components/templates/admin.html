@@ -8,7 +8,7 @@
                 </select>
                 <label> By their...</label>
                 <select class="form-control"  ng-model="ad.prop">
-                <option ng-repeat="prop in ad.resources[ad.resource].props" value="prop.name">{{prop.displayName}}</option>
+                <option ng-repeat="prop in ad.resources[ad.resource].props" value="{{prop.name}}">{{prop.displayName}}</option>
                 <!--<option value="id">Id</option>
                 <option value="reservationId">Reservation Id</option>-->
                 
@@ -34,42 +34,44 @@
         </div>-->
 
         <div class="elevated-box">
-            <table class='table' show-filter='true'>
+            <table  class='table' show-filter='true'>
                 <thead>
                     <tr>
-                        <th>Den Number</th>
-                        <th>Name</th>
-                        <th>Shirt Size</th>
-                        <th>Paid</th>
-                        <th>Health Form</th>
-                        <th>Remove Scout</th>
+                        <th ng-repeat="prop in ad.tableProps[ad.resource].props">{{prop.displayName}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="scout in ad.reservation">
-                        <!--<script>
-                            camp.getAvailability();
-                        </script>-->
-                        <form>
-                        <td title="'Den Number'" filter=" {denNum: 'number'}" sortable: 'denNum'>
-                            {{scout.denNum}}</td>
-                        <td title="'Scout Name'" filter=" {name: 'text'}" sortable: 'name'>
-                            {{scout.name}}</td>
-                        <td title="'ShirtSize'" filter=" {shirtSize: 'text'}" sortable: 'shirtSize'>
-                            {{scout.shirtSize}}</td>
-                        <td title="'Paid'" class="text-center" filter=" {paid: 'number'}" sortable: 'paid'>
-                            <input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.paid">
-                            </td>
-                        <td title="'Health Form'" class="text-center" filter=" {healthForm: 'number'}">
-                            <input type="checkbox" ng-change="ad.save(scout.id, scout)" class="form-control" ng-model="scout.healthForm">
-                            </td>  
+                        <td 
+                        ng-repeat="prop in ad.tableProps[ad.resource].props" 
+                        ng-switch 
+                        on="prop.name"
+                        >
+                            <input 
+                            type="checkbox" 
+                            ng-change="ad.save(scout.id, scout)" 
+                            class="form-control"
+                            ng-model="scout.healthForm"
+                            ng-switch-when="healthForm"
+                            />
+                            <input 
+                            type="checkbox" 
+                            ng-change="ad.save(scout.id, scout)" 
+                            class="form-control"
+                            ng-model="scout.paid"
+                            ng-switch-when="paid"
+                            />
+                            <span ng-switch-default>{{scout[prop.name]}}</span>
+                        
+                        </td>
+                       
                         <td title = "'Remove'">
-                            <button type= "button" class="btn btn-danger" ng-click="ad.remove(scout.id, scout, $index)"> Remove Scout from Reservation</button>
-                            </form>
+                            <button type= "button" class="btn btn-danger" ng-click="ad.remove(scout.id, scout, $index)"> Delete</button>
+                            </td>
                     </tr>
                 </tbody>
             </table>
-                <button type="button" class="btn btn-primary" ng-click="ad.saveAll(ad.reservation)">Save All Scout Changes</button>
+                <button type="button" class="btn btn-primary" ng-click="ad.saveAll(ad.reservation)">Save All Changes</button>
         </div>
     </div>
 </div>
