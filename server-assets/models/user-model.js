@@ -7,19 +7,19 @@ let uuid = dataAdapter.uuid,
 
 let User = DS.defineResource({
     name: 'user',
-    endpoint: 'api/user',
+    endpoint: 'api/users',
 })
 
 
 function addUser(user, cb) {
     let userObj = {
-        id: uuid.v4(),
-        name: user.name,
+        // id: uuid.v4(),
+        displayName: user.name,
         email: user.email,
         admin: false,
-        office: false,
-        campDirector: false,
-        denLeader: false
+        super: false,
+        director: false,
+        reservation: false
     };
 
     User.create(userObj).then(cb).catch(cb)
@@ -33,9 +33,9 @@ function userGetById(id, query, cb) {
     User.find(id, formatQuery(query)).then(cb).catch(cb)
 }
 
-function editUser(rewrite, cb) {
-    User.find(rewrite.id).then(function (user) {
-        User.update(user.id, rewrite).then(cb).catch(cb)
+function editUser(id, rewrite, cb) {  
+    User.find(id).then(function (user) {
+        User.update(id, rewrite).then(cb).catch(cb)
     }).catch(cb)
 }
 

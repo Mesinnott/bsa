@@ -1,13 +1,28 @@
 <div class='elevated-box'>
-    <form>
+    <form ng-submit="ad.reservations(ad.reservationNum)">
         <div class="form-group">
-            <label for="reservation">Reservation Number</label>
-            <input type="" class="form-control" id="reservation" placeholder="Reservation Number" ng-model="ad.reservationNum">
 
-            <button type="button" class="btn btn-primary" ng-click="ad.reservations(ad.reservationNum)">View Reservation</button>
+            <Label> I want to find ... (Scouts, Camps, etc.) </label>
+            <select class="form-control" ng-model="ad.resource">
+                <option ng-repeat="resource in ad.resources" value=" {{$index}} ">{{resource.displayName}} </option>
+                </select>
+            <label> By their...</label>
+            <select class="form-control" ng-model="ad.prop">
+                <option ng-if="ad.resources[ad.resource].name == 'directors' || ad.resources[ad.resource].name == 'packs' || ad.resources[ad.resource].name == 'users'" value=''>All</option>
+                
+                <option ng-repeat="prop in ad.resources[ad.resource].props" value="{{prop.name}}">{{prop.displayName}}</option>
+                <!--<option value="id">Id</option>
+                <option value="reservationId">Reservation Id</option>-->
+                
+                </select>
 
+            <label for="reservation">With the value of...</label>
+            <input type="" class="form-control" id="reservation" placeholder="123, test@email.com, Johnny Q. Scout, etc." ng-model="ad.reservationNum">
+
+            <button type="submit" class="btn btn-primary btn-raised">View Query</button>
+
+        </div>
     </form>
-    </div>
 </div>
 
 
@@ -20,43 +35,43 @@
             </select>
         </div>-->
 
-        <div class="elevated-box">
-            <table class='table' show-filter='true'>
-                <thead>
-                    <tr>
-                        <th>Den Number</th>
-                        <th>Name</th>
-                        <th>Shirt Size</th>
-                        <th>Paid</th>
-                        <th>Health Form</th>
-                        <th>Confirm Changes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="scout in ad.reservation">
-                        <!--<script>
-                            camp.getAvailability();
-                        </script>-->
-                        <form>
-                        <td title="'Den Number'" filter=" {denNum: 'number'}" sortable: 'denNum'>
-                            {{scout.denNum}}</td>
-                        <td title="'Scout Name'" filter=" {name: 'text'}" sortable: 'name'>
-                            {{scout.name}}</td>
-                        <td title="'ShirtSize'" filter=" {shirtSize: 'text'}" sortable: 'shirtSize'>
-                            {{scout.shirtSize}}</td>
-                        <td title="'Paid'" filter=" {paid: 'number'}" sortable: 'paid'>
-                            {{scout.paid}}</td>
-                        <td title="'Health Form'" filter=" {healthForm: 'number'}">
-                            <input type="checkbox" value="true"></input>
-                            {{scout.healthForm}}</td>
-                        <td title="'Save'">
-                            <button type="button" id={{scout.id}} class="btn btn-primary" ng-click="ad.save(id)">Save Reservation</button>
-                            </td>    
-                            </form>
-                    </tr>
-                </tbody>
-            </table>
-                <button type="button" class="btn btn-primary" ng-click="ad.save()">Save Reservation</button>
-        </div>
+<div class="elevated-box">
+    <div class="alert alert-success alert-dismissable" ng-if="!!ad.error">
+        <button type="button" class="close" data-dismiss="alert" ng-click="ad.reset()">x</button>
+        <p>{{ad.error}}</p>
     </div>
+    <table class='table' show-filter='true'>
+        <thead>
+            <tr>
+                <th ng-repeat="prop in ad.tableProps[ad.resource].props">{{prop.displayName}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="scout in ad.reservation">
+                <td ng-repeat="prop in ad.tableProps[ad.resource].props" ng-switch on="prop.name">
+                    <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.healthForm"
+                        ng-switch-when="healthForm" />
+                    <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.paid" ng-switch-when="paid" />
+                    <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.super"
+                        ng-switch-when="super" />
+                    <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.admin"
+                        ng-switch-when="admin" />
+                    <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.director"
+                        ng-switch-when="director" />
+                    <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.reservation"
+                        ng-switch-when="reservation" />
+                    <span ng-switch-default>{{scout[prop.name]}}</span>
+
+                </td>
+
+                <td title="'Remove'">
+                    <button type="button" class="btn btn-danger btn-raised" ng-click="ad.remove(scout.id, scout, $index)"> <i class="material-icons">&#xE92B;</i></button>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary btn-raised" ng-click="ad.saveAll(ad.reservation)">Save All Changes</button>
+</div>
+</div>
 </div>
