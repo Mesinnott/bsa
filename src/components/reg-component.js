@@ -12,7 +12,6 @@ angular.module(`app.components.${Component}`, [])
 
   function RegController($http, $state){
     let rc = this
-    console.log($state)
     rc.adultNeeded = false;
 
     rc.campNum = $state.params.campnum || '';

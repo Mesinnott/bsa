@@ -19,11 +19,11 @@ angular.module(`app.components.${Component}`, [])
         }
     })
 
-    .controller('viewcampController', function(viewcampService, $http) {
+    .controller('viewcampController', function(viewcampService, $http, $state) {
            let $ctrl = this;
             var vc = this;
             vc.camp=''
-
+            vc.campNum=$state.params.campId
            
            this.getCamp = function(campId){
             viewcampService.getCamp(campId, function(camp){
@@ -31,7 +31,7 @@ angular.module(`app.components.${Component}`, [])
                 console.log(vc.camp)
             })
         }
-            this.getCamp("3554e413-d6b7-43eb-b12c-9264a20ee24f")
+            this.getCamp(vc.campNum)
 
     })
 
