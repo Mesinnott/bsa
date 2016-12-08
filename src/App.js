@@ -19,7 +19,7 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                 })
                 .state({
                     name:'director',
-                    url:'/director/:directorId',
+                    url:'/director/:userId',
                     template:'<director></director>'
                 })
                 .state({
