@@ -17,6 +17,8 @@ function RegisterController() {
     rc.password = '';
     rc.fullName = "";
 
+    rc.error= false;
+
 
     rc.register = function ($state) {
         // $state.transitionTo('my.state', {arg:''})
@@ -49,6 +51,7 @@ function RegisterController() {
 
             })
             .catch((error) => {
+                rc.error=error.message;
                 console.log(error);
             });
 

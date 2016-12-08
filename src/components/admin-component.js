@@ -69,8 +69,8 @@ angular.module(`app.components.${Component}`, [])
             return ab.reservation
         }
 
-        ab.editScout = (id, scout, resolve, reject) => {
-            $http.put('/api/scouts/' + id, scout)
+        ab.editAny = (resource, id, body, resolve, reject) => {
+            $http.put('/api/'+resource+'s/' + id, body)
                 .then(function (res) {
                     resolve(res)
                 }).catch(function (error) {
@@ -431,6 +431,14 @@ angular.module(`app.components.${Component}`, [])
                     {
                         name:"date",
                         displayName:"Camp Date",
+                    },
+                    {
+                        name:"paidInFull",
+                        displayName: "Paid In Full"
+                    },
+                    {
+                        name:"active",
+                        displayName:"Active"
                     }
                 ]
             },
@@ -473,7 +481,7 @@ angular.module(`app.components.${Component}`, [])
                     },
                     {
                         name:"reservation",
-                        displayName:"Camp Leader",
+                        displayName:"Den Leader",
                         template:templates.leader
                     }
 
@@ -518,29 +526,20 @@ angular.module(`app.components.${Component}`, [])
                 ad.reservation = res
             })
 
-            abService.reservationGetById(value, function (reserv) {
-                ad.resDetails = reserv;
-            })
-
-
-            //     if (value.length < 5) {
-            //         abService.getResByDen(ad.resource, ad.param, value, function(res){
-            //             ad.reservation = res
-            //         })
-            //     }else{
-            //     abService.reservationGetById(value, function (reserv) {
-            //         ad.resDetails = reserv;
-            //     })
-            //     abService.scoutGetByAnyId(value, function (list) {
-            //         ad.reservation = list;
-            //     })
-            // }
+            // abService.reservationGetById(value, function (reserv) {
+            //     ad.resDetails = reserv;
+            // })
 
         }
 
-        ad.save = function (id, scout) {
-            scout = { "scout": scout }
-            abService.editScout(id, scout, function (save) {
+        ad.save = function (id, resource, name) {
+            name = name.split("")
+            name.pop()
+            name=name.join('')
+            let body= {}
+            body[name]=resource
+            // resource = { name: resource }
+            abService.editAny(name, id, body, function (save) {
                 console.log(save)
 
             })

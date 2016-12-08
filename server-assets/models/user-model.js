@@ -14,7 +14,7 @@ let User = DS.defineResource({
 function addUser(user, cb) {
     let userObj = {
         // id: uuid.v4(),
-        name: user.name,
+        displayName: user.name,
         email: user.email,
         admin: false,
         super: false,
