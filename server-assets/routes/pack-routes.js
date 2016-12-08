@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Pack = require('../models/models');
+const Pack = require('../models/models').Pack;
 
 module.exports.mountPath = '/packs'
 module.exports.router = router;

@@ -1,15 +1,24 @@
-<div>
- <form>
+<div class="elevated-box">
+  <div class="alert alert-danger" ng-if="!!rc.error" >
+    <!--<button type="button" class="close" data-dismiss="alert">x</button>-->
+    <p>{{rc.error}}</p>
+
+
+  </div>
+ <form ng-submit="rc.register()">
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" ng-model = "rc.email">
+    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" ng-model = 'rc.email'>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" ng-model='rc.password'>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password Must Be at Least 6 Digits Long" ng-model='rc.password'>
   </div>
+  <div class="form-group">
+  <label for="fullName">Name</label>
+  <input type='string' class="form-control" id="fullName" placeholder="Name" ng-model='rc.fullName'>
  
   </div>
-  <button type="button" class="btn btn-default" ng-click="rc.register()">Submit</button>
+  <button type="submit" class="btn btn-default">Submit</button>
 </form>
 </div>

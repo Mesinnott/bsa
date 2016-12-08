@@ -5,37 +5,65 @@ const Component = 'director';
 
 angular.module(`app.components.${Component}`, [])
 
-    .service('directorService', function() {
+    .service('directorService', function ($http, $state) {
         var ds = this;
-        ds.populateCamps = function(directorId) { // Need to pass in their own id. How?
-            $http.get('/api/camps/' + directorId)
-                .then(function(res) {
-                    ds.campList = res.data;
-                    ds.campList = ds.campList.sort(function(a,b) {
-                        return a.date - b.date;
-                    })
+        debugger;
+        ds.populateCamps = function (directorId, cb) { // Need to pass in their own id. How?
+            $http({
+                method: 'GET',
+                url: '/api/camps/' + directorId
+            }).then(function (res) {
+                // debugger;
+                ds.campList = res.data;
+                ds.campList = ds.campList.sort(function (a, b) {
+                    return a.date - b.date;
                 })
-            return ds.campList;
+                return cb(ds.campList);
+            })
         }
 
-        ds.pullCampInfo = function(campId) {
-            $http.get('/api/camps/' + campId)
-                .then(function(res) {
-                    ds.currentCamp = res.data;
-                    $state.go('^.viewCamp/{campId}'); // Check this syntax.  Should it even be here?
-                })
+        ds.goToCamp = function (id) {
+            debugger
+            $state.go("viewcamp", { campId: id });
+        }
+
+        ds.getDirector = function (directorId, cb) {
+            $http({
+                method: 'GET',
+                url: '/api/directors/' + directorId
+            }).then(function (res) {
+                ds.director = res.data;
+                return cb(ds.director);
+            })
         }
     })
 
-    .controller('directorController', function(directorService) {
+    .controller('directorController', function (directorService, $http, $state) {
         let $ctrl = this;
-        $ctrl.camp = ds.pullCampInfo(campId)
-        $ctrl.campList = ds.populateCamps(directorId) // How to pass in directorId?
+        var dc = this;
+        dc.directNum = $state.params.directorId || '';
+        
+        this.goToCamp = function (campId) {
+            directorService.goToCamp(campId)
+        }
+        this.getCamps = function (directorId) {
+            directorService.populateCamps(directorId, function (list) {
+                dc.campList = list;
+            }) // How to pass in directorId?
+        }
+        this.getDirector = function(directorId){
+            directorService.getDirector(directorId, function(dirObj){
+                dc.dirObj = dirObj
+            })
+        }
+        this.getDirector(dc.directNum)
+        // debugger;
+        this.getCamps(dc.directNum); // Invoking above function // Hard coded
     })
 
-    .component('director',{
+    .component('director', {
         controller: 'directorController',
-        template:template
+        template: template
     });
 
 exports[Component] = Component;

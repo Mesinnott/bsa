@@ -1,9 +1,26 @@
 ; (function () {
-
+  const Models = require('../models/models'),
+      getAnyByProp = Models.getAnyByProp
   const fs = require('fs');
   const path = require('path');
-
-  exports.router = require('express').Router();
+  
+  let router = require('express').Router();
+  router.route('/:resourceName/:id?')
+    .get(function (req, res, next) {
+      
+      if(req.query && !req.params.id){
+        let resourceName = req.params.resourceName.split('')
+        resourceName.pop()
+        resourceName = resourceName.join('')
+        getAnyByProp(resourceName, req.query, function(camp){
+          if (camp.stack) { return next(camp) }
+          return res.send(camp)
+        })
+        return;
+      }
+      next()
+    })
+  exports.router = router
 
   let files = fs.readdirSync(__dirname);
 

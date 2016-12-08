@@ -1,20 +1,29 @@
-import {reg} from './reg-component'
-import {directory} from './directory-component'
-import {login} from './login-component'
-import {register} from './register-component'
-import {home} from './home-component'
-import {receipt} from './receipt-component'
 import {campavail} from './campAvail-component'
+import {director} from './director-component'
+import {directory} from './directory-component'
+import {groups} from './groups-component'
+import {home} from './home-component'
+import {login} from './login-component'
+import {receipt} from './receipt-component'
+import {reg} from './reg-component'
+import {register} from './register-component'
+import {viewcamp} from './viewCamp-component'
+import {admin} from './admin-component'
 
 // Import your components here
+
 let components = [
-  reg,
-  directory,
-  login,
-  register,
-  home,
   campavail,
-  receipt
+  director,
+  directory,
+  groups,
+  home,
+  login,
+  receipt,
+  reg,
+  register,
+  viewcamp,
+  admin
 ]
 
 

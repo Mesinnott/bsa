@@ -3,40 +3,64 @@ import './stylesheets/register.scss'
 const Component = 'register'
 // Use this as a template.
 angular.module(`app.components.${Component}`, [])
-
     .component('register', {
         controller: RegisterController,
         controllerAs: 'rc',
-        template: 'register.html'
+        template: template
     });
 
-    RegisterController.$inject = [];
+RegisterController.$inject = [];
 
-    function RegisterController() {
+function RegisterController() {
+    let rc = this;
+    rc.email = '';
+    rc.password = '';
+    rc.fullName = "";
 
-        let rc = this;
+    rc.error= false;
 
-        rc.email = '';
-        rc.password = '';
 
-        rc.register = function () {
+    rc.register = function ($state) {
+        // $state.transitionTo('my.state', {arg:''})
+        firebase.auth().createUserWithEmailAndPassword(rc.email, rc.password)
+            .then((newUser) => {
 
-            firebase.auth().createuserWithEmailAndPassword(rc.email, rc.password)
-                .then((newUser) => {
-
-                    firebase.database().ref('/users/' + newUser.uid).set({
-                        id: newUSer.uid,
-                        email: newUser.email
-
-                    })
-                    console.log(newUser);
+                firebase.database().ref('/api/users/' + newUser.uid).set({
+                    id: newUser.uid,
+                    email: newUser.email,
+                    displayName: rc.fullName,
+                    super: false,
+                    admin: false,
+                    director: false,
+                    reservation: false,
 
                 })
-                .catch((error) => {
-                    console.log(error);
+
+                var user = firebase.auth().currentUser;
+
+
+                user.updateProfile({
+                    displayName: rc.fullName,
+                }).then(function () {
+                newUser.sendEmailVerification();
+                console.log(newUser);
+                    // Update successful.
+                }, function (error) {
+                    // An error happened.
                 });
 
-        }
+            })
+            .catch((error) => {
+                rc.error=error.message;
+                console.log(error);
+            });
+
+
     }
+
+
+
+
+}
 
 exports[Component] = Component

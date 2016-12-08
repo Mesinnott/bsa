@@ -1,0 +1,77 @@
+<div class='elevated-box'>
+    <form ng-submit="ad.reservations(ad.reservationNum)">
+        <div class="form-group">
+
+            <Label> I want to find ... (Scouts, Camps, etc.) </label>
+            <select class="form-control" ng-model="ad.resource">
+                <option ng-repeat="resource in ad.resources" value=" {{$index}} ">{{resource.displayName}} </option>
+                </select>
+            <label> By their...</label>
+            <select class="form-control" ng-model="ad.prop">
+                <option ng-if="ad.resources[ad.resource].name == 'directors' || ad.resources[ad.resource].name == 'packs'" value=''>All</option>
+                
+                <option ng-repeat="prop in ad.resources[ad.resource].props" value="{{prop.name}}">{{prop.displayName}}</option>
+                <!--<option value="id">Id</option>
+                <option value="reservationId">Reservation Id</option>-->
+                
+                </select>
+
+            <label for="reservation">With the value of...</label>
+            <input type="" class="form-control" id="reservation" placeholder="123, test@email.com, Johnny Q. Scout, etc." ng-model="ad.reservationNum">
+
+            <button type="submit" class="btn btn-primary btn-raised">View Query</button>
+
+        </div>
+    </form>
+</div>
+
+
+
+<!--<div class="row">
+    <div class="col-sm-8 col-sm-offset-2" ng-controller="adController as ad">
+        <div class="elevated-box">
+            <select name="" id="">
+                <option value="" ng-repeat="year in ad.years">{{year.year}}</option>
+            </select>
+        </div>-->
+
+<div class="elevated-box">
+    <div class="alert alert-success alert-dismissable" ng-if="!!ad.error">
+        <button type="button" class="close" data-dismiss="alert" ng-click="ad.reset()">x</button>
+        <p>{{ad.error}}</p>
+    </div>
+    <table class='table' show-filter='true'>
+        <thead>
+            <tr>
+                <th ng-repeat="prop in ad.tableProps[ad.resource].props">{{prop.displayName}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="scout in ad.reservation">
+                <td ng-repeat="prop in ad.tableProps[ad.resource].props" ng-switch on="prop.name">
+                    <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.healthForm"
+                        ng-switch-when="healthForm" />
+                    <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.paid" ng-switch-when="paid" />
+                    <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.super"
+                        ng-switch-when="super" />
+                    <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.admin"
+                        ng-switch-when="admin" />
+                    <input type="checkbox" ng-change="ad.save(scout.id, scout,ad.resources[ad.resource].name)" class="form-control" ng-model="scout.director"
+                        ng-switch-when="director" />
+                    <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.reservation"
+                        ng-switch-when="reservation" />
+                    <span ng-switch-default>{{scout[prop.name]}}</span>
+
+                </td>
+
+                <td title="'Remove'">
+                    <button type="button" class="btn btn-danger btn-raised" ng-click="ad.remove(scout.id, scout, $index)"> <i class="material-icons">&#xE92B;</i></button>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary btn-raised" ng-click="ad.saveAll(ad.reservation)">Save All Changes</button>
+</div>
+</div>
+</div>

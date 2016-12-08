@@ -1,15 +1,24 @@
 const router = require('express').Router();
-const Camp = require('../models/models');
-
+const Models = require('../models/models'),
+  Camp = Models.Camp;
+const getAnyByProp = Models.getAnyByProp
 module.exports.mountPath = '/camps'
 module.exports.router = router;
-
-router.route('/:id')
+router.route('/:id?')
   .get(function (req, res, next) {
-    Camp.campGetByAnyId(req.params.id, req.query.include, function (camp) {
-      if (camp.stack) { return next(camp) }
-      return res.send(camp)
-    })
+    if (req.query && !req.params.id) {
+      getAnyByProp("camp", req.query, function (camp) {
+        if (camp.stack) { return next(camp) }
+        return res.send(camp)
+      })
+      return;
+    }
+    if (req.params.id) {
+      Camp.campGetByAnyId(req.params.id, req.query.include, function (camp) {
+        if (camp.stack) { return next(camp) }
+        return res.send(camp)
+      })
+    }
   })
   .post(function (req, res, next) {
     Camp.campCreate(req.body.camp, function (camp) {

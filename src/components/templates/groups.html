@@ -1,0 +1,38 @@
+<div class= "elevated-box">
+<div class="sort-buttons">
+    <button class="btn btn-primary btn-raised">Sort by Color</button>
+    <button class="btn btn-success btn-raised">Sort by Unit</button>
+    <button class="btn btn-danger btn-raised">Sort by Name</button>
+</div>
+</div>
+<div class=" elevated-box group-button-well">
+    <button class="group-button btn btn-raised btn-warning" ng-click="$ctrl.createGroups()">Sort Scouts into New Groups</button>
+    <button class="save-button btn btn-raised btn-warning">Save Changes and Re-Sort</button>
+</div>
+<div class="elevated-box scout-table">
+    <table class='table'>
+        <tr>
+            <th>Pack</th>
+            <th>Name</th>
+            <th>Camp Group</th>
+        </tr>
+        <tr ng-repeat="scout in $ctrl.scoutList">
+            <th>Pack {{ scout.denNum }}</th>
+            <th>{{ scout.name }}</th>
+            <th>
+                <select name="color" ng-show="scout.color" ng-model="scout.color" id="{{ scout.id }}">
+                    <option value="red" style="background-color: #e71800"></option>
+                    <option value="orange" style="background-color: #de7206"></option>
+                    <option value="yellow" style="background-color: #f3f016"></option>
+                    <option value="lightgreen" style="background-color: #21da00"></option>
+                    <option value="darkgreen" style="background-color: #127500"></option>
+                    <option value="lightblue" style="background-color: #369eff"></option>
+                    <option value="darkblue" style="background-color: #03019b"></option>
+                    <option value="purple" style="background-color: #6903af"></option>
+                    <option value="black" style="background-color: #1c1c1c"></option>
+                    <option ng-if="$ctrl.camp.scoutLevels == 'all'" value="brown" style="background-color: #643f25"></option>
+                </select>
+            </th>
+        </tr>
+    </table>
+</div>

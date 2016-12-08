@@ -1,3 +1,5 @@
+@import './variables';
+
 // colors from colorhunt.co/c/4804    
 
 $colorA: #243D44;
@@ -61,8 +63,4 @@ body{
     padding:15px;
     margin:15px;
     border-radius:4px;
-}
-.progress{
-    height:25px;
-
 }

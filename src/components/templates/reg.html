@@ -21,9 +21,8 @@
                         <form class="form-horizontal">
                                 <label for="">Pack Number</label>
                                 <input ng-model="rc.packNum" class="form-control" type="text" placeholder="Pack Number">
-
                                 <label for="">Camp Number</label>
-                                <input ng-model="rc.campNum" class="form-control" type="text" placeholder="Camp Number">
+                                <input ng-model="rc.campNum" class="form-control" type="text" ng-value="rc.campNum" placeholder="Camp Number"> 
                         </form>
                     </div>
                 </div>
@@ -48,10 +47,10 @@
                                 <input ng-model="rc.firstContact.position" class="inputs form-control" type="text" placeholder="Position">
 
                                 <label for="">Email</label>
-                                <input ng-model="rc.firstContact.email" class="inputs form-control" type="text" placeholder="Email">
+                                <input ng-model="rc.firstContact.email" class="inputs form-control" type="email" placeholder="Email">
 
                                 <label for="">Phone</label>
-                                <input ng-model="rc.firstContact.phone" class="inputs form-control" type="text" placeholder="Cell Phone">
+                                <input ng-model="rc.firstContact.phone" class="inputs form-control" type="tel" placeholder="Cell Phone">
                             </div>
                         </form>
                     </div>
@@ -73,10 +72,10 @@
                             <input ng-model="rc.secondContact.position" class="inputs form-control" type="text" placeholder="Position">
 
                             <label for="">Email</label>
-                            <input ng-model="rc.secondContact.email" class="inputs form-control" type="text" placeholder="Email">
+                            <input ng-model="rc.secondContact.email" class="inputs form-control" type="email" placeholder="Email">
 
                             <label for="">Phone</label>
-                            <input ng-model="rc.secondContact.phone" class="inputs form-control" type="text" placeholder="Cell Phone">
+                            <input ng-model="rc.secondContact.phone" class="inputs form-control" type="tel" placeholder="Cell Phone">
                         </form>  
                     </div>
                 </div>
@@ -225,7 +224,6 @@
                             <td>{{ person.shirt }}</td>
                             <td><button class="btn btn-default btn-fab" ng-click="rc.removeCamper($index)"><i class="material-icons">delete_forever</i></button></td>
                         </tr>
-                        
                     </tbody>
                 </table>
             </div>

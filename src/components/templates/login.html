@@ -1,4 +1,12 @@
-<div>
+<div class="elevated-box">
+  <div class="alert alert-success alert-dismissable" ng-if="!!lc.message" >
+    <button type="button" class="close" data-dismiss="alert" ng-click="lc.messageClear()">x</button>
+    <p>{{lc.message}}</p>
+  </div>
+  <div class="alert alert-danger alert-dismissable" ng-if="!!lc.error" >
+    <button type="button" class="close" data-dismiss="alert" ng-click="lc.errorClear()">x</button>
+    <p>{{lc.error}}</p>
+  </div>
  <form>
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
@@ -10,7 +18,9 @@
   </div>
  
   </div>
-  <button type="button" class="btn btn-primary" ng-click="lc.login()">Login</button>
-  <button type="button" class="btn btn-default" ng-click="lc.logOut()">Log Out</button>
+  <button type="button" class="btn btn-raised btn-primary" ng-click="lc.login()">Login</button>
+  <button type="button" class="btn btn-raised btn-danger" ng-click="lc.logOut()">Log Out</button>
+  <button type="button" class="btn btn-raised btn-warning" ui-sref="register">Sign Up</button>
+  <button type="button" class="btn btn-raised btn-success" ng-click="lc.lostPassword()">Forgotten Password</button>
 </form>
 </div>
