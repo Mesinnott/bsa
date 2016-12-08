@@ -62,6 +62,7 @@ angular.module(`app.components.${Component}`, [])
       )
     }
 
+
   })
   .component(Component, { 
     template: template,
