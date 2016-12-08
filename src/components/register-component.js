@@ -9,22 +9,23 @@ angular.module(`app.components.${Component}`, [])
         template: template
     });
 
-RegisterController.$inject = [];
+RegisterController.$inject = ['$state'];
 
-function RegisterController() {
+function RegisterController($state) {
     let rc = this;
     rc.email = '';
     rc.password = '';
     rc.fullName = "";
 
     rc.error= false;
+    rc.message= false;
 
 
-    rc.register = function ($state) {
+    rc.register = function () {
         // $state.transitionTo('my.state', {arg:''})
         firebase.auth().createUserWithEmailAndPassword(rc.email, rc.password)
             .then((newUser) => {
-
+                // rc.message="You have successfully created a User account.  Check your email for verification, and please login"
                 firebase.database().ref('/api/users/' + newUser.uid).set({
                     id: newUser.uid,
                     email: newUser.email,
@@ -48,7 +49,8 @@ function RegisterController() {
                 }, function (error) {
                     // An error happened.
                 });
-
+                 rc.message="You have successfully created a User account, and are logged in.  Please get an administrator to give you Authorizations."
+                $state.go('home')
             })
             .catch((error) => {
                 rc.error=error.message;
