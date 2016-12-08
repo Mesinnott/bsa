@@ -7,7 +7,7 @@
 </div>
 <div class=" elevated-box group-button-well">
     <button class="group-button btn btn-raised btn-warning" ng-click="$ctrl.createGroups()">Sort Scouts into New Groups</button>
-    <button class="save-button btn btn-raised btn-warning">Save Changes and Re-Sort</button>
+    <button class="save-button btn btn-raised btn-warning">Save Changes and Re-Order List</button>
 </div>
 <div class="elevated-box scout-table">
     <table class='table'>
@@ -17,7 +17,7 @@
             <th>Camp Group</th>
         </tr>
         <tr ng-repeat="scout in $ctrl.scoutList">
-            <th>Pack {{ scout.denNum }}</th>
+            <th>Pack {{ scout.packNum }}</th>
             <th>{{ scout.name }}</th>
             <th>
                 <select name="color" ng-show="scout.color" ng-model="scout.color" id="{{ scout.id }}">

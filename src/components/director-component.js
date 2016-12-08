@@ -46,19 +46,20 @@ angular.module(`app.components.${Component}`, [])
         this.goToCamp = function (campId) {
             directorService.goToCamp(campId)
         }
-        this.getCamps = function (directorId) {
-            directorService.populateCamps(directorId, function (list) {
-                dc.campList = list;
-            }) // How to pass in directorId?
-        }
+
         this.getDirector = function(directorId){
             directorService.getDirector(directorId, function(dirObj){
                 dc.dirObj = dirObj
             })
         }
         this.getDirector(dc.directNum)
-        // debugger;
-        this.getCamps(dc.directNum); // Invoking above function // Hard coded
+        
+        this.getCamps = function (directorId) {
+            directorService.populateCamps(directorId, function (list) {
+                dc.campList = list;
+            })
+        }
+        this.getCamps(dc.directNum);
     })
 
     .component('director', {

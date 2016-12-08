@@ -5,7 +5,7 @@ import './group-builder'
 const Component = 'groups';
 
 angular.module(`app.components.${Component}`, [])
-    .service('groupService', function ($http) {
+    .service('groupService', function ($http, $state) {
         var gs = this;
         gs.getCamp = function(campId, cb) {
             $http({
@@ -31,28 +31,30 @@ angular.module(`app.components.${Component}`, [])
             }).then(cb);
         }
     })
-    .controller('GroupController', function (groupService, $http) {
+    .controller('GroupController', function (groupService, $http, $state) {
         let $ctrl = this;
         var gc = this;
-        this.campId = ''; //how to set?
+        gc.campId = $state.params.campId || '';
 
-        this.getCamp = function(campId, cb) {
+        gc.getCamp = function(campId, cb) {
             groupService.getCamp(campId, cb);
         }
-        this.getCamp(campId, function(camp) {
-            gc.currentCamp = camp;
+        gc.getCamp(gc.campId, function(camp) {
+            gc.currentCamp = camp[0];
         })
 
-        this.listGroups = function (campId, cb) {
+        gc.listGroups = function (campId, cb) {
+            debugger;
             groupService.getGroups(campId, cb)
         }
-        this.listGroups("3554e413-d6b7-43eb-b12c-9264a20ee24f", function (list) { //get campId from url?maybe? and feed it in here.
+        gc.listGroups(gc.campId, function (list) {
             gc.scoutList = list;
             gc.initialSort(gc.scoutList);
         });
 
-        this.groupCap = 16; //Need ng-model with front end, default=16
-        this.createGroups = function() {
+        gc.groupCap = 16; //Need ng-model with front end, default=16
+        gc.createGroups = function() {
+            debugger;
             var numGroups = (gc.currentCamp.scoutLevels === 'all' ? 10 : 9);
             gc.scoutList = GroupBuilder(gc.scoutList, numGroups, gc.groupCap);
             gc.colorPackSort(gc.scoutList);
@@ -61,14 +63,14 @@ angular.module(`app.components.${Component}`, [])
             })
         }
 
-        this.saveGroupColorChanges = function(scoutList, cb) {
+        gc.saveGroupColorChanges = function(scoutList, cb) {
             scoutList.forEach(function(scout) {
                 groupService.updateGroup(scout.id, cb);
             });
             gc.colorPackSort(scoutList);
         }
 
-        this.initialSort = function (scoutList) {
+        gc.initialSort = function (scoutList) {
             scoutList = scoutList.sort(function (a, b) {
                 if (a.denNum == b.denNum) {
                     return gc.lastNameSort(a, b);
@@ -76,7 +78,7 @@ angular.module(`app.components.${Component}`, [])
                 return gc.packSort(a, b);
             });
         }
-        this.packColorSort = function (scoutList) {
+        gc.packColorSort = function (scoutList) {
             scoutList = scoutList.sort(function (a, b) {
                 if (a.denNum == b.denNum) {
                     if (a.color == b.color) {
@@ -87,7 +89,7 @@ angular.module(`app.components.${Component}`, [])
                 return gc.packSort(a, b);
             });
         }
-        this.colorPackSort = function(scoutList) {
+        gc.colorPackSort = function(scoutList) {
             scoutList = scoutList.sort(function (a, b) {
                 if (a.color == b.color) {
                     if (a.denNum == b.denNum) {
@@ -100,15 +102,15 @@ angular.module(`app.components.${Component}`, [])
         }
 
 
-        this.lastNameSort = function (a, b) {
+        gc.lastNameSort = function (a, b) {
             var nameA = a.name.split(' ');
             var nameB = b.name.split(' ');
             return nameA[nameA.length - 1] - nameB[nameB.length - 1];
         }
-        this.packSort = function (scoutList) {
+        gc.packSort = function (scoutList) {
             return a.denNum - b.denNum;
         }
-        this.colorSort = function (a, b) {
+        gc.colorSort = function (a, b) {
             return a.groupColor - b.groupColor;
         }
     })
