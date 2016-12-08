@@ -43,7 +43,7 @@ function reservationCreate(reservation, cb) {
             scoutLevels: camp.scoutLevels,
             email: reservation.email,
             init: Date.now(),
-            pack: reservation.pack,
+            pack: reservation.pack || null,
             active: true,
             paidInFull: false
         }
