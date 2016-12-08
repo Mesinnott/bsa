@@ -1,6 +1,8 @@
-<div>
-    <h1>Welcome DIRECTOR NAME</h1>
-<table>
+<div class="elevated-box">
+    <h1>Welcome {{$ctrl.dirObj.name}}</h1>
+    </div>
+    <div class="elevated-box">
+<table class="table">
     <tr>
         <th>Camp</th>
         <th>Date</th>
@@ -12,8 +14,8 @@
         <td>{{camp.campNum}}</td>
         <td>{{camp.date}}</td>
         <td>{{camp.location}}</td>
-        <td><button ng-click="$ctrl.goToCamp(camp.id)">View/Edit Camp Details</button></td>
-        <td><button ui-sref="groups({campId: camp.id})">Build/View Groups</button></td>
+        <td><button class="btn btn-raised btn-primary" ng-click="$ctrl.goToCamp(camp.id)">View/Edit Camp Details</button></td>
+        <td><button class="btn btn-raised btn-danger" ui-sref="groups({campId: camp.id})">Build/View Groups</button></td>
     </tr>
 </table>
 </div>

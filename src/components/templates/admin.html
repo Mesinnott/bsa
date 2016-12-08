@@ -1,6 +1,6 @@
 <div class='elevated-box'>
-    <form>
-        <div class="form-group">
+    <form ng-submit="ad.reservations(ad.reservationNum)">
+        <div class="form-group" >
                         
             <Label> I want to find ... (Scouts, Camps, etc.) </label>
             <select class="form-control" ng-model="ad.resource">
@@ -8,6 +8,8 @@
                 </select>
                 <label> By their...</label>
                 <select class="form-control"  ng-model="ad.prop">
+                <option ng-if="ad.resources[ad.resource].name == 'directors' || ad.resources[ad.resource].name == 'packs'" value=''>All</option>
+                
                 <option ng-repeat="prop in ad.resources[ad.resource].props" value="{{prop.name}}">{{prop.displayName}}</option>
                 <!--<option value="id">Id</option>
                 <option value="reservationId">Reservation Id</option>-->
@@ -17,10 +19,10 @@
                 <label for="reservation">With the value of...</label>
             <input type="" class="form-control" id="reservation" placeholder="123, test@email.com, Johnny Q. Scout, etc." ng-model="ad.reservationNum">
 
-            <button type="button" class="btn btn-primary" ng-click="ad.reservations(ad.reservationNum)">View Query</button>
+            <button type="submit" class="btn btn-primary btn-raised">View Query</button>
 
-    </form>
     </div>
+    </form>
 </div>
 
 
@@ -49,29 +51,58 @@
                         >
                             <input 
                             type="checkbox" 
-                            ng-change="ad.save(scout.id, scout)" 
+                            ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" 
                             class="form-control"
                             ng-model="scout.healthForm"
                             ng-switch-when="healthForm"
                             />
-                            <input 
+                            <p
                             type="checkbox" 
-                            ng-change="ad.save(scout.id, scout)" 
+                            
                             class="form-control"
                             ng-model="scout.paid"
                             ng-switch-when="paid"
+                            />
+                            <input 
+                            type="checkbox" 
+                            ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" 
+                            class="form-control"
+                            ng-model="scout.super"
+                            ng-switch-when="super"
+                            />
+                            <input 
+                            type="checkbox" 
+                            ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" 
+                            class="form-control"
+                            ng-model="scout.admin"
+                            ng-switch-when="admin"
+                            />
+                            <input 
+                            type="checkbox" 
+                            ng-change="ad.save(scout.id, scout,ad.resources[ad.resource].name)" 
+                            class="form-control"
+                            ng-model="scout.director"
+                            ng-switch-when="director"
+                            />
+                            <input 
+                            type="checkbox" 
+                            ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" 
+                            class="form-control"
+                            ng-model="scout.reservation"
+                            ng-switch-when="reservation"
                             />
                             <span ng-switch-default>{{scout[prop.name]}}</span>
                         
                         </td>
                        
                         <td title = "'Remove'">
-                            <button type= "button" class="btn btn-danger" ng-click="ad.remove(scout.id, scout, $index)"> Delete</button>
+                            <button type= "button" class="btn btn-danger btn-raised" ng-click="ad.remove(scout.id, scout, $index)"> <i class="material-icons">&#xE92B;</i></button>
                             </td>
+    
                     </tr>
                 </tbody>
             </table>
-                <button type="button" class="btn btn-primary" ng-click="ad.saveAll(ad.reservation)">Save All Changes</button>
+                <button type="button" class="btn btn-primary btn-raised" ng-click="ad.saveAll(ad.reservation)">Save All Changes</button>
         </div>
     </div>
 </div>
