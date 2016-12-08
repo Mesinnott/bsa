@@ -102,6 +102,8 @@ angular.module(`app.components.${Component}`, [])
         ad.reservation = ['']
         ad.prop=''
         ad.resource='0'
+        ad.error = false
+
 
         ad.resources=[
             {
@@ -329,7 +331,7 @@ angular.module(`app.components.${Component}`, [])
                 displayName: "Scouts",
                 props:[
                     {
-                        name: "denNum",
+                        name: "packNum",
                         displayName: "Pack Number"
                     },
                     {
@@ -361,7 +363,7 @@ angular.module(`app.components.${Component}`, [])
                 displayName: "Leaders",
                 props:[
                     {
-                        name: "denNum",
+                        name: "packNum",
                         displayName: "Pack Number"
                     },
                     {
@@ -431,6 +433,14 @@ angular.module(`app.components.${Component}`, [])
                     {
                         name:"date",
                         displayName:"Camp Date",
+                    },
+                    {
+                        name:"leader1",
+                        displayName:"Leader 1"
+                    },
+                    {
+                        name:"leader2",
+                        displayName:"Leader 2"
                     },
                     {
                         name:"paidInFull",
@@ -546,14 +556,21 @@ angular.module(`app.components.${Component}`, [])
         }
 
         ad.saveAll = function (list) {
-            for (var i = 0; i < list.length; i++) {
-                var scout = list[i]
-                var id = scout.id
-                console.log("id: " + id)
-                ad.save(id, scout)
-                console.log("updated " + (i + 1))
-            }
+            ad.error="Your Changes Have been saved"
 
+
+
+            // for (var i = 0; i < list.length; i++) {
+            //     var scout = list[i]
+            //     var id = scout.id
+            //     console.log("id: " + id)
+            //     ad.save(id, scout)
+            //     console.log("updated " + (i + 1))
+            // }
+
+        }
+        ad.reset= function(){
+            ad.error=false
         }
         ad.remove = function (id, scout, index) {
             debugger

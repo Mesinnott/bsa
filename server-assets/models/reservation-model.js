@@ -44,6 +44,8 @@ function reservationCreate(reservation, cb) {
             email: reservation.email,
             init: Date.now(),
             pack: reservation.pack || null,
+            leader1:reservation.leader1,
+            leader2:reservation.leader2,
             active: true,
             paidInFull: false
         }
