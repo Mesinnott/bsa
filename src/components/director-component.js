@@ -26,6 +26,16 @@ angular.module(`app.components.${Component}`, [])
             debugger
             $state.go("viewcamp", { campId: id });
         }
+
+        ds.getDirector = function (directorId, cb) {
+            $http({
+                method: 'GET',
+                url: '/api/directors/' + directorId
+            }).then(function (res) {
+                ds.director = res.data;
+                return cb(ds.director);
+            })
+        }
     })
 
     .controller('directorController', function (directorService, $http) {
@@ -35,10 +45,16 @@ angular.module(`app.components.${Component}`, [])
             directorService.goToCamp(campId)
         }
         this.getCamps = function (directorId) {
-            directorService.populateCamps(directorId, function(list) {
+            directorService.populateCamps(directorId, function (list) {
                 dc.campList = list;
             }) // How to pass in directorId?
         }
+        this.getDirector = function(directorId){
+            directorService.getDirector(directorId, function(dirObj){
+                dc.dirObj = dirObj
+            })
+        }
+        this.getDirector("4ad02250-3304-49a2-a2b5-3762432272c3")
         // debugger;
         this.getCamps("4ad02250-3304-49a2-a2b5-3762432272c3"); // Invoking above function // Hard coded
     })
