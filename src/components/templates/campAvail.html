@@ -23,14 +23,20 @@
                             <th>Ages</th>
                             <th>Location</th>
                             <th>Max Size</th>
-                            <th>Availability</th>
+                            <th class="row">
+                                    <span class="col-sm-6 text-left">
+                                        Availability
+                                    </span>
+                                    <span class="col-sm-6 text-right">
+                                        <span class="label label-danger">confirmed</span>
+                                        <span class="label label-warning">pending</span>
+                                        <span class="label label-success">availiable</span>
+                                    </span>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="camp in av.camps">
-                            <!--<script>
-                                camp.getAvailability();
-                            </script>-->
                             <td title="'Camp Number'" filter=" {campNum: 'number'}" sortable: 'campNum'>
                                 {{camp.campNum}}</td>
                             <td title="'Start Date'" filter=" {date: 'number'}" sortable: 'date'>
@@ -43,16 +49,17 @@
                                 {{camp.maxScouts}}</td>
                             <td title="'Availability'" filter=" {Availability: 'number'}" sortable: 'availability'>
                                 <label>{{camp.availability}} Spots Available</label>
-                            <div class="progress">
-                                    <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"  style="width: {{(camp.confirmedReservations/camp.maxScouts)*100}}%;">
-                                        {{camp.confirmedReservations}} confirmed
-                                    </div>
-                                    <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar"  style="width: {{(camp.pendingReservations/camp.maxScouts)*100}}%;">
-                                        {{camp.pendingReservations}} pending
-                                    </div>
-                                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"  style="width: {{(camp.availability/camp.maxScouts)*100}}%;">
-                                        {{camp.availability}} availiable
-                                    </div>
+                                
+                                <div class="progress">
+                                        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"  style="width: {{(camp.confirmedReservations/camp.maxScouts)*100}}%;">
+                                            {{camp.confirmedReservations}}
+                                        </div>
+                                        <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar"  style="width: {{(camp.pendingReservations/camp.maxScouts)*100}}%;">
+                                            {{camp.pendingReservations}}
+                                        </div>
+                                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"  style="width: {{(camp.availability/camp.maxScouts)*100}}%;">
+                                            {{camp.availability}}
+                                        </div>
                                 </div>
                             <div class="text-right">
                                 <a href="/#/register/{{camp.campNum}}" target="_blank">
@@ -62,9 +69,6 @@
                                 </a>
                             </div>
                             </td>
-                            
-                            
-
                         </tr>
                     </tbody>
                 </table>
