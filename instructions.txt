@@ -1,0 +1,17 @@
+REGISTER A PACK:
+
+.From the starting page, click "Register for a camp", which will give you a list of camps for the current year.
+.Choose which camp you wish to register for, by clicking "Register for camp #".
+.This will open the pack registration form in a new browser tab.
+.Fill in the forms for Pack number, Contacts (The person registering a pack must be one of the two Contacts), Registered Adult, and then add your next adult in the "Add Adult" form. 
+    Click the add icon.
+.You will then be able to add Scouts using the "Add Camper" form.
+.The Adults and Campers you add will appear in lists below.
+.Once you have added enough scouts to require another Adult, the "Add Camper" form will be replaced by "Add Adult", and you 
+    will be required to add another Adult before you can continue adding scouts.
+.Create your password using the input field at the bottom. This password can be used by both Contacts to log in and edit the registration. If the second Contact wants to have their 
+    own password, they can change their password on the login page.
+.Once you are done with your registration form, click "Submit Form".
+
+_________________________________________________________________________________________________________________________________
+

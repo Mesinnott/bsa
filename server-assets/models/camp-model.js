@@ -51,9 +51,9 @@ function campCreate(camp, cb) {
         campNum: camp.campNum,
         yearId: camp.yearId,
         location: camp.location,
+        locationName: camp.locationName,
         date: camp.date,                /////May want to redo these ones based on the front end input for 
-        endDate: camp.endDate || null,  /////the cub/webelos camp date selectors.
-        weekdays: camp.weekdays,        /////Use momentJS to determine days of week?
+        endDate: camp.endDate || null,  /////the cub/webelos camp date selectors.     /////Use momentJS to determine days of week?
         userId: camp.userId,
         startTime: camp.startTime,
         endTime: camp.endTime,

@@ -7,8 +7,9 @@
   let router = require('express').Router();
   router.route('/:resourceName/:id?')
     .get(function (req, res, next) {
-      
-      if(req.query && !req.params.id){
+      console.log(req.query)
+      if((!!Object.keys(req.query).length) || !req.params.id){
+        console.log("McCall's special API")
         let resourceName = req.params.resourceName.split('')
         resourceName.pop()
         resourceName = resourceName.join('')

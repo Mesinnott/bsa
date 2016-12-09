@@ -13,225 +13,46 @@
 </div>
 <div class="buffer-section"></div>
 <div ng-controller="RegController as rc" class="container">
-    <div class="row">
-        <div class="col-sm-8 col-sm-offset-3">
+    <div>
+        <fieldset ng-disabled="false">
             <div class="row">
-                <div class="col-sm-12">
-                    <div class="elevated-box">
-                        <form class="form-horizontal">
-                                <label for="">Pack Number</label>
-                                <input ng-model="rc.packNum" class="form-control" type="text" placeholder="Pack Number">
-                                <label for="">Camp Number</label>
-                                <input ng-model="rc.campNum" class="form-control" type="text" ng-value="rc.campNum" placeholder="Camp Number"> 
-                        </form>
+                <div class="col-sm-8 col-sm-offset-3">
+                    <form-camp/>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <form-first-contact/>
+                        </div>
+                        <div class="col-sm-6">
+                            <form-second-contact/>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-6">
-                    <div class="elevated-box">
-                        <form class="form-horizontal">
-                            <div class="contacts">
-                                <legend for="">
-                                    <i class="material-icons">&#xE8A3;</i>
-                                    First Contact
-                                </legend>
-
-                                <label for="">First Name</label>
-                                <input ng-model="rc.firstContact.first" class="form-control" type="text" placeholder="First Name">
-
-                                <label for="">Last Name</label>
-                                <input ng-model="rc.firstContact.last" class="inputs form-control" type="text" placeholder="Last Name">
-
-                                <label for="">Position</label>
-                                <input ng-model="rc.firstContact.position" class="inputs form-control" type="text" placeholder="Position">
-
-                                <label for="">Email</label>
-                                <input ng-model="rc.firstContact.email" class="inputs form-control" type="email" placeholder="Email">
-
-                                <label for="">Phone</label>
-                                <input ng-model="rc.firstContact.phone" class="inputs form-control" type="tel" placeholder="Cell Phone">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="elevated-box">
-                        <form class="form-horizontal contacts">
-                            <legend for="">
-                                <i class="material-icons">&#xE8A3;</i>
-                                First Contact
-                            </legend>
-                            <label for="">First Name</label>
-                            <input ng-model="rc.secondContact.first" class="form-control" type="text" placeholder="First Name">
-                            
-                            <label for="">Last Name</label>
-                            <input ng-model="rc.secondContact.last" class="inputs form-control" type="text" placeholder="Last Name">
-
-                            <label for="">Position</label>
-                            <input ng-model="rc.secondContact.position" class="inputs form-control" type="text" placeholder="Position">
-
-                            <label for="">Email</label>
-                            <input ng-model="rc.secondContact.email" class="inputs form-control" type="email" placeholder="Email">
-
-                            <label for="">Phone</label>
-                            <input ng-model="rc.secondContact.phone" class="inputs form-control" type="tel" placeholder="Cell Phone">
-                        </form>  
-                    </div>
+                <div class="col-sm-8 col-sm-offset-3">
+                    <form-bsa-adult/>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-8 col-sm-offset-3">
-            <div class="elevated-box">
-                <form action="" class="form-horizontal">
-                    <legend>
-                        <!--Account Box-->
-                        <i class="material-icons">&#xE851;</i>
-                        BSA Registered Adult
-                    </legend>
-                    <fieldset>
-                            <label for="">First Name</label>
-                            <input ng-model="rc.regAdult.first" type="text" class="form-control" placeholder="First Name" required>
-
-                            <label>Last Name</label>
-                            <input ng-model="rc.regAdult.last" type="text" class="form-control" placeholder="Last Name" required>
-
-                            <label>Date Registered</label>
-                            <input ng-model="rc.regAdult.date" type="text" class="form-control" placeholder="Date Registered" required>
-
-                            <label>Shirt Size</label>
-                            <select ng-init="rc.regAdult.shirt = 'No Shirt'" ng-model="rc.regAdult.shirt" class="form-control">
-                                    <option selected>No Shirt</option>
-                                    <option>Youth Medium</option>
-                                    <option>Youth Large</option>
-                                    <option>Adult Small</option>
-                                    <option>Adult Medium</option>
-                                    <option>Adult Large</option>
-                                    <option>Adult XL</option>
-                                    <option>Adult 2XL</option>
-                            </select>
-                    </fieldset>
-                </form>
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-3">
+                    <form-adult/>
+                    <form-camper/>
+                </div>
+                <div class="col-sm-8 col-sm-offset-3">
+                    <table-adults/>
+                </div>
+                <!--Campers Table-->
+                <div class="col-sm-8 col-sm-offset-3">
+                    <table-campers/>
+                </div>
+            <div class="buffer-section"></div>
+                <div class="col-sm-1 col-sm-offset-4">
+                    <button ng-click="rc.sendForm()" class="btn btn-lg btn-danger btn-raised" type="submit">Submit Form</button>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-8 col-sm-offset-3">
-            <div class="elevated-box adult" ng-show="rc.adultNeeded || rc.reg.adults.length == 0">
-                <form class="form-horizontal" ng-submit="rc.addAdult(rc.currentAdult)">
-                    <legend>
-                        <!--Account Box-->
-                        <i class="material-icons">&#xE851;</i>
-                        Add Adult
-                    </legend>
-                        <label for="">First Name</label>
-                        <input ng-model="rc.currentAdult.first" type="text" class="form-control" placeholder="First Name" required>
-                        <label for="">Last Name</label>
-                        <input ng-model="rc.currentAdult.last" type="text" class="form-control" placeholder="Last Name" required>
-                        <label for="">Shirt Size</label>
-                        <select ng-init="rc.currentAdult.shirt = 'No Shirt'" ng-model="rc.currentAdult.shirt" class="form-control">
-                            <option>No Shirt</option>
-                            <option>Youth Medium</option>
-                            <option>Youth Large</option>
-                            <option>Adult Small</option>
-                            <option>Adult Medium</option>
-                            <option>Adult Large</option>
-                            <option>Adult XL</option>
-                            <option>Adult 2XL</option>
-                        </select>
-                        <button type="submit" class="btn btn-primary"><i class="material-icons">person_add</i></button>
-                </form>
-            </div>
-        </div>
-        <div class="col-sm-8 col-sm-offset-3">
-            <div class="elevated-box camper" ng-show="!rc.adultNeeded && rc.reg.adults.length == 1">
-                <form class="form-horizontal" ng-submit="rc.addCamper(rc.currentCamper)">
-                    <legend>
-                        <!--Walking Person-->
-                        <i class="material-icons">&#xE536;</i>
-                        Add Camper
-                    </legend>
-                        <label for="">First Name</label>
-                        <input ng-model="rc.currentCamper.first" class="form-control" type="text" placeholder="First Name" required>
-                        <label for="">Last Name</label>
-                        <input ng-model="rc.currentCamper.last" class="form-control" type="text" placeholder="Last Name" required>
-                        <label for="">Shirt Size</label>
-                        <select ng-init="rc.currentCamper.shirt = 'Youth Large'" placeholder="choose shirt" ng-model="rc.currentCamper.shirt" class="form-control" required>
-                                <option>Youth Medium</option>
-                                <option>Youth Large</option>
-                                <option>Adult Small</option>
-                                <option>Adult Medium</option>
-                                <option>Adult Large</option>
-                                <option>Adult XL</option>
-                                <option>Adult 2XL</option>
-                        </select>
-                            <div class="checkbox">
-                                <label>
-                                    Health Form
-                                    <input type="checkbox">
-                                </label>
-                            </div>
-                        <button href="javascript:void(0)" type="submit" class="btn btn-primary"><i class="material-icons">person_add</i></button>
-                </form>
-            </div>
-        </div>
-        <div class="col-sm-8 col-sm-offset-3">
-            <div class="elevated-box" ng-show="rc.reg.adults.length">
-                <legend>Adults</legend>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Position</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Shirt Size</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="person in rc.reg.adults" class="animation-grow-in">
-                            <td>Adult</td>
-                            <td>{{ person.first }}</td>
-                            <td>{{ person.last }}</td>
-                            <td>{{ person.shirt }}</td>
-                            <td><button class="btn btn-default" ng-click="rc.removeAdult($index)"><i class="material-icons">delete_forever</i></button></td>
-                        </tr>
-                    
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="col-sm-8 col-sm-offset-3">
-            <div class="elevated-box" ng-show="rc.reg.campers.length">
-                <legend>Campers</legend>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Position</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Shirt Size</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="person in rc.reg.campers" class="animation-grow-in">
-                            <td>Scout</td>
-                            <td>{{ person.first }}</td>
-                            <td>{{ person.last }}</td>
-                            <td>{{ person.shirt }}</td>
-                            <td><button class="btn btn-default btn-fab" ng-click="rc.removeCamper($index)"><i class="material-icons">delete_forever</i></button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    <div class="buffer-section"></div>
-        <div class="col-sm-1 col-sm-offset-4">
-            <button ng-click="rc.sendForm()" class="btn btn-lg btn-danger btn-raised">Submit Form</button>
-        </div>
+        </fieldset>
     </div>
     <div class="buffer-section"></div>
+    <table-adults/>
+    <table-campers/>
 </div>

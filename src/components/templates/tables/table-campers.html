@@ -1,0 +1,23 @@
+                    <div class="elevated-box" ng-show="rc.reg.campers.length">
+                        <legend>Campers</legend>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Position</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Shirt Size</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="person in rc.reg.campers" class="animation-grow-in">
+                                    <td>Scout</td>
+                                    <td>{{ person.first }}</td>
+                                    <td>{{ person.last }}</td>
+                                    <td>{{ person.shirt }}</td>
+                                    <td><button class="btn btn-default btn-fab" ng-click="rc.removeCamper($index)"><i class="material-icons">delete_forever</i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
