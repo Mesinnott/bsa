@@ -19,7 +19,7 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                 })
                 .state({
                     name:'director',
-                    url:'/director/:directorId',
+                    url:'/director/:userId',
                     template:'<director></director>'
                 })
                 .state({
@@ -67,10 +67,14 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                     template:'<admin></admin>'
                 })
             $urlRouterProvider.otherwise('/'); // we may want to change this
+            // $locationProvider.hashPrefix('!');
         })
 
 App.component('app', {
-  template: `<ui-view></ui-view>`,
+  template: `
+      <navbar></navbar>
+
+    <ui-view></ui-view>`,
   controller() { 
     // $.material.init()
   }

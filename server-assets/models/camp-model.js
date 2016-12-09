@@ -21,9 +21,9 @@ let Camp = DS.defineResource({
             }
         },
         hasOne: {
-            director: {
-                localField: 'director',
-                localKey: 'directorId'
+            user: {
+                localField: 'user',
+                localKey: 'userId'
             }
         },
         hasMany: {
@@ -51,10 +51,10 @@ function campCreate(camp, cb) {
         campNum: camp.campNum,
         yearId: camp.yearId,
         location: camp.location,
+        locationName: camp.locationName,
         date: camp.date,                /////May want to redo these ones based on the front end input for 
-        endDate: camp.endDate || null,  /////the cub/webelos camp date selectors.
-        weekdays: camp.weekdays,        /////Use momentJS to determine days of week?
-        directorId: camp.directorId,
+        endDate: camp.endDate || null,  /////the cub/webelos camp date selectors.     /////Use momentJS to determine days of week?
+        userId: camp.userId,
         startTime: camp.startTime,
         endTime: camp.endTime,
         scoutLevels: camp.scoutLevels,
@@ -73,7 +73,7 @@ function campGetByAnyId(queryId, query, cb) {
             'yearId': {
                 '|===': queryId
             },
-            'directorId': {
+            'userId': {
                 '|===': queryId
             }
         }

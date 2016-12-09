@@ -95,7 +95,7 @@ function LoginController(loginService, $state, $http) {
                         $state.go("admin")
                     } else if (lc.user.director == true) {
                         lc.clearance = 'director'
-                        $state.go("director", { id: user.uid })
+                        $state.go("director", { userId: user.uid })
                     } else if (lc.user.reservation == true) {
                         lc.clearance = 'reservation'
                         // $state.go("admin", { id: user.uid })

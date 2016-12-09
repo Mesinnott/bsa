@@ -90,34 +90,39 @@ function GroupController(groupService, $http, $state, groupBuilder) {
     }
     gc.packColorSort = function (scoutList) {
         scoutList = scoutList.sort(function (a, b) {
-            if (a.packNum == b.packNum) {
-                if (a.color == b.color) {
-                    return gc.lastNameSort(a, b);
-                }
-                return gc.colorSort(a, b);
-            }
+            // if (a.packNum == b.packNum) {
+            //     if (a.color == b.color) {
+            //         return gc.lastNameSort(a, b);
+            //     }
+            //     return gc.colorSort(a, b);
+            // }
             return gc.packSort(a, b);
-        });
+        }, 0);
     }
     gc.colorPackSort = function (scoutList) {
         scoutList = scoutList.sort(function (a, b) {
-            if (a.color == b.color) {
-                if (a.packNum == b.packNum) {
-                    return gc.lastNameSort(a, b);
-                }
-                return gc.packSort(a, b);
-            }
+            // if (a.color == b.color) {
+            //     if (a.packNum == b.packNum) {
+            //         return gc.lastNameSort(a, b);
+            //     }
+            //     return gc.packSort(a, b);
+            // }
             return gc.colorSort(a, b);
-        });
+        }, 0);
+    }
+    gc.nameSort = function (scoutList) {
+        scoutList = scoutList.sort(function(a, b) {
+            return gc.lastNameSort(a, b);
+        })
     }
 
 
     gc.lastNameSort = function (a, b) {
-        var nameA = a.name.split(' ');
-        var nameB = b.name.split(' ');
-        return nameA[nameA.length - 1] - nameB[nameB.length - 1];
+        // var nameA = a.name.split(' ');
+        // var nameB = b.name.split(' ');
+        return a.name - b.name;
     }
-    gc.packSort = function (scoutList) {
+    gc.packSort = function (a, b) {
         return a.packNum - b.packNum;
     }
     gc.colorSort = function (a, b) {
