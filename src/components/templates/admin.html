@@ -8,7 +8,7 @@
                 </select>
             <label> By their...</label>
             <select class="form-control" ng-model="ad.prop">
-                <option ng-if="ad.resources[ad.resource].name == 'directors' || ad.resources[ad.resource].name == 'packs'" value=''>All</option>
+                <option ng-if="ad.resources[ad.resource].name == 'directors' || ad.resources[ad.resource].name == 'packs' || ad.resources[ad.resource].name == 'users'" value=''>All</option>
                 
                 <option ng-repeat="prop in ad.resources[ad.resource].props" value="{{prop.name}}">{{prop.displayName}}</option>
                 <!--<option value="id">Id</option>
@@ -51,15 +51,22 @@
                 <td ng-repeat="prop in ad.tableProps[ad.resource].props" ng-switch on="prop.name">
                     <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.healthForm"
                         ng-switch-when="healthForm" />
-                    <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.paid" ng-switch-when="paid" />
+                    <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.paid"
+                        ng-switch-when="paid" />
+                        <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.paidInFull"
+                        ng-switch-when="paidInFull" />
                     <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.super"
                         ng-switch-when="super" />
                     <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.admin"
                         ng-switch-when="admin" />
-                    <input type="checkbox" ng-change="ad.save(scout.id, scout,ad.resources[ad.resource].name)" class="form-control" ng-model="scout.director"
+                    <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.director"
                         ng-switch-when="director" />
                     <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.reservation"
                         ng-switch-when="reservation" />
+                    <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.goldCard"
+                        ng-switch-when="goldCard" />
+                        <input type="text" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.receiptNum" ng-switch-when="receiptNum" />
+                        <input type="text" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.paymentDate" ng-switch-when="paymnetDate" />
                     <span ng-switch-default>{{scout[prop.name]}}</span>
 
                 </td>

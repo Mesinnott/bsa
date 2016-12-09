@@ -33,9 +33,9 @@ function userGetById(id, query, cb) {
     User.find(id, formatQuery(query)).then(cb).catch(cb)
 }
 
-function editUser(rewrite, cb) {
-    User.find(rewrite.id).then(function (user) {
-        User.update(user.id, rewrite).then(cb).catch(cb)
+function editUser(id, rewrite, cb) {  
+    User.find(id).then(function (user) {
+        User.update(id, rewrite).then(cb).catch(cb)
     }).catch(cb)
 }
 

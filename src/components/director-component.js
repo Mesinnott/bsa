@@ -8,10 +8,10 @@ angular.module(`app.components.${Component}`, [])
     .service('directorService', function ($http, $state) {
         var ds = this;
         debugger;
-        ds.populateCamps = function (directorId, cb) { // Need to pass in their own id. How?
+        ds.populateCamps = function (userId, cb) { // Need to pass in their own id. How?
             $http({
                 method: 'GET',
-                url: '/api/camps/' + directorId
+                url: '/api/camps/' + userId
             }).then(function (res) {
                 // debugger;
                 ds.campList = res.data;
@@ -27,10 +27,10 @@ angular.module(`app.components.${Component}`, [])
             $state.go("viewcamp", { campId: id });
         }
 
-        ds.getDirector = function (directorId, cb) {
+        ds.getDirector = function (userId, cb) {
             $http({
                 method: 'GET',
-                url: '/api/directors/' + directorId
+                url: '/api/users/' + userId
             }).then(function (res) {
                 ds.director = res.data;
                 return cb(ds.director);
@@ -41,24 +41,26 @@ angular.module(`app.components.${Component}`, [])
     .controller('directorController', function (directorService, $http, $state) {
         let $ctrl = this;
         var dc = this;
-        dc.directNum = $state.params.directorId || '';
+        dc.directNum = $state.params.userId || '';
         
         this.goToCamp = function (campId) {
             directorService.goToCamp(campId)
         }
-        this.getCamps = function (directorId) {
-            directorService.populateCamps(directorId, function (list) {
-                dc.campList = list;
-            }) // How to pass in directorId?
-        }
-        this.getDirector = function(directorId){
-            directorService.getDirector(directorId, function(dirObj){
+
+        this.getDirector = function(userId){
+            directorService.getDirector(userId, function(dirObj){
                 dc.dirObj = dirObj
             })
         }
         this.getDirector(dc.directNum)
-        // debugger;
-        this.getCamps(dc.directNum); // Invoking above function // Hard coded
+        
+        this.getCamps = function (userId) {
+            directorService.populateCamps(userId, function (list) {
+                dc.campList = list;
+                console.log(dc.campList)
+            })
+        }
+        this.getCamps(dc.directNum);
     })
 
     .component('director', {
