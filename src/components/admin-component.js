@@ -182,8 +182,12 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Shirt Size"
                     },
                     {
-                        name: "reservationId",
-                        displayName: "Reservation Id"
+                        name: "reservationNum",
+                        displayName: "Reservation Number"
+                    },
+                    {
+                        name:"paidInFull",
+                        displayName: "Paid In Full"
                     },
                     {
                         name: "name",
@@ -285,7 +289,8 @@ angular.module(`app.components.${Component}`, [])
             super:`<input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.super">`,
             admin:`<input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.admin">`,
             director:`<input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.director">`,
-            leader:`<input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.leader">`
+            leader:`<input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.leader">`,
+            goldCard:`<input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.goldCard">`
         }
         ad.tableProps=[
             {
@@ -307,6 +312,10 @@ angular.module(`app.components.${Component}`, [])
                     {
                         name: "location",
                         displayName: "Location"
+                    },
+                    {
+                        name:"locationName",
+                        displayName:"Location Name"
                     },
                     {
                         name:"date",
@@ -372,12 +381,10 @@ angular.module(`app.components.${Component}`, [])
                     {
                         name: "healthForm",
                         displayName: "Health Form",
-                        template: templates.healthForm
                     },
                     {
                         name: "paid",
                         displayName:"Paid",
-                        template: templates.paid
                     }
                 ]
             },
@@ -400,6 +407,10 @@ angular.module(`app.components.${Component}`, [])
                     {
                         name: "name",
                         displayName: "Name"
+                    },
+                    {
+                        name: "phone",
+                        displayName: "Phone Number"
                     },
                     {
                         name: "healthForm",
@@ -470,32 +481,36 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Camp Number"
                     },
                     {
-                        name: "denNum",
+                        name: "packNum",
                         displayName: "Pack Number"
                     },
                     {
-                        name: "email",
-                        displayName: "Email Address"
-                    },
-                    {
-                        name: "id",
-                        displayName: "Reservation ID"
+                        name: "reservationNum",
+                        displayName: "Reservation Number"
                     },
                     {
                         name:"location",
                         displayName:"Camp Location"
                     },
                     {
+                        name: "locationName",
+                        displayName: "Location Name"
+                    },
+                    {
                         name:"date",
                         displayName:"Camp Date",
                     },
                     {
-                        name:"leader1",
-                        displayName:"Leader 1"
+                        name:  "goldCard",
+                        displayName:"Gold Card"
                     },
                     {
-                        name:"leader2",
-                        displayName:"Leader 2"
+                        name: "paidToDate",
+                        displayName: "Paid To Date"
+                    },
+                    {
+                        name: "balance",
+                        displayName: "Outstanding Balance"
                     },
                     {
                         name:"paidInFull",
@@ -504,6 +519,14 @@ angular.module(`app.components.${Component}`, [])
                     {
                         name:"active",
                         displayName:"Active"
+                    },
+                    {
+                        name:"paymentDate",
+                        displayName:"Date Paid"
+                    },
+                    {
+                        name:  "receiptNum",
+                        displayName: "Receipt Number"
                     }
                 ]
             },

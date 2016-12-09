@@ -28,6 +28,7 @@ function leaderCreate(leader, cb) {
             reservationId: reservation.id,
             campId: reservation.campId,
             yearId: reservation.yearId,
+            phone: leader.phone,
             healthForm: false,
             paid: false,
             shirtSize: leader.shirtSize || null
