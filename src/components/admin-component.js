@@ -652,6 +652,9 @@ angular.module(`app.components.${Component}`, [])
         }
         ad.remove = function (id, scout, index) {
             debugger
+            if(!window.confirm("Are you sure?")){
+                return
+            }
             var reserve = scout.reservationId
             console.log(reserve)
             var scout = {
