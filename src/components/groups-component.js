@@ -77,7 +77,7 @@ function GroupController(groupService, $http, $state, groupBuilder) {
         scoutList.forEach(function (scout) {
             groupService.updateGroup(scout.id, cb);
         });
-        gc.colorPackSort(scoutList);
+        gc.colorPackSort(gc.scoutList);
     }
 
     gc.initialSort = function (scoutList) {
@@ -90,25 +90,25 @@ function GroupController(groupService, $http, $state, groupBuilder) {
     }
     gc.packColorSort = function (scoutList) {
         scoutList = scoutList.sort(function (a, b) {
-            // if (a.packNum == b.packNum) {
-            //     if (a.color == b.color) {
-            //         return gc.lastNameSort(a, b);
-            //     }
-            //     return gc.colorSort(a, b);
-            // }
+            if (a.packNum == b.packNum) {
+                if (a.color == b.color) {
+                    return gc.lastNameSort(a, b);
+                }
+                return gc.colorSort(a, b);
+            }
             return gc.packSort(a, b);
-        }, 0);
+        });
     }
     gc.colorPackSort = function (scoutList) {
         scoutList = scoutList.sort(function (a, b) {
-            // if (a.color == b.color) {
-            //     if (a.packNum == b.packNum) {
-            //         return gc.lastNameSort(a, b);
-            //     }
-            //     return gc.packSort(a, b);
-            // }
+            if (a.color == b.color) {
+                if (a.packNum == b.packNum) {
+                    return gc.lastNameSort(a, b);
+                }
+                return gc.packSort(a, b);
+            }
             return gc.colorSort(a, b);
-        }, 0);
+        });
     }
     gc.nameSort = function (scoutList) {
         scoutList = scoutList.sort(function(a, b) {
@@ -118,9 +118,9 @@ function GroupController(groupService, $http, $state, groupBuilder) {
 
 
     gc.lastNameSort = function (a, b) {
-        // var nameA = a.name.split(' ');
-        // var nameB = b.name.split(' ');
-        return a.name - b.name;
+        var nameA = a.name.split(' ');
+        var nameB = b.name.split(' ');
+        return nameA[nameA.length - 1] - nameB[nameB.length - 1];
     }
     gc.packSort = function (a, b) {
         return a.packNum - b.packNum;
