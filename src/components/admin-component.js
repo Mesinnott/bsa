@@ -152,7 +152,7 @@ angular.module(`app.components.${Component}`, [])
                 displayName: "Scouts",
                 props:[
                     {
-                        name: "denNum",
+                        name: "packNum",
                         displayName: "Pack Number"
                     },
                     {
@@ -174,7 +174,30 @@ angular.module(`app.components.${Component}`, [])
                 displayName: "Leaders",
                 props:[
                     {
-                        name: "denNum",
+                        name: "packNum",
+                        displayName: "Pack Number"
+                    },
+                    {
+                        name: "shirtSize",
+                        displayName: "Shirt Size"
+                    },
+                    {
+                        name: "reservationId",
+                        displayName: "Reservation Id"
+                    },
+                    {
+                        name: "name",
+                        displayName: "Name"
+                    }
+                ]
+
+            },
+             {
+                name:"chiefs",
+                displayName: "Chiefs",
+                props:[
+                    {
+                        name: "packNum",
                         displayName: "Pack Number"
                     },
                     {
@@ -361,6 +384,38 @@ angular.module(`app.components.${Component}`, [])
             {
                 name:"leaders",
                 displayName: "Leaders",
+                props:[
+                    {
+                        name: "packNum",
+                        displayName: "Pack Number"
+                    },
+                    {
+                        name: "shirtSize",
+                        displayName: "Shirt Size"
+                    },
+                    {
+                        name: "reservationId",
+                        displayName: "Reservation Id"
+                    },
+                    {
+                        name: "name",
+                        displayName: "Name"
+                    },
+                    {
+                        name: "healthForm",
+                        displayName: "Health Form",
+                        template: templates.healthForm
+                    },
+                    {
+                        name: "paid",
+                        displayName:"Paid",
+                        template: templates.paid
+                    }
+                ]
+
+            },{
+                name:"chiefs",
+                displayName: "Chiefs",
                 props:[
                     {
                         name: "packNum",

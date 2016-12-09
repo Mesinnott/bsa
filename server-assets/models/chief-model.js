@@ -4,9 +4,9 @@ let uuid = dataAdapter.uuid,
     DS = dataAdapter.DS,
     formatQuery = dataAdapter.formatQuery;
 
-let Leader = DS.defineResource({
-    name: 'leader',
-    endpoint: 'api/leaders',
+let Chief = DS.defineResource({
+    name: 'chief',
+    endpoint: 'api/chiefs',
     relations: {
         belongsTo: {
             reservation: {
@@ -17,12 +17,12 @@ let Leader = DS.defineResource({
     }
 })
 
-function leaderCreate(leader, cb) {
+function chiefCreate(chief, cb) {
     console.log("function firing");
-    DS.find('reservation', leader.reservationId).then(function (reservation) {
-        let leaderObj = {
+    DS.find('reservation', chief.reservationId).then(function (reservation) {
+        let chiefObj = {
             id: uuid.v4(),
-            name: leader.name,
+            name: chief.name,
             packNum: reservation.packNum,
             packId: reservation.packId,
             reservationId: reservation.id,
@@ -30,23 +30,23 @@ function leaderCreate(leader, cb) {
             yearId: reservation.yearId,
             healthForm: false,
             paid: false,
-            shirtSize: leader.shirtSize || null
+            shirtSize: chief.shirtSize || null
         };
 
-        Leader.create(leaderObj).then(cb).catch(cb)
+        Chief.create(chiefObj).then(cb).catch(cb)
     }).catch(cb)
 
-    // let error = schemator.validateSync('Leader', leader)
+    // let error = schemator.validateSync('Chief', chief)
     // if (error){
     //     error.stack = true
     //     return cb(error);
     // }
 }
 
-function leaderGetByAnyId(queryId, query, cb) {
+function chiefGetByAnyId(queryId, query, cb) {
     console.log(query)
     console.log("QUERY")
-    Leader.findAll({
+    Chief.findAll({
         where: {
             'id': {
                 '|===': queryId
@@ -63,14 +63,14 @@ function leaderGetByAnyId(queryId, query, cb) {
 
 
 
-function editLeader(rewrite, cb) {
-    Leader.find(rewrite.id).then(function (leader) {
-        Leader.update(leader.id, rewrite).then(cb).catch(cb)
+function editChief(rewrite, cb) {
+    Chief.find(rewrite.id).then(function (chief) {
+        Chief.update(chief.id, rewrite).then(cb).catch(cb)
     }).catch(cb)
 }
 
 module.exports={
-    leaderCreate,
-    leaderGetByAnyId,
-    editLeader,
+    chiefCreate,
+    chiefGetByAnyId,
+    editChief,
 }
