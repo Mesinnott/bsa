@@ -3,7 +3,10 @@ import uiRouter from "angular-ui-router"
 import {dependencies} from './components/components'
 import styles from 'bootstrap-material-design'
 
-let App = angular.module('bsa', [...dependencies, uiRouter])
+let App = angular.module('bsa', [
+    ...dependencies, 
+    uiRouter,
+    ])
 App.config(function ($urlRouterProvider, $stateProvider) {
             
             $stateProvider
@@ -72,9 +75,13 @@ App.config(function ($urlRouterProvider, $stateProvider) {
 
 App.component('app', {
   template: `
-      <navbar></navbar>
 
-    <ui-view></ui-view>`,
+      <navbar/>
+      <div class="container-fluid">
+        <ui-view/>
+      </div>
+      
+      `,
   controller() { 
     // $.material.init()
   }

@@ -2,6 +2,7 @@ import template from './templates/reg.html'
 import './stylesheets/reg.scss'
 import {
     campForm,
+    actionBar,
     adultForm,
     camperForm,
     bsaAdultForm,
@@ -46,14 +47,19 @@ angular.module(`app.components.${Component}`, [])
             template: secondContactForm,
         }
     })
+    .directive("tableCampers", function(){
+        return {
+            template: campersTable,
+        }
+    })
     .directive("tableAdults", function(){
         return {
             template: adultsTable,
         }
     })
-    .directive("tableCampers", function(){
-        return {
-            template: campersTable,
+    .directive("barAction", function(){
+        return{
+            template:actionBar
         }
     })
   .component(Component,{ 
@@ -76,6 +82,17 @@ angular.module(`app.components.${Component}`, [])
         campNum: 0,
         packNum: 0
     }
+    rc.resources = [
+        {
+            name:"adult",
+            displayName:"Adult"
+        },
+        {
+            name:"denChief",
+            displayName:"Den Chief"
+        }
+    ]
+    rc.selectedResource = ''
 
     function Adult(first, last, shirt){
         this.first = first;

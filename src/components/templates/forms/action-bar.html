@@ -1,0 +1,17 @@
+<div 
+    class="elevated-box form-horizontal select-container"
+    >
+            <label for="resourceSelect">
+                Add New
+            </label>
+            <i class="material-icons">&#xE313;</i>
+            
+            <select 
+            name="" 
+            id="resourceSelect" 
+            class="form-control" 
+            ng-model="rc.selectedResource"
+            ng-options="resource.displayName for resource in rc.resources"
+            >
+            </select>
+</div>

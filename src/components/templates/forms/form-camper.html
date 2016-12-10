@@ -1,4 +1,4 @@
-                    <div class="elevated-box camper" ng-show="!rc.adultNeeded && rc.reg.adults.length == 1">
+                    <div class="elevated-box camper" ng-show="true || !rc.adultNeeded && rc.reg.adults.length == 1">
                         <ng-form class="form-horizontal" ng-submit="rc.addCamper(rc.currentCamper)">
                             <legend>
                                 <!--Walking Person-->
@@ -24,7 +24,14 @@
                                             Health Form
                                         </label>
                                         <div class="">
-                                            <i class="material-icons" style="cursor:pointer;" ng-click="rc.healthBoxChecked = !rc.healthBoxChecked">{{rc.healthBoxChecked? 'check_box' : 'check_box_outline_blank'}}</i>
+                                            <i 
+                                            class="material-icons" 
+                                            style="cursor:pointer;" 
+                                            ng-click="rc.healthBoxChecked = !rc.healthBoxChecked">
+                                                {{rc.healthBoxChecked? 'check_box' : 'check_box_outline_blank'}}
+                                            </i>
+                                            </br>
+                                            <small>I acknowledge that this camper has a BSA health form</small>
                                         </div>
                                 </div>
 
