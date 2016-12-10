@@ -103,6 +103,11 @@ angular.module(`app.components.${Component}`, [])
         ad.prop=''
         ad.resource='0'
         ad.error = false
+        ad.viewState = {
+            table:{
+                editMode:false
+            }
+        }
 
 
         ad.resources=[
@@ -608,7 +613,7 @@ angular.module(`app.components.${Component}`, [])
         }
 
         ad.reservations = function (value) {
-            debugger
+            // debugger
             console.log('its working...')
             abService.getByAnyProp(ad.setResource(ad.resource), ad.prop, value, function (res) {
                 ad.reservation = res
@@ -651,7 +656,7 @@ angular.module(`app.components.${Component}`, [])
             ad.error=false
         }
         ad.remove = function (id, scout, index) {
-            debugger
+            // debugger
             if(!window.confirm("Are you sure?")){
                 return
             }
