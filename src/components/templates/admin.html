@@ -8,7 +8,7 @@
                 </select>
             <label> By their...</label>
             <select class="form-control" ng-model="ad.prop">
-                <option ng-if="ad.resources[ad.resource].name == 'directors' || ad.resources[ad.resource].name == 'packs' || ad.resources[ad.resource].name == 'users'" value=''>All</option>
+                <option ng-if="ad.resources[ad.resource].name == 'directors' || ad.resources[ad.resource].name == 'packs' || ad.resources[ad.resource].name == 'users' || ad.resources[ad.resource].name == 'districts'" value=''>All</option>
                 
                 <option ng-repeat="prop in ad.resources[ad.resource].props" value="{{prop.name}}">{{prop.displayName}}</option>
                 <!--<option value="id">Id</option>
@@ -53,7 +53,7 @@
                         ng-switch-when="healthForm" />
                     <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.paid"
                         ng-switch-when="paid" />
-                        <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.paidInFull"
+                    <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.paidInFull"
                         ng-switch-when="paidInFull" />
                     <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.super"
                         ng-switch-when="super" />
@@ -65,14 +65,17 @@
                         ng-switch-when="reservation" />
                     <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.goldCard"
                         ng-switch-when="goldCard" />
-                        <input type="text" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.receiptNum" ng-switch-when="receiptNum" />
-                        <input type="text" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.paymentDate" ng-switch-when="paymnetDate" />
-                    <span ng-switch-default>{{scout[prop.name]}}</span>
+                    <input type="text" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.receiptNum"
+                        ng-switch-when="receiptNum" />
+                    <input type="text" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.paymentDate"
+                        ng-switch-when="paymnetDate" />
+                    <input type="text" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout[prop.name]"
+                        ng-switch-default />
+                    <!--<span ng-switch-default>{{scout[prop.name]}}</span>-->
 
                 </td>
-
-                <td title="'Remove'">
-                    <button type="button" class="btn btn-danger btn-raised" ng-click="ad.remove(scout.id, scout, $index)"> <i class="material-icons">&#xE92B;</i></button>
+                <td ng-if="resource == 'scouts'" title="'Remove'">
+                    <button type="button" class="btn btn-danger" ng-click="ad.remove(scout.id, scout, $index)"> <i class="material-icons">&#xE92B;</i></button>
                 </td>
 
             </tr>

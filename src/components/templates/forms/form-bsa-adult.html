@@ -12,20 +12,27 @@
                                     <label>Last Name</label>
                                     <input ng-model="rc.regAdult.last" type="text" class="form-control" placeholder="Last Name" required>
 
-                                    <label>Date Registered</label>
+                                    <label>YPT Completion Date</label>
                                     <input ng-model="rc.regAdult.date" type="text" class="form-control" placeholder="Date Registered" required>
 
                                     <label>Shirt Size</label>
-                                    <select ng-init="rc.regAdult.shirt = 'No Shirt'" ng-model="rc.regAdult.shirt" class="form-control">
-                                            <option selected>No Shirt</option>
-                                            <option>Youth Medium</option>
-                                            <option>Youth Large</option>
-                                            <option>Adult Small</option>
-                                            <option>Adult Medium</option>
-                                            <option>Adult Large</option>
-                                            <option>Adult XL</option>
-                                            <option>Adult 2XL</option>
-                                    </select>
+                                            <i class="material-icons">&#xE313;</i>
+                                            <select ng-init="rc.regAdult.shirt = 'None Selected'" ng-model="rc.regAdult.shirt" class="form-control">
+                                                    <option>None Selected</option>
+                                                    <option>Youth Medium -- $10</option>
+                                                    <option>Youth Large -- $10</option>
+                                                    <option>Adult Small -- $10</option>
+                                                    <option>Adult Medium -- $10</option>
+                                                    <option>Adult Large -- $10</option>
+                                                    <option>Adult XL -- $10</option>
+                                                    <option>Adult 2XL -- $12</option>
+                                                    <option>Adult 3XL -- $12</option>
+                                                    <option>Adult 4XL -- $12</option>
+                                                    <option>Adult 5XL -- $12</option>
+
+                                            </select>
+
+                                    </div>
                             </fieldset>
                         </ng-form>
                     </div>
