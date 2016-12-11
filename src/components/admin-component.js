@@ -96,7 +96,7 @@ angular.module(`app.components.${Component}`, [])
     //     }
 
 
-    .controller('adController', function (abService, $http) {
+    .controller('adController', function (abService, $http, $state) {
         let ad = this;
         ad.test = 'testing 123'
         ad.reservation = ['']
@@ -614,9 +614,10 @@ angular.module(`app.components.${Component}`, [])
 
         ad.reservations = function (value) {
             // debugger
+
             console.log('its working...')
             abService.getByAnyProp(ad.setResource(ad.resource), ad.prop, value, function (res) {
-                ad.reservation = res
+                ad.reservation = res;
             })
 
             // abService.reservationGetById(value, function (reserv) {

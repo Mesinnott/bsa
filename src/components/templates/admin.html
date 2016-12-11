@@ -55,7 +55,7 @@
         <tbody>
             <tr ng-repeat="scout in ad.reservation">
                 <td ng-repeat="prop in ad.tableProps[ad.resource].props" ng-switch on="prop.name">
-                    <div ng-if="ad.viewState.table.editMode">
+                    <div ng-if="!ad.viewState.table.editMode">
                         <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.healthForm"
                             ng-switch-when="healthForm" />
                         <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.paid"
@@ -79,7 +79,7 @@
                         <input type="text" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout[prop.name]"
                             ng-switch-default />
                     </div>
-                    <div ng-if="!ad.viewState.table.editMode" ng-switch on="prop.name">
+                    <div ng-if="ad.viewState.table.editMode" ng-switch on="prop.name">
                         <span>
                         {{ !!scout[prop.name]!==scout[prop.name]? scout[prop.name] : scout[prop.name]? "Yes" : "No"}}
                         </span>
