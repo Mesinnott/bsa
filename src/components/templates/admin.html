@@ -2,25 +2,30 @@
     <form ng-submit="ad.reservations(ad.reservationNum)">
         <div class="form-group">
 
-            <Label> I want to find ... (Scouts, Camps, etc.) </label>
-            <select class="form-control" ng-model="ad.resource">
-                <option ng-repeat="resource in ad.resources" value=" {{$index}} ">{{resource.displayName}} </option>
+            <label> I want to find ... (Scouts, Camps, etc.) </label>
+            <div class="select-container">
+                <i class="material-icons">&#xE313;</i>
+                <select class="form-control" ng-model="ad.resource">
+                    <option ng-repeat="resource in ad.resources" value=" {{$index}} ">{{resource.displayName}} </option>
                 </select>
+            </div>
             <label> By their...</label>
-            <select class="form-control" ng-model="ad.prop">
-                <option 
-                ng-if="ad.resources[ad.resource].name == 'directors' || ad.resources[ad.resource].name == 'packs' || ad.resources[ad.resource].name == 'users' || ad.resources[ad.resource].name == 'districts'" 
-                value=''
-                >
-                All
-                </option>
-                
-                <option ng-repeat="prop in ad.resources[ad.resource].props" value="{{prop.name}}">{{prop.displayName}}</option>
-                <!--<option value="id">Id</option>
-                <option value="reservationId">Reservation Id</option>-->
-                
-                </select>
-
+            <div class="select-container">
+                <i class="material-icons">&#xE313;</i>
+                    <select class="form-control" ng-model="ad.prop">
+                        <option 
+                        ng-if="ad.resources[ad.resource].name == 'directors' || ad.resources[ad.resource].name == 'packs' || ad.resources[ad.resource].name == 'users' || ad.resources[ad.resource].name == 'districts'" 
+                        value=''
+                        >
+                        All
+                        </option>
+                        
+                        <option ng-repeat="prop in ad.resources[ad.resource].props" value="{{prop.name}}">{{prop.displayName}}</option>
+                        <!--<option value="id">Id</option>
+                        <option value="reservationId">Reservation Id</option>-->
+                        
+                        </select>
+            </div>
             <label for="reservation">With the value of...</label>
             <input type="" class="form-control" id="reservation" placeholder="123, test@email.com, Johnny Q. Scout, etc." ng-model="ad.reservationNum">
 
@@ -30,16 +35,13 @@
     </form>
 </div>
 
-
-
-<!--<div class="row">
-    <div class="col-sm-8 col-sm-offset-2" ng-controller="adController as ad">
-        <div class="elevated-box">
-            <select name="" id="">
-                <option value="" ng-repeat="year in ad.years">{{year.year}}</option>
-            </select>
-        </div>-->
-
+<div class="elevated-box">   
+    <div class="progress">
+            <div class="progress-bar progress-bar-success progress-bar-striped" ng-class="ad.loading==0 || ad.loading==100? 'active' : ''" role="progressbar" ng-style="{width:ad.loading+'%'}">
+                {{ad.loadingDisplay + '%'}}
+            </div>
+    </div>
+</div>
 <div class="elevated-box">
     <div class="alert alert-success alert-dismissable" ng-if="!!ad.error">
         <button type="button" class="close" data-dismiss="alert" ng-click="ad.reset()">x</button>
@@ -49,13 +51,23 @@
         <legend>{{ad.tableProps[ad.resource].displayName}}</legend>
         <thead>
             <tr>
-                <th ng-repeat="prop in ad.tableProps[ad.resource].props">{{prop.displayName}}</th>
+                <div class="col-xs-6">
+                    <th ng-repeat="prop in ad.tableProps[ad.resource].props">{{prop.displayName}}</th>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <button class="btn btn-primary btn-raised" ng-disabled="ad.viewState.table.editMode" ng-click="ad.viewState.table.editMode=!ad.viewState.table.editMode">
+                        Edit
+                    </button>
+                    <button class="btn btn-primary btn-raised" ng-disabled="!ad.viewState.table.editMode" ng-click="ad.viewState.table.editMode=!ad.viewState.table.editMode">
+                        View
+                    </button>
+                </div>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="scout in ad.reservation">
                 <td ng-repeat="prop in ad.tableProps[ad.resource].props" ng-switch on="prop.name">
-                    <div ng-if="ad.viewState.table.editMode">
+                    <div ng-show="ad.viewState.table.editMode">
                         <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.healthForm"
                             ng-switch-when="healthForm" />
                         <input type="checkbox" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout.paid"
@@ -79,7 +91,7 @@
                         <input type="text" ng-change="ad.save(scout.id, scout, ad.resources[ad.resource].name)" class="form-control" ng-model="scout[prop.name]"
                             ng-switch-default />
                     </div>
-                    <div ng-if="!ad.viewState.table.editMode" ng-switch on="prop.name">
+                    <div ng-show="!ad.viewState.table.editMode" ng-switch on="prop.name">
                         <span>
                         {{ !!scout[prop.name]!==scout[prop.name]? scout[prop.name] : scout[prop.name]? "Yes" : "No"}}
                         </span>
@@ -87,7 +99,7 @@
                     <!--<span ng-switch-default>{{scout[prop.name]}}</span>-->
 
                 </td>
-                <td ng-if="ad.resource == 'scouts'" title="'Remove'">
+                <td ng-if="ad.resources[ad.resource].name == 'scouts'" title="'Remove'">
                     <button type="button" class="btn btn-danger" ng-click="ad.remove(scout.id, scout, $index)"> <i class="material-icons">&#xE92B;</i></button>
                 </td>
 

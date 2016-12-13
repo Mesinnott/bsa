@@ -10,19 +10,22 @@
                                 <label for="">Last Name</label>
                                 <input ng-model="rc.currentAdult.last" type="text" class="form-control" placeholder="Last Name" required>
                                 <label for="">Shirt Size</label>
-                                <select ng-init="rc.currentAdult.shirt = 'No Shirt'" ng-model="rc.currentAdult.shirt" class="form-control">
-                                    <option>No Shirt</option>
-                                    <option>Youth Medium -- 10$</option>
-                                    <option>Youth Large -- 10$</option>
-                                    <option>Adult Small -- 10$</option>
-                                    <option>Adult Medium -- 10$</option>
-                                    <option>Adult Large -- 10$</option>
-                                    <option>Adult XL -- 10$</option>
-                                    <option>Adult 2XL -- 12$</option>
-                                    <option>Adult 3XL -- 12$</option>
-                                    <option>Adult 4XL -- 12$</option>
-                                    <option>Adult 5XL -- 12$</option>
-                                </select>
+                                <div class="select-container">
+                                    <i class="material-icons">&#xE313;</i>
+                                    <select ng-init="rc.currentAdult.shirt = 'No Shirt'" ng-model="rc.currentAdult.shirt" class="form-control">
+                                        <option>No Shirt</option>
+                                        <option>Youth Medium -- 10$</option>
+                                        <option>Youth Large -- 10$</option>
+                                        <option>Adult Small -- 10$</option>
+                                        <option>Adult Medium -- 10$</option>
+                                        <option>Adult Large -- 10$</option>
+                                        <option>Adult XL -- 10$</option>
+                                        <option>Adult 2XL -- 12$</option>
+                                        <option>Adult 3XL -- 12$</option>
+                                        <option>Adult 4XL -- 12$</option>
+                                        <option>Adult 5XL -- 12$</option>
+                                    </select>
+                                </div>
                                 <button type="submit" class="btn btn-primary"><i class="material-icons">person_add</i></button>
                         </ng-form>
                     </div>    

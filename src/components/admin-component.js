@@ -8,7 +8,7 @@ const Component = 'admin'
 
 // Use this as a template.
 angular.module(`app.components.${Component}`, [])
-
+    
     .service('abService', function ($http, $state) {
         var ab = this;
         ab.camps = [''];
@@ -96,19 +96,43 @@ angular.module(`app.components.${Component}`, [])
     //     }
 
 
-    .controller('adController', function (abService, $http) {
+    .controller('adController', function (abService, $http, $interval) {
         let ad = this;
         ad.test = 'testing 123'
         ad.reservation = ['']
         ad.prop=''
         ad.resource='0'
         ad.error = false
+        ad.loading = 100;
+        ad.loadingDisplay = ad.loading;
         ad.viewState = {
             table:{
                 editMode:false
             }
         }
-
+        var interval;
+        function increaseLoadBarWidth(timePassed){
+            console.log(timePassed)
+            let timeVar = timePassed/10
+            ad.loading = Math.abs(
+                (
+                    100
+                    ) / timePassed -100
+                );
+            ad.loadingDisplay=Math.floor(ad.loading)
+        }
+        console.log("working")
+        ad.animateLoading = function(){
+            ad.loading = 1;
+            var timePassed = 1;
+            ad.loadingInterval = $interval(
+                function(){
+                    console.log(ad.loading)
+                    increaseLoadBarWidth(timePassed)
+                    timePassed++;
+                }, 300
+            )
+        }
 
         ad.resources=[
             {
@@ -614,8 +638,11 @@ angular.module(`app.components.${Component}`, [])
 
         ad.reservations = function (value) {
             // debugger
+            ad.animateLoading()
             console.log('its working...')
             abService.getByAnyProp(ad.setResource(ad.resource), ad.prop, value, function (res) {
+                $interval.cancel(ad.loadingInterval)
+                ad.loading = 100;
                 ad.reservation = res
             })
 
@@ -679,7 +706,7 @@ angular.module(`app.components.${Component}`, [])
         }
 
 
-    })
+    }, ['$interval'])
 
     .component('admin', {
         controller: 'adController',
