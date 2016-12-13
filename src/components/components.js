@@ -10,6 +10,7 @@ import {register} from './register-component'
 import {viewcamp} from './viewCamp-component'
 import {admin} from './admin-component'
 import {navbar} from './navbar-component.js'
+import {faq} from './faq-component.js'
 
 // Import your components here
 
@@ -25,7 +26,8 @@ let components = [
   register,
   viewcamp,
   admin,
-  navbar
+  navbar,
+  faq
 ]
 
 

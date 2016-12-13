@@ -61,6 +61,11 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                     template:'<viewcamp></viewcamp>'
                 })
                 .state({
+                    name:'faq',
+                    url:'/faq',
+                    template:'<faq></faq>'
+                })
+                .state({
                     name:'loading',
                     template:'<i class="fa fa-spinner" aria-hidden="true"></i>'
                 })
