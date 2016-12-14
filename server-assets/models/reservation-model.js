@@ -56,7 +56,8 @@ function reservationCreate(reservation, cb) {
             receiptNum: '',
             paidToDate: '0',
             balance: 'FIX THIS',
-            active: true,
+            // active: true, --this functionality being transferred to individual scouts,
+            // to avoid timing out partially-paid-for reservations
             paidInFull: false
         }
 
