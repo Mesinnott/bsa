@@ -61,6 +61,11 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                     template:'<viewcamp></viewcamp>'
                 })
                 .state({
+                    name:'viewreg',
+                    url:'/viewreg',
+                    template:'<viewreg></viewreg>'
+                })
+                .state({
                     name:'faq',
                     url:'/faq',
                     template:'<faq></faq>'
