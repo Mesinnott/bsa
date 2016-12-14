@@ -23,6 +23,10 @@ angular.module(`app.components.${Component}`, [])
                 })
         }
 
+        vs.add = function(resource, body, cb){
+            $http.post('/api/'+ resource)
+        }
+
         vs.getByAnyProp = (resource, param, value, cb) => {
             // console.log("args..." +resource+param+value)
             $http.get('/api/' + resource + "?" + param + "=" + value)
@@ -44,15 +48,15 @@ angular.module(`app.components.${Component}`, [])
             return vs.scouts
         }
 
-        vs.getLeaders = (reservationId, cb) => {
-            $http.get('/api/leaders/' + reservationId)
-                .then(function (res) {
-                    cb(res.data)
-                    vs.leaders = res.data
-                    console.log(vs.leaders)
-                })
-            return vs.leaders
-        }
+        // vs.getLeaders = (reservationId, cb) => {
+        //     $http.get('/api/leaders/' + reservationId)
+        //         .then(function (res) {
+        //             cb(res.data)
+        //             vs.leaders = res.data
+        //             console.log(vs.leaders)
+        //         })
+        //     return vs.leaders
+        // }
 
         vs.reservationGetById = (reservationId, cb) => {
             $http.get('/api/reservations/' + reservationId)
@@ -78,10 +82,21 @@ angular.module(`app.components.${Component}`, [])
     .controller('vrController', function (vrService, $state, $http) {
 
         let vc = this;
+        vc.newchief = [{registrationId: vc.reservationId,}]
+        vc.newleader = [{registrationId: vc.reservationId,}]
         vc.reservation = ['']
+        vc.scoutreservation = ['']
         vc.prop = ''
         vc.resource = '0'
+        vc.chiefs = ['']
         vc.error = false
+        vc.reservationId = $state.params.reservationId
+        vc.newscout = [{
+
+        // 'registrationId': vc.reservationId
+        }
+    ]
+        vc.userId = $state.params.userId
         vc.viewState = {
             table: {
                 editMode: false
@@ -124,16 +139,20 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Shirt Size"
                     },
                     {
-                        name: "reservationNum",
-                        displayName: "Reservation Number"
-                    },
-                    {
-                        name: "paidInFull",
-                        displayName: "Paid In Full"
-                    },
-                    {
                         name: "name",
                         displayName: "Name"
+                    },
+                    {
+                        name: "phone",
+                        displayName: "Phone Number"
+                    },
+                    {
+                        name: "healthForm",
+                        displayName: "Health Form",
+                    },
+                    {
+                        name: "paid",
+                        displayName: "Paid",
                     }
                 ]
 
@@ -151,12 +170,16 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Shirt Size"
                     },
                     {
-                        name: "reservationId",
-                        displayName: "Reservation Id"
-                    },
-                    {
                         name: "name",
                         displayName: "Name"
+                    },
+                    {
+                        name: "healthForm",
+                        displayName: "Health Form",
+                    },
+                    {
+                        name: "paid",
+                        displayName: "Paid",
                     }
                 ]
 
@@ -188,9 +211,9 @@ angular.module(`app.components.${Component}`, [])
 
         vc.tableProps = [
             {
-                name:"scouts",
+                name: "scouts",
                 displayName: "Scouts",
-                props:[
+                props: [
                     {
                         name: "packNum",
                         displayName: "Pack Number"
@@ -198,10 +221,6 @@ angular.module(`app.components.${Component}`, [])
                     {
                         name: "shirtSize",
                         displayName: "Shirt Size"
-                    },
-                    {
-                        name: "reservationId",
-                        displayName: "Reservation Id"
                     },
                     {
                         name: "name",
@@ -213,14 +232,14 @@ angular.module(`app.components.${Component}`, [])
                     },
                     {
                         name: "paid",
-                        displayName:"Paid",
+                        displayName: "Paid",
                     }
                 ]
             },
             {
-                name:"leaders",
+                name: "leaders",
                 displayName: "Leaders",
-                props:[
+                props: [
                     {
                         name: "packNum",
                         displayName: "Pack Number"
@@ -228,10 +247,6 @@ angular.module(`app.components.${Component}`, [])
                     {
                         name: "shirtSize",
                         displayName: "Shirt Size"
-                    },
-                    {
-                        name: "reservationId",
-                        displayName: "Reservation Id"
                     },
                     {
                         name: "name",
@@ -247,14 +262,14 @@ angular.module(`app.components.${Component}`, [])
                     },
                     {
                         name: "paid",
-                        displayName:"Paid",
+                        displayName: "Paid",
                     }
                 ]
 
-            },{
-                name:"chiefs",
+            }, {
+                name: "chiefs",
                 displayName: "Chiefs",
-                props:[
+                props: [
                     {
                         name: "packNum",
                         displayName: "Pack Number"
@@ -262,10 +277,6 @@ angular.module(`app.components.${Component}`, [])
                     {
                         name: "shirtSize",
                         displayName: "Shirt Size"
-                    },
-                    {
-                        name: "reservationId",
-                        displayName: "Reservation Id"
                     },
                     {
                         name: "name",
@@ -277,7 +288,7 @@ angular.module(`app.components.${Component}`, [])
                     },
                     {
                         name: "paid",
-                        displayName:"Paid",
+                        displayName: "Paid",
                     }
                 ]
 
@@ -285,7 +296,7 @@ angular.module(`app.components.${Component}`, [])
             {
                 name: "reservations",
                 displayName: "Reservation",
-                props:[
+                props: [
                     {
                         name: "campNum",
                         displayName: "Camp Number"
@@ -299,20 +310,20 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Reservation Number"
                     },
                     {
-                        name:"location",
-                        displayName:"Camp Location"
+                        name: "location",
+                        displayName: "Camp Location"
                     },
                     {
                         name: "locationName",
                         displayName: "Location Name"
                     },
                     {
-                        name:"date",
-                        displayName:"Camp Date",
+                        name: "date",
+                        displayName: "Camp Date",
                     },
                     {
-                        name:  "goldCard",
-                        displayName:"Gold Card"
+                        name: "goldCard",
+                        displayName: "Gold Card"
                     },
                     {
                         name: "paidToDate",
@@ -323,27 +334,27 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Outstanding Balance"
                     },
                     {
-                        name:"paidInFull",
+                        name: "paidInFull",
                         displayName: "Paid In Full"
                     },
                     {
-                        name:"active",
-                        displayName:"Active"
+                        name: "active",
+                        displayName: "Active"
                     },
                     {
-                        name:"paymentDate",
-                        displayName:"Date Paid"
+                        name: "paymentDate",
+                        displayName: "Date Paid"
                     },
                     {
-                        name:  "receiptNum",
+                        name: "receiptNum",
                         displayName: "Receipt Number"
                     }
                 ]
             }
-            
+
         ]
 
-  this.getYears = function () {
+        this.getYears = function () {
             vrService.getCurrentYears(
                 function (years) {
                     vc.years = years
@@ -362,33 +373,70 @@ angular.module(`app.components.${Component}`, [])
             )
         }
 
+        // vc.getLeaders = function(reservationId){
+        //     vrService.getLeaders(reservationId, function(res){
+        //         vc.leaders= res
+        //     })
+        // }
 
-        vc.setResource=function(index){
+        // vc.getLeaders(vc.registrationId)
+
+        vc.getScouts = function (reservationId) {
+            vrService.getScouts(reservationId, function (res) {
+                vc.scouts = res
+                // console.log(vc.scouts)
+            })
+        }
+
+        vc.getScouts(vc.reservationId)
+
+        vc.setResource = function (index) {
             // console.log(ad.resources[index].name)
             return vc.resources[index].name
         }
 
+        vc.getLeaders = function (reservationId) {
+            vrService.getByAnyProp("leaders", "reservationId", reservationId, function (res) {
+                vc.leaders = res;
+            })
+        }
 
-  vc.reservations = function (value) {
+        vc.getLeaders(vc.reservationId)
+
+        vc.getChiefs = function (reservationId) {
+            vrService.getByAnyProp("chiefs", "reservationId", reservationId, function (res) {
+                vc.chiefs = res;
+            })
+        }
+
+        vc.getChiefs(vc.reservationId)
+
+        vc.reservations = function (value) {
             // debugger
 
             console.log('its working...')
-            vrService.getByAnyProp(vc.setResource(vc.resource), vc.prop, value, function (res) {
-                vc.reservation = res;
+            vrService.getByAnyProp("reservations", "id", value, function (res) {
+                vc.reservations = res;
             })
 
             // abService.reservationGetById(value, function (reserv) {
             //     ad.resDetails = reserv;
             // })
+            // console.log('res are here')
+            // console.log(vc.reservations)
 
         }
+
+        vc.reservations(vc.reservationId)
+
+        // vc.reservations(vc.userId)
 
         vc.save = function (id, resource, name) {
             name = name.split("")
             name.pop()
-            name=name.join('')
-            let body= {}
-            body[name]=resource
+            name = name.join('')
+            let body = {}
+            body[name] = resource
             // resource = { name: resource }
             vrService.editAny(name, id, body, function (save) {
                 console.log(save)
@@ -396,16 +444,16 @@ angular.module(`app.components.${Component}`, [])
             })
         }
 
-        vc.reset= function(){
-            vc.error=false
+        vc.reset = function () {
+            vc.error = false
         }
-           vc.remove = function (id, scout, index) {
+        vc.remove = function (id, scout, index) {
             // debugger
-            if(!window.confirm("Are you sure?")){
+            if (!window.confirm("Are you sure?")) {
                 return
             }
             var reserve = scout.reservationId
-            console.log(reserve)
+            // console.log(reserve)
             var scout = {
                 "scout":
                 {
@@ -415,29 +463,34 @@ angular.module(`app.components.${Component}`, [])
                 }
             }
             vrService.editScout(id, scout, function (res) {
-                console.log(res)
+                // console.log(res)
                 vc.reservation.splice(index, 1)
             }, function (res) {
                 console.error(res)
             })
         }
 
+        vc.add = function (resource, obj) {
+            console.log("incoming!")
+            obj['registrationId'] =  vc.reservationId
+
+        }
 
 
 
     })
 
-// function ViewRegController() {
-//     let vc = this;
+    // function ViewRegController() {
+    //     let vc = this;
 
 
-// }
+    // }
 
     .component('viewreg', {
-    controller: 'vrController',
-    controllerAs: 'vc',
-    template: template
-});
+        controller: 'vrController',
+        controllerAs: 'vc',
+        template: template
+    });
 
 // FaqController.$inject = [];
 

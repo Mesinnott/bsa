@@ -1,24 +1,22 @@
-<div class='elevated-box'>
+<!--<div class='elevated-box'>
     <form ng-submit="vc.reservations(vc.reservationNum)">
         <div class="form-group">
-            <h1>{{vc.test}}</h1>
 
-            <Label> I want to find ... (Scouts, Camps, etc.) </label>
+            <Label> I want to view ... (Scouts, Camps, etc.) </label>
             <select class="form-control" ng-model="vc.resource">
                 <option ng-repeat="resource in vc.resources" value=" {{$index}} ">{{resource.displayName}} </option>
                 </select>
             <label> By their...</label>
             <select class="form-control" ng-model="vc.prop">
                 <option 
-                ng-if="vc.resources[vc.resource].name == 'directors' || vc.resources[vc.resource].name == 'packs' || vc.resources[vc.resource].name == 'users' || vc.resources[vc.resource].name == 'districts'" 
+                ng-if="vc.resources[vc.resource].name == 'scouts' || vc.resources[vc.resource].name == 'leaders' || vc.resources[vc.resource].name == 'chiefs'" 
                 value=''
                 >
                 All
                 </option>
                 
                 <option ng-repeat="prop in vc.resources[vc.resource].props" value="{{prop.name}}">{{prop.displayName}}</option>
-                <!--<option value="id">Id</option>
-                <option value="reservationId">Reservation Id</option>-->
+               
                 
                 </select>
 
@@ -29,7 +27,7 @@
 
         </div>
     </form>
-</div>
+</div>-->
 
 
 
@@ -41,21 +39,90 @@
             </select>
         </div>-->
 
+
 <div class="elevated-box">
     <div class="alert alert-success alert-dismissable" ng-if="!!vc.error">
         <button type="button" class="close" data-dismiss="alert" ng-click="vc.reset()">x</button>
         <p>{{vc.error}}</p>
     </div>
     <table class='table' show-filter='true'>
-        <legend>{{vc.tableProps[vc.resource].displayName}}</legend>
+        <legend>{{vc.tableProps[3].displayName}}</legend>
         <thead>
             <tr>
-                <th ng-repeat="prop in vc.tableProps[vc.resource].props">{{prop.displayName}}</th>
+                <th ng-repeat="prop in vc.tableProps[3].props">{{prop.displayName}}</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="scout in vc.reservation">
-                <td ng-repeat="prop in vc.tableProps[vc.resource].props" ng-switch on="prop.name">
+            <tr ng-repeat="reservation in vc.reservations">
+                <td ng-repeat="prop in vc.tableProps[3].props" ng-switch on="prop.name">
+                    <div ng-if="!vc.viewState.table.editMode">
+                        <input type="checkbox" ng-change="vc.save(reservation.id, reservation, vc.resources[vc.resource].name)" class="form-control"
+                            ng-model="reservation.healthForm" ng-switch-when="healthForm" />
+                        <input type="checkbox" ng-change="vc.save(reservation.id, reservation, vc.resources[vc.resource].name)" class="form-control"
+                            ng-model="reservation.paid" ng-switch-when="paid" />
+                        <input type="checkbox" ng-change="vc.save(reservation.id, reservation, vc.resources[vc.resource].name)" class="form-control"
+                            ng-model="reservation.paidInFull" ng-switch-when="paidInFull" />
+                        <input type="checkbox" ng-change="vc.save(reservation.id, reservation, vc.resources[vc.resource].name)" class="form-control"
+                            ng-model="reservation.super" ng-switch-when="super" />
+                        <input type="checkbox" ng-change="vc.save(reservation.id, reservation, vc.resources[vc.resource].name)" class="form-control"
+                            ng-model="reservation.admin" ng-switch-when="admin" />
+                        <input type="checkbox" ng-change="vc.save(reservation.id, reservation, vc.resources[vc.resource].name)" class="form-control"
+                            ng-model="reservation.director" ng-switch-when="director" />
+                        <input type="checkbox" ng-change="vc.save(reservation.id, reservation, vc.resources[vc.resource].name)" class="form-control"
+                            ng-model="reservation.reservation" ng-switch-when="reservation" />
+                        <input type="checkbox" ng-change="vc.save(reservation.id, reservation, vc.resources[vc.resource].name)" class="form-control"
+                            ng-model="reservation.goldCard" ng-switch-when="goldCard" />
+                        <input type="text" ng-change="vc.save(reservation.id, reservation, vc.resources[vc.resource].name)" class="form-control"
+                            ng-model="reservation.receiptNum" ng-switch-when="receiptNum" />
+                        <input type="text" ng-change="vc.save(reservation.id, reservation, vc.resources[vc.resource].name)" class="form-control"
+                            ng-model="reservation.paymentDate" ng-switch-when="paymentDate" />
+                        <input type="text" ng-change="vc.save(reservation.id, reservation, vc.resources[vc.resource].name)" class="form-control"
+                            ng-model="reservation[prop.name]" ng-switch-default />
+                    </div>
+                    <div ng-if="vc.viewState.table.editMode" ng-switch on="prop.name">
+                        <span>
+                        {{ !!reservation[prop.name]!==reservation[prop.name]? reservation[prop.name] : reservation[prop.name]? "Yes" : "No"}}
+                        </span>
+                    </div>
+                    <!--<span ng-switch-default>{{reservation[prop.name]}}</span>-->
+
+                </td>
+                <td ng-if="vc.resource == 'reservations'" title="'Remove'">
+                    <button type="button" class="btn btn-danger" ng-click="vc.remove(reservation.id, reservation, $index)"> <i class="material-icons">&#xE92B;</i></button>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary btn-raised" ng-click="vc.saveAll(vc.reservation)">Save All Changes</button>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="elevated-box">
+    <div class="alert alert-success alert-dismissable" ng-if="!!vc.error">
+        <button type="button" class="close" data-dismiss="alert" ng-click="vc.reset()">x</button>
+        <p>{{vc.error}}</p>
+    </div>
+    <table class='table' show-filter='true'>
+        <legend>{{vc.tableProps[0].displayName}}</legend>
+        <thead>
+            <tr>
+                <th ng-repeat="prop in vc.tableProps[0].props">{{prop.displayName}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="scout in vc.scouts">
+                <td ng-repeat="prop in vc.tableProps[0].props" ng-switch on="prop.name">
                     <div ng-if="!vc.viewState.table.editMode">
                         <input type="checkbox" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="scout.healthForm"
                             ng-switch-when="healthForm" />
@@ -88,13 +155,198 @@
                     <!--<span ng-switch-default>{{scout[prop.name]}}</span>-->
 
                 </td>
-                <td ng-if="vc.resource == 'scouts'" title="'Remove'">
+
+                <td title="'Remove'">
                     <button type="button" class="btn btn-danger" ng-click="vc.remove(scout.id, scout, $index)"> <i class="material-icons">&#xE92B;</i></button>
                 </td>
 
             </tr>
+            <tr>
+                <td ng-repeat="prop in vc.tableProps[0].props" ng-switch on="prop.name">
+                    <div ng-if="!vc.viewState.table.editMode">
+                        <input type="checkbox" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="vc.newscout['healthForm']"
+                            ng-switch-when="healthForm" />
+                        <input type="checkbox" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="vc.newscout['paid']"
+                            ng-switch-when="paid" />
+
+                        <input type="text" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="newscout.receiptNum"
+                            ng-switch-when="receiptNum" />
+                        <input type="text" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="newscout.paymentDate"
+                            ng-switch-when="paymentDate" />
+                        <input type="text" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="vc.newscout[prop.name]"
+                            ng-switch-default />
+                    </div>
+                </td>
+            </tr>
         </tbody>
     </table>
+    <button type="button" class="btn btn-success btn-raised" ng-click="vc.add('scout', vc.newscout)">Add Scout</button>
+    <button type="button" class="btn btn-primary btn-raised" ng-click="vc.saveAll(vc.reservation)">Save All Changes</button>
+    <!--<button type="button" class="btn btn-success btn-raised" ng-click="vc.saveAll(vc.reservation)">Add Scout</button>-->
+</div>
+</div>
+</div>
+
+
+
+
+
+<div class="elevated-box">
+    <div class="alert alert-success alert-dismissable" ng-if="!!vc.error">
+        <button type="button" class="close" data-dismiss="alert" ng-click="vc.reset()">x</button>
+        <p>{{vc.error}}</p>
+    </div>
+    <table class='table' show-filter='true'>
+        <legend>{{vc.tableProps[1].displayName}}</legend>
+        <thead>
+            <tr>
+                <th ng-repeat="prop in vc.tableProps[1].props">{{prop.displayName}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="leader in vc.leaders">
+                <td ng-repeat="prop in vc.tableProps[1].props" ng-switch on="prop.name">
+                    <div ng-if="!vc.viewState.table.editMode">
+                        <input type="checkbox" ng-change="vc.save(leader.id, leader, vc.resources[vc.resource].name)" class="form-control" ng-model="leader.healthForm"
+                            ng-switch-when="healthForm" />
+                        <input type="checkbox" ng-change="vc.save(leader.id, leader, vc.resources[vc.resource].name)" class="form-control" ng-model="leader.paid"
+                            ng-switch-when="paid" />
+                        <input type="checkbox" ng-change="vc.save(leader.id, leader, vc.resources[vc.resource].name)" class="form-control" ng-model="leader.paidInFull"
+                            ng-switch-when="paidInFull" />
+                        <input type="checkbox" ng-change="vc.save(leader.id, leader, vc.resources[vc.resource].name)" class="form-control" ng-model="leader.super"
+                            ng-switch-when="super" />
+                        <input type="checkbox" ng-change="vc.save(leader.id, leader, vc.resources[vc.resource].name)" class="form-control" ng-model="leader.admin"
+                            ng-switch-when="admin" />
+                        <input type="checkbox" ng-change="vc.save(leader.id, leader, vc.resources[vc.resource].name)" class="form-control" ng-model="leader.director"
+                            ng-switch-when="director" />
+                        <input type="checkbox" ng-change="vc.save(leader.id, leader, vc.resources[vc.resource].name)" class="form-control" ng-model="leader.reservation"
+                            ng-switch-when="reservation" />
+                        <input type="checkbox" ng-change="vc.save(leader.id, leader, vc.resources[vc.resource].name)" class="form-control" ng-model="leader.goldCard"
+                            ng-switch-when="goldCard" />
+                        <input type="text" ng-change="vc.save(leader.id, leader, vc.resources[vc.resource].name)" class="form-control" ng-model="leader.receiptNum"
+                            ng-switch-when="receiptNum" />
+                        <input type="text" ng-change="vc.save(leader.id, leader, vc.resources[vc.resource].name)" class="form-control" ng-model="leader.paymentDate"
+                            ng-switch-when="paymentDate" />
+                        <input type="text" ng-change="vc.save(leader.id, leader, vc.resources[vc.resource].name)" class="form-control" ng-model="leader[prop.name]"
+                            ng-switch-default />
+                    </div>
+                    <div ng-if="vc.viewState.table.editMode" ng-switch on="prop.name">
+                        <span>
+                        {{ !!leader[prop.name]!==leader[prop.name]? leader[prop.name] : leader[prop.name]? "Yes" : "No"}}
+                        </span>
+                    </div>
+                    <!--<span ng-switch-default>{{leader[prop.name]}}</span>-->
+
+                </td>
+                <td title="'Remove'">
+                    <button type="button" class="btn btn-danger" ng-click="vc.remove(leader.id, leader, $index)"> <i class="material-icons">&#xE92B;</i></button>
+                </td>
+
+            </tr>
+            <tr>
+                <td ng-repeat="prop in vc.tableProps[1].props" ng-switch on="prop.name">
+                    <div ng-if="!vc.viewState.table.editMode">
+                        <input type="checkbox" ng-change="vc.save(leader.id, leader, vc.resources[vc.resource].name)" class="form-control" ng-model="vc.newleader['healthForm']"
+                            ng-switch-when="healthForm" />
+                        <input type="checkbox" ng-change="vc.save(leader.id, leader, vc.resources[vc.resource].name)" class="form-control" ng-model="vc.newleader['paid']"
+                            ng-switch-when="paid" />
+
+                        <input type="text" ng-change="vc.save(leader.id, leader, vc.resources[vc.resource].name)" class="form-control" ng-model="newleader.receiptNum"
+                            ng-switch-when="receiptNum" />
+                        <input type="text" ng-change="vc.save(leader.id, leader, vc.resources[vc.resource].name)" class="form-control" ng-model="newleader.paymentDate"
+                            ng-switch-when="paymentDate" />
+                        <input type="text" ng-change="vc.save(leader.id, leader, vc.resources[vc.resource].name)" class="form-control" ng-model="vc.newleader[prop.name]"
+                            ng-switch-default />
+                    </div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-success btn-raised" ng-click="vc.add('leader', vc.newleader)">Add Leader</button>
+    <button type="button" class="btn btn-primary btn-raised" ng-click="vc.saveAll(vc.reservation)">Save All Changes</button>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+<div class="elevated-box">
+    <div class="alert alert-success alert-dismissable" ng-if="!!vc.error">
+        <button type="button" class="close" data-dismiss="alert" ng-click="vc.reset()">x</button>
+        <p>{{vc.error}}</p>
+    </div>
+    <table class='table' show-filter='true'>
+        <legend>{{vc.tableProps[2].displayName}}</legend>
+        <thead>
+            <tr>
+                <th ng-repeat="prop in vc.tableProps[2].props">{{prop.displayName}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="chief in vc.chiefs">
+                <td ng-repeat="prop in vc.tableProps[2].props" ng-switch on="prop.name">
+                    <div ng-if="!vc.viewState.table.editMode">
+                        <input type="checkbox" ng-change="vc.save(chief.id, chief, vc.resources[vc.resource].name)" class="form-control" ng-model="chief.healthForm"
+                            ng-switch-when="healthForm" />
+                        <input type="checkbox" ng-change="vc.save(chief.id, chief, vc.resources[vc.resource].name)" class="form-control" ng-model="chief.paid"
+                            ng-switch-when="paid" />
+                        <input type="checkbox" ng-change="vc.save(chief.id, chief, vc.resources[vc.resource].name)" class="form-control" ng-model="chief.paidInFull"
+                            ng-switch-when="paidInFull" />
+                        <input type="checkbox" ng-change="vc.save(chief.id, chief, vc.resources[vc.resource].name)" class="form-control" ng-model="chief.super"
+                            ng-switch-when="super" />
+                        <input type="checkbox" ng-change="vc.save(chief.id, chief, vc.resources[vc.resource].name)" class="form-control" ng-model="chief.admin"
+                            ng-switch-when="admin" />
+                        <input type="checkbox" ng-change="vc.save(chief.id, chief, vc.resources[vc.resource].name)" class="form-control" ng-model="chief.director"
+                            ng-switch-when="director" />
+                        <input type="checkbox" ng-change="vc.save(chief.id, chief, vc.resources[vc.resource].name)" class="form-control" ng-model="chief.reservation"
+                            ng-switch-when="reservation" />
+                        <input type="checkbox" ng-change="vc.save(chief.id, chief, vc.resources[vc.resource].name)" class="form-control" ng-model="chief.goldCard"
+                            ng-switch-when="goldCard" />
+                        <input type="text" ng-change="vc.save(chief.id, chief, vc.resources[vc.resource].name)" class="form-control" ng-model="chief.receiptNum"
+                            ng-switch-when="receiptNum" />
+                        <input type="text" ng-change="vc.save(chief.id, chief, vc.resources[vc.resource].name)" class="form-control" ng-model="chief.paymentDate"
+                            ng-switch-when="paymentDate" />
+                        <input type="text" ng-change="vc.save(chief.id, chief, vc.resources[vc.resource].name)" class="form-control" ng-model="chief[prop.name]"
+                            ng-switch-default />
+                    </div>
+                    <div ng-if="vc.viewState.table.editMode" ng-switch on="prop.name">
+                        <span>
+                        {{ !!chief[prop.name]!==chief[prop.name]? chief[prop.name] : chief[prop.name]? "Yes" : "No"}}
+                        </span>
+                    </div>
+                    <!--<span ng-switch-default>{{chief[prop.name]}}</span>-->
+
+                </td>
+                <td title="'Remove'">
+                    <button type="button" class="btn btn-danger" ng-click="vc.remove(chief.id, chief, $index)"> <i class="material-icons">&#xE92B;</i></button>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td ng-repeat="prop in vc.tableProps[2].props" ng-switch on="prop.name">
+                    <div ng-if="!vc.viewState.table.editMode">
+                        <input type="checkbox" ng-change="vc.save(chief.id, chief, vc.resources[vc.resource].name)" class="form-control" ng-model="vc.newchief['healthForm']"
+                            ng-switch-when="healthForm" />
+                        <input type="checkbox" ng-change="vc.save(chief.id, chief, vc.resources[vc.resource].name)" class="form-control" ng-model="vc.newchief['paid']"
+                            ng-switch-when="paid" />
+
+                        <input type="text" ng-change="vc.save(chief.id, chief, vc.resources[vc.resource].name)" class="form-control" ng-model="newchief.receiptNum"
+                            ng-switch-when="receiptNum" />
+                        <input type="text" ng-change="vc.save(chief.id, chief, vc.resources[vc.resource].name)" class="form-control" ng-model="newchief.paymentDate"
+                            ng-switch-when="paymentDate" />
+                        <input type="text" ng-change="vc.save(chief.id, chief, vc.resources[vc.resource].name)" class="form-control" ng-model="vc.newchief[prop.name]"
+                            ng-switch-default />
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-success btn-raised" ng-click="vc.add('chief', vc.newchief)">Add Chief</button>
     <button type="button" class="btn btn-primary btn-raised" ng-click="vc.saveAll(vc.reservation)">Save All Changes</button>
 </div>
 </div>
