@@ -23,6 +23,10 @@ angular.module(`app.components.${Component}`, [])
                 })
         }
 
+        vs.add = function(resource, body, cb){
+            $http.post('/api/'+ resource)
+        }
+
         vs.getByAnyProp = (resource, param, value, cb) => {
             // console.log("args..." +resource+param+value)
             $http.get('/api/' + resource + "?" + param + "=" + value)
@@ -78,6 +82,8 @@ angular.module(`app.components.${Component}`, [])
     .controller('vrController', function (vrService, $state, $http) {
 
         let vc = this;
+        vc.newchief = [{registrationId: vc.reservationId,}]
+        vc.newleader = [{registrationId: vc.reservationId,}]
         vc.reservation = ['']
         vc.scoutreservation = ['']
         vc.prop = ''
@@ -85,6 +91,11 @@ angular.module(`app.components.${Component}`, [])
         vc.chiefs = ['']
         vc.error = false
         vc.reservationId = $state.params.reservationId
+        vc.newscout = [{
+
+        // 'registrationId': vc.reservationId
+        }
+    ]
         vc.userId = $state.params.userId
         vc.viewState = {
             table: {
@@ -373,7 +384,7 @@ angular.module(`app.components.${Component}`, [])
         vc.getScouts = function (reservationId) {
             vrService.getScouts(reservationId, function (res) {
                 vc.scouts = res
-                console.log(vc.scouts)
+                // console.log(vc.scouts)
             })
         }
 
@@ -411,12 +422,12 @@ angular.module(`app.components.${Component}`, [])
             // abService.reservationGetById(value, function (reserv) {
             //     ad.resDetails = reserv;
             // })
-            console.log('res are here')
-            console.log(vc.reservations)
+            // console.log('res are here')
+            // console.log(vc.reservations)
 
         }
 
-        vc.reservations (vc.reservationId)
+        vc.reservations(vc.reservationId)
 
         // vc.reservations(vc.userId)
 
@@ -442,7 +453,7 @@ angular.module(`app.components.${Component}`, [])
                 return
             }
             var reserve = scout.reservationId
-            console.log(reserve)
+            // console.log(reserve)
             var scout = {
                 "scout":
                 {
@@ -452,13 +463,18 @@ angular.module(`app.components.${Component}`, [])
                 }
             }
             vrService.editScout(id, scout, function (res) {
-                console.log(res)
+                // console.log(res)
                 vc.reservation.splice(index, 1)
             }, function (res) {
                 console.error(res)
             })
         }
 
+        vc.add = function (resource, obj) {
+            console.log("incoming!")
+            obj['registrationId'] =  vc.reservationId
+
+        }
 
 
 
