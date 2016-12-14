@@ -93,8 +93,22 @@ function editReservation(rewrite, cb) {
     })
 }
 
+function checkPaidStatus(reservationId, cb) {
+    DS.findAll('scout', {reservationId: reservationId}).then(function(scoutList) {
+        var paidInFull = true;
+        for (var i = 0; i < scoutList.length; i++) {
+            if (scoutList[i].paid === false) {
+                paidInFull = false;
+            }
+        }
+        reservation.paidInFull = paidInFull;
+        editReservation(reservation, cb);
+    }).catch(cb)
+}
+
 module.exports = {
     reservationCreate,
     reservationGetByAnyId,
     editReservation,
+    checkPaidStatus
 }
