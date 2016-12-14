@@ -1,0 +1,100 @@
+<div class='elevated-box'>
+    <form ng-submit="vc.reservations(vc.reservationNum)">
+        <div class="form-group">
+
+            <Label> I want to find ... (Scouts, Camps, etc.) </label>
+            <select class="form-control" ng-model="vc.resource">
+                <option ng-repeat="resource in vc.resources" value=" {{$index}} ">{{resource.displayName}} </option>
+                </select>
+            <label> By their...</label>
+            <select class="form-control" ng-model="vc.prop">
+                <option 
+                ng-if="vc.resources[vc.resource].name == 'directors' || vc.resources[vc.resource].name == 'packs' || vc.resources[vc.resource].name == 'users' || vc.resources[vc.resource].name == 'districts'" 
+                value=''
+                >
+                All
+                </option>
+                
+                <option ng-repeat="prop in vc.resources[vc.resource].props" value="{{prop.name}}">{{prop.displayName}}</option>
+                <!--<option value="id">Id</option>
+                <option value="reservationId">Reservation Id</option>-->
+                
+                </select>
+
+            <label for="reservation">With the value of...</label>
+            <input type="" class="form-control" id="reservation" placeholder="123, test@email.com, Johnny Q. Scout, etc." ng-model="vc.reservationNum">
+
+            <button type="submit" class="btn btn-primary btn-raised">View Query</button>
+
+        </div>
+    </form>
+</div>
+
+
+
+<!--<div class="row">
+    <div class="col-sm-8 col-sm-offset-2" ng-controller="vcController as vc">
+        <div class="elevated-box">
+            <select name="" id="">
+                <option value="" ng-repeat="year in vc.years">{{year.year}}</option>
+            </select>
+        </div>-->
+
+<div class="elevated-box">
+    <div class="alert alert-success alert-dismissable" ng-if="!!vc.error">
+        <button type="button" class="close" data-dismiss="alert" ng-click="vc.reset()">x</button>
+        <p>{{vc.error}}</p>
+    </div>
+    <table class='table' show-filter='true'>
+        <legend>{{vc.tableProps[vc.resource].displayName}}</legend>
+        <thead>
+            <tr>
+                <th ng-repeat="prop in vc.tableProps[vc.resource].props">{{prop.displayName}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="scout in vc.reservation">
+                <td ng-repeat="prop in vc.tableProps[vc.resource].props" ng-switch on="prop.name">
+                    <div ng-if="!vc.viewState.table.editMode">
+                        <input type="checkbox" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="scout.healthForm"
+                            ng-switch-when="healthForm" />
+                        <input type="checkbox" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="scout.paid"
+                            ng-switch-when="paid" />
+                        <input type="checkbox" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="scout.paidInFull"
+                            ng-switch-when="paidInFull" />
+                        <input type="checkbox" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="scout.super"
+                            ng-switch-when="super" />
+                        <input type="checkbox" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="scout.admin"
+                            ng-switch-when="admin" />
+                        <input type="checkbox" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="scout.director"
+                            ng-switch-when="director" />
+                        <input type="checkbox" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="scout.reservation"
+                            ng-switch-when="reservation" />
+                        <input type="checkbox" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="scout.goldCard"
+                            ng-switch-when="goldCard" />
+                        <input type="text" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="scout.receiptNum"
+                            ng-switch-when="receiptNum" />
+                        <input type="text" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="scout.paymentDate"
+                            ng-switch-when="paymentDate" />
+                        <input type="text" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="scout[prop.name]"
+                            ng-switch-default />
+                    </div>
+                    <div ng-if="vc.viewState.table.editMode" ng-switch on="prop.name">
+                        <span>
+                        {{ !!scout[prop.name]!==scout[prop.name]? scout[prop.name] : scout[prop.name]? "Yes" : "No"}}
+                        </span>
+                    </div>
+                    <!--<span ng-switch-default>{{scout[prop.name]}}</span>-->
+
+                </td>
+                <td ng-if="vc.resource == 'scouts'" title="'Remove'">
+                    <button type="button" class="btn btn-danger" ng-click="vc.remove(scout.id, scout, $index)"> <i class="material-icons">&#xE92B;</i></button>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary btn-raised" ng-click="vc.saveAll(vc.reservation)">Save All Changes</button>
+</div>
+</div>
+</div>
