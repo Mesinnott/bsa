@@ -54,7 +54,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="reservation in vc.reservations">
-                <td ng-repeat="prop in vc.tableProps[vc.resource].props" ng-switch on="prop.name">
+                <td ng-repeat="prop in vc.tableProps[3].props" ng-switch on="prop.name">
                     <div ng-if="!vc.viewState.table.editMode">
                         <input type="checkbox" ng-change="vc.save(reservation.id, reservation, vc.resources[vc.resource].name)" class="form-control" ng-model="reservation.healthForm"
                             ng-switch-when="healthForm" />
@@ -122,7 +122,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="scout in vc.scouts">
-                <td ng-repeat="prop in vc.tableProps[vc.resource].props" ng-switch on="prop.name">
+                <td ng-repeat="prop in vc.tableProps[0].props" ng-switch on="prop.name">
                     <div ng-if="!vc.viewState.table.editMode">
                         <input type="checkbox" ng-change="vc.save(scout.id, scout, vc.resources[vc.resource].name)" class="form-control" ng-model="scout.healthForm"
                             ng-switch-when="healthForm" />
@@ -155,7 +155,7 @@
                     <!--<span ng-switch-default>{{scout[prop.name]}}</span>-->
 
                 </td>
-                <td ng-if="vc.resource == 'scouts'" title="'Remove'">
+                <td title="'Remove'">
                     <button type="button" class="btn btn-danger" ng-click="vc.remove(scout.id, scout, $index)"> <i class="material-icons">&#xE92B;</i></button>
                 </td>
 
@@ -185,7 +185,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="leader in vc.leaders">
-                <td ng-repeat="prop in vc.tableProps[vc.resource].props" ng-switch on="prop.name">
+                <td ng-repeat="prop in vc.tableProps[1].props" ng-switch on="prop.name">
                     <div ng-if="!vc.viewState.table.editMode">
                         <input type="checkbox" ng-change="vc.save(leader.id, leader, vc.resources[vc.resource].name)" class="form-control" ng-model="leader.healthForm"
                             ng-switch-when="healthForm" />
@@ -218,7 +218,7 @@
                     <!--<span ng-switch-default>{{leader[prop.name]}}</span>-->
 
                 </td>
-                <td ng-if="vc.resource == 'leaders'" title="'Remove'">
+                <td  title="'Remove'">
                     <button type="button" class="btn btn-danger" ng-click="vc.remove(leader.id, leader, $index)"> <i class="material-icons">&#xE92B;</i></button>
                 </td>
 
@@ -249,7 +249,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="chief in vc.chiefs">
-                <td ng-repeat="prop in vc.tableProps[vc.resource].props" ng-switch on="prop.name">
+                <td ng-repeat="prop in vc.tableProps[2].props" ng-switch on="prop.name">
                     <div ng-if="!vc.viewState.table.editMode">
                         <input type="checkbox" ng-change="vc.save(chief.id, chief, vc.resources[vc.resource].name)" class="form-control" ng-model="chief.healthForm"
                             ng-switch-when="healthForm" />
@@ -282,7 +282,7 @@
                     <!--<span ng-switch-default>{{chief[prop.name]}}</span>-->
 
                 </td>
-                <td ng-if="vc.resource == 'chiefs'" title="'Remove'">
+                <td title="'Remove'">
                     <button type="button" class="btn btn-danger" ng-click="vc.remove(chief.id, chief, $index)"> <i class="material-icons">&#xE92B;</i></button>
                 </td>
 
