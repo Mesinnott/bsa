@@ -83,7 +83,7 @@ app.use('/api', (req, res, next) => {
     if (year.stack) { return next() }  //If there's an error, don't bother going on
 
     var timenow = Date.now();
-    if (year.lastAccess + 86400000 < timenow) { // 24 hours
+    if (year.lastAccess + 86400000 < timenow || !year.lastAccess) { // 24 hours
 
       year.lastAccess = timenow
       Models.editYear(year, ()=>{ // Pass in the following as a callback
