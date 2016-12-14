@@ -76,8 +76,8 @@ angular.module(`app.components.${Component}`, [])
     })
 
     .controller('vrController', function (vrService, $state, $http) {
+
         let vc = this;
-        vc.test = 'testing 123'
         vc.reservation = ['']
         vc.prop = ''
         vc.resource = '0'
@@ -244,12 +244,10 @@ angular.module(`app.components.${Component}`, [])
                     {
                         name: "healthForm",
                         displayName: "Health Form",
-                        template: templates.healthForm
                     },
                     {
                         name: "paid",
                         displayName:"Paid",
-                        template: templates.paid
                     }
                 ]
 
@@ -276,12 +274,10 @@ angular.module(`app.components.${Component}`, [])
                     {
                         name: "healthForm",
                         displayName: "Health Form",
-                        template: templates.healthForm
                     },
                     {
                         name: "paid",
                         displayName:"Paid",
-                        template: templates.paid
                     }
                 ]
 
