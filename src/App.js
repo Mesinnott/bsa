@@ -62,7 +62,7 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                 })
                 .state({
                     name:'viewreg',
-                    url:'/viewreg',
+                    url:'/viewreg/:reservationId',
                     template:'<viewreg></viewreg>'
                 })
                 .state({
