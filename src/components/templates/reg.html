@@ -13,7 +13,7 @@
 </div>
 <div class="buffer-section"></div>
 <div ng-controller="RegController as rc" class="container">
-    <div>
+    <ng-form>
         <fieldset ng-disabled="false">
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-3">
@@ -26,6 +26,15 @@
                             <form-second-contact/>
                         </div>
                     </div>
+                        <div class="elevated-box">
+                            <div class="form-horizontal">
+                                <legend>
+                                    Password
+                                </legend>
+                                <input type="password" class="form-control" ng-model="rc.password">
+                                <small>This will be the account password for both the first and second contacts to login and edit/view the reservation with</small>
+                            </div>
+                        </div>
                 </div>
             </div>
             <div class="row">
@@ -52,8 +61,9 @@
                 </div>
             </div>
         </fieldset>
-    </div>
+    </ng-form>
     <div class="buffer-section"></div>
-    <table-adults/>
-    <table-campers/>
+
+    <!--<table-adults/>
+    <table-campers/>-->
 </div>

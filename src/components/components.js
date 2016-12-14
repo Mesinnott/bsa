@@ -12,6 +12,7 @@ import {admin} from './admin-component'
 import {navbar} from './navbar-component.js'
 import {faq} from './faq-component.js'
 
+
 // Import your components here
 
 let components = [

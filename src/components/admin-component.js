@@ -272,7 +272,7 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Camp Number"
                     },
                     {
-                        name: "denNum",
+                        name: "packNum",
                         displayName: "Pack Number"
                     },
                     {

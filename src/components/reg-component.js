@@ -66,13 +66,24 @@ angular.module(`app.components.${Component}`, [])
     template: template
   })
 
-  function RegController($http, $state){
+  function RegController($http, $state, $scope){
     let rc = this
 
 
     rc.adultNeeded = false;
     rc.healthBoxChecked = false;
-    rc.campNum = $state.params.campnum || '';
+    rc.campNum;
+    rc.camp;
+    (function(){
+        $http.get('/api/camps/'+$state.params.campId)
+            .then(function(camps){
+                rc.camp = camps.data[0];
+                rc.campNum = rc.camp.campNum;
+                console.log(camps)
+            }).catch((error)=>{
+                console.error(error)
+            })
+    })()
     rc.packNum = '';
     rc.reg = {
         campers: [],
@@ -82,14 +93,38 @@ angular.module(`app.components.${Component}`, [])
         campNum: 0,
         packNum: 0
     }
+    let personProps = [
+        {
+            name:"first",
+            displayName:"First Name",
+        },
+        {
+            name:"last",
+            displayName:"Last Name",
+        },
+        {
+            name:"shirt",
+            displayName:"Shirt Size"
+        }
+    ]
     rc.resources = [
         {
             name:"adult",
-            displayName:"Adult"
+            displayName:"Adult",
+            editMode:false,
+            props:personProps,
         },
         {
             name:"denChief",
-            displayName:"Den Chief"
+            displayName:"Den Chief",
+            editMode:false,
+            props:personProps,
+        },
+        {
+            name:"campers",
+            displayName:"Camper",
+            editMode:false,
+            props:personProps,
         }
     ]
     rc.selectedResource = ''
@@ -179,10 +214,21 @@ angular.module(`app.components.${Component}`, [])
         rc.addRegAdult(rc.regAdult)
         rc.reg.campNum = rc.campNum;
         rc.reg.packNum = rc.packNum;
+        console.log(rc.reg)
+        let formattedData = {
 
-        // $http
+        }
+        $http.post()
     }
             
+    // rc.reg = {
+    //     campers: [],
+    //     adults: [],
+    //     regAdult: {},
+    //     contacts: [],
+    //     campNum: 0,
+    //     packNum: 0
+    // }
 
         //   $.material.init()
         //   $.material.checkbox()

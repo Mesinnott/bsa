@@ -12,7 +12,7 @@
             <label> By their...</label>
             <div class="select-container">
                 <i class="material-icons">&#xE313;</i>
-                    <select class="form-control" ng-model="ad.prop">
+                <select class="form-control" ng-model="ad.prop">
                         <option 
                         ng-if="ad.resources[ad.resource].name == 'directors' || ad.resources[ad.resource].name == 'packs' || ad.resources[ad.resource].name == 'users' || ad.resources[ad.resource].name == 'districts'" 
                         value=''
@@ -35,11 +35,11 @@
     </form>
 </div>
 
-<div class="elevated-box" ng-show="!(ad.loading==0 || ad.loading==100)">   
+<div class="elevated-box" ng-show="!(ad.loading==0 || ad.loading==100)">
     <div class="progress">
-            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" ng-style="{width:ad.loading+'%'}">
-                <span>Loading... {{ad.loadingDisplay + '%'}}</span>
-            </div>
+        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" ng-style="{width:ad.loading+'%'}">
+            <span>Loading... {{ad.loadingDisplay + '%'}}</span>
+        </div>
     </div>
 </div>
 <div class="elevated-box">

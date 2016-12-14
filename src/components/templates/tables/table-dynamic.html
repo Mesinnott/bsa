@@ -1,0 +1,67 @@
+<div class="elevated-box">
+    <div class="alert alert-success alert-dismissable" ng-if="!!$ctrl.error">
+        <button type="button" class="close" data-dismiss="alert" ng-click="$ctrl.reset()">x</button>
+        <p>{{$ctrl.error}}</p>
+    </div>
+    <table class='table' show-filter='true'>
+        <legend>{{$ctrl.tableProps[$ctrl.resource].displayName}}</legend>
+        <thead>
+            <tr>
+                <div class="col-xs-6">
+                    <th ng-repeat="prop in $ctrl.tableProps[$ctrl.resource].props">{{prop.displayName}}</th>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <button class="btn btn-primary btn-raised" ng-disabled="$ctrl.viewState.table.editMode" ng-click="$ctrl.viewState.table.editMode=!$ctrl.viewState.table.editMode">
+                        Edit
+                    </button>
+                    <button class="btn btn-primary btn-raised" ng-disabled="!$ctrl.viewState.table.editMode" ng-click="$ctrl.viewState.table.editMode=!$ctrl.viewState.table.editMode">
+                        View
+                    </button>
+                </div>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="scout in $ctrl.reservation">
+                <td ng-repeat="prop in $ctrl.tableProps[$ctrl.resource].props" ng-switch on="prop.name">
+                    <div ng-show="$ctrl.viewState.table.editMode">
+                        <input type="checkbox" ng-change="$ctrl.save(scout.id, scout, $ctrl.resources[$ctrl.resource].name)" class="form-control" ng-model="scout.healthForm"
+                            ng-switch-when="healthForm" />
+                        <div>
+                                <div class="select-container">
+                                    <i class="material-icons">&#xE313;</i>
+                                    <select ng-init="rc.currentAdult.shirt = 'No Shirt'" ng-model="rc.currentAdult.shirt" class="form-control">
+                                        <option>No Shirt</option>
+                                        <option>Youth Medium -- 10$</option>
+                                        <option>Youth Large -- 10$</option>
+                                        <option>Adult Small -- 10$</option>
+                                        <option>Adult Medium -- 10$</option>
+                                        <option>Adult Large -- 10$</option>
+                                        <option>Adult XL -- 10$</option>
+                                        <option>Adult 2XL -- 12$</option>
+                                        <option>Adult 3XL -- 12$</option>
+                                        <option>Adult 4XL -- 12$</option>
+                                        <option>Adult 5XL -- 12$</option>
+                                    </select>
+                                </div>
+                        </div>
+                        <input type="text" ng-change="$ctrl.save(scout.id, scout, $ctrl.resources[$ctrl.resource].name)" class="form-control" ng-model="scout[prop.name]"
+                            ng-switch-default />
+                    </div>
+
+                    <div ng-show="!$ctrl.viewState.table.editMode" ng-switch on="prop.name">
+                        <span>
+                        {{ !!scout[prop.name]!==scout[prop.name]? scout[prop.name] : scout[prop.name]? "Yes" : "No"}}
+                        </span>
+                    </div>
+                    <!--<span ng-switch-default>{{scout[prop.name]}}</span>-->
+
+                </td>
+                <td ng-if="$ctrl.resources[$ctrl.resource].name == 'scouts'" title="'Remove'">
+                    <button type="button" class="btn btn-danger" ng-click="$ctrl.remove(scout.id, scout, $index)"> <i class="material-icons">&#xE92B;</i></button>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary btn-raised" ng-click="$ctrl.saveAll($ctrl.reservation)">Save All Changes</button>
+</div>
