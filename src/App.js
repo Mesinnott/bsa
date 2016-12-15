@@ -47,7 +47,7 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                 })
                 .state({
                     name:'reg',
-                    url:'/register/:campnum?',
+                    url:'/register/:campId?',
                     template:'<reg></reg>'
                 })
                 .state({
@@ -76,7 +76,7 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                 })
                 .state({
                     name:'admin',
-                    url:'/admin:resource?:parameter?:query?',
+                    url:'/admin?:resource?:parameter?:query?',
                     template:'<admin></admin>'
                 })
             $urlRouterProvider.otherwise('/'); // we may want to change this

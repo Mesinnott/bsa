@@ -1,4 +1,5 @@
 let dataAdapter = require('./data-adapter')
+let uuiDessert = require('./uui-dessert.js')
 let uuid = dataAdapter.uuid,
     // schemator = dataAdapter.schemator,
     DS = dataAdapter.DS,
@@ -63,7 +64,7 @@ function reservationCreate(reservation, cb) {
             pack: reservation.pack || null,
             leader1:reservation.leader1,
             leader2:reservation.leader2,
-            reservationNum: reservation.reservationNum,
+            accessKey: uuiDessert.Serve(),
             goldCard:reservation.goldCard,
             paymentDate:'',
             receiptNum: '',

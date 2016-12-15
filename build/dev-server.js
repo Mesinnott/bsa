@@ -81,18 +81,24 @@ app.use('/api', (req, res, next) => {
 
   Models.findYearForUpdate(resource, id, function (year) {
     if (year.stack) { return next() }  //If there's an error, don't bother going on
-
+    let frequency = 86400000; // 24hrs
+    let timeout = 604800000;
     var timenow = Date.now();
-    if (year.lastAccess + 86400000 < timenow || !year.lastAccess) { // 24 hours
+    if (year.lastAccess + frequency < timenow || !year.lastAccess) { // 24 hours
 
       year.lastAccess = timenow
 
       Models.Year.editYear(year, () => { // Pass in the following as a callback
         Models.Reservation.reservationGetByAnyId(year.id).then(function (reservationList) {
-          reservationList.forEach(function (reservation) {  // Is there a problem using forEach here? Ask Jake.
-            if (reservation.init + 604800000 < timenow && reservation.paidInFull === false) { // 7 days old and not paid in full
+
+          reservationList.forEach(function (reservation) { 
+             // Is there a problem using forEach here? Ask Jake.
+            if (reservation.init + timeout < timenow && reservation.paidInFull === false) { // 7 days old and not paid in full
+
               Models.Scout.scoutGetByAnyId(reservation.id, reservation, function (scouts) { // To find unpaid-for scouts
+
                 Promise.all(scouts.filter(function (scout) { // Promise.all ensures all promises have returned before the code moves on
+
                   if (!scout.paid) { // Kick them off reservation without disturbing paid-for packmates
                     scout.reservationId = null;
                     scout.campId = null;

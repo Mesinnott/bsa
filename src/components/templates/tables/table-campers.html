@@ -1,5 +1,15 @@
                     <div class="elevated-box" ng-show="rc.reg.campers.length">
-                        <legend>Campers</legend>
+                        <div class="col-xs-6">
+                            <legend>{{ resource.displayName }}</legend>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <button class="btn btn-primary btn-raised" ng-disabled="resource.editMode" ng-click="resource.editMode=!resource.editMode">
+                        Edit
+                        </button>
+                            <button class="btn btn-primary btn-raised" ng-disabled="!resource.editMode" ng-click="resource.editMode=!resource.editMode">
+                        View
+                        </button>
+                        </div>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -11,13 +21,47 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="person in rc.reg.campers" class="animation-grow-in">
-                                    <td>Scout</td>
-                                    <td>{{ person.first }}</td>
-                                    <td>{{ person.last }}</td>
-                                    <td>{{ person.shirt }}</td>
-                                    <td><button class="btn btn-default btn-fab" ng-click="rc.removeCamper($index)"><i class="material-icons">delete_forever</i></button></td>
+                                    <tr  ng-repeat="person in rc.reg[resource.name + 's']" class="animation-grow-in" ng-show="false">
+                                        <td>{{ resource.displayName }}</td>
+                                        <td>{{ person.first }}</td>
+                                        <td>{{ person.last }}</td>
+                                        <td>{{ person.shirt }}</td>
+                                        <td><button class="btn btn-default btn-fab" ng-click="rc.removeCamper($index)"><i class="material-icons">delete_forever</i></button></td>
+                                    </tr>
+                                    <tr  ng-repeat="person in rc.reg.campers" class="animation-grow-in">
+                                        <td>Scout</td>
+                                        <td>
+                                            <input type="text" class="form-control" ng-model="person.first">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" ng-model="person.last">
+                                        </td>
+                                        <td>
+                                            <div class="select-container">
+                                                <i class="material-icons">&#xE313;</i>
+                                                <select 
+                                                    placeholder="choose shirt" 
+                                                    ng-model="person.shirt" 
+                                                    class="form-control" 
+                                                    required>
+                                                        <option>Youth Medium -- $10</option>
+                                                        <option>Youth Large -- $10</option>
+                                                        <option>Adult Small -- $10</option>
+                                                        <option>Adult Medium -- $10</option>
+                                                        <option>Adult Large -- $10</option>
+                                                        <option>Adult XL -- $10</option>
+                                                        <option>Adult 2XL -- $12</option>
+                                                        <option>Adult 3XL -- $12</option>
+                                                        <option>Adult 4XL -- $12</option>
+                                                        <option>Adult 5XL -- $12</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td><button class="btn btn-default btn-fab" ng-click="rc.removeCamper($index)"><i class="material-icons">delete_forever</i></button></td>
+                                        </tr>
+                                    </div>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+

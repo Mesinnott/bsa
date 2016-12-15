@@ -8,7 +8,7 @@ const Component = 'admin'
 
 // Use this as a template.
 angular.module(`app.components.${Component}`, [])
-
+    
     .service('abService', function ($http, $state) {
         var ab = this;
         ab.camps = [''];
@@ -94,17 +94,42 @@ angular.module(`app.components.${Component}`, [])
     //     }
 
 
-    .controller('adController', function (abService, $http, $state) {
+    .controller('adController', function (abService, $http, $interval) {
         let ad = this;
         ad.test = 'testing 123'
         ad.reservation = ['']
         ad.prop = ''
         ad.resource = '0'
         ad.error = false
+        ad.loading = 100;
+        ad.loadingDisplay = ad.loading;
         ad.viewState = {
             table: {
                 editMode: false
             }
+        }
+        var interval;
+        function increaseLoadBarWidth(timePassed){
+            console.log(timePassed)
+            let timeVar = timePassed/10
+            ad.loading = Math.abs(
+                (
+                    100
+                    ) / timePassed -100
+                );
+            ad.loadingDisplay=Math.floor(ad.loading)
+        }
+        console.log("working")
+        ad.animateLoading = function(){
+            ad.loading = 1;
+            var timePassed = 1;
+            ad.loadingInterval = $interval(
+                function(){
+                    console.log(ad.loading)
+                    increaseLoadBarWidth(timePassed)
+                    timePassed++;
+                }, 300
+            )
         }
 
         //template entry calling this function has been commented out 
@@ -647,7 +672,109 @@ angular.module(`app.components.${Component}`, [])
                 ]
             }
         ]
-    })
+
+
+
+
+
+
+        this.getYears = function () {
+            abService.getCurrentYears(
+                function (years) {
+                    ad.years = years
+                    console.log(years)
+                }
+            )
+        }
+
+        this.getCamps = function () {
+
+            abService.getCampsByYear(
+                ad.yearId,
+                camps => {
+                    ad.camps = camps
+                }
+            )
+        }
+        ad.setResource=function(index){
+            // console.log(ad.resources[index].name)
+            return ad.resources[index].name
+
+
+        }
+
+        ad.reservations = function (value) {
+            // debugger
+            ad.animateLoading()
+            console.log('its working...')
+            abService.getByAnyProp(ad.setResource(ad.resource), ad.prop, value, function (res) {
+                $interval.cancel(ad.loadingInterval)
+                ad.loading = 100;
+                ad.reservation = res
+            })
+
+            // abService.reservationGetById(value, function (reserv) {
+            //     ad.resDetails = reserv;
+            // })
+
+        }
+
+        ad.save = function (id, resource, name) {
+            name = name.split("")
+            name.pop()
+            name=name.join('')
+            let body= {}
+            body[name]=resource
+            // resource = { name: resource }
+            abService.editAny(name, id, body, function (save) {
+                console.log(save)
+
+            })
+        }
+
+        ad.saveAll = function (list) {
+            ad.error="Your Changes Have been saved"
+
+
+
+            // for (var i = 0; i < list.length; i++) {
+            //     var scout = list[i]
+            //     var id = scout.id
+            //     console.log("id: " + id)
+            //     ad.save(id, scout)
+            //     console.log("updated " + (i + 1))
+            // }
+
+        }
+        ad.reset= function(){
+            ad.error=false
+        }
+        ad.remove = function (id, scout, index) {
+            // debugger
+            if(!window.confirm("Are you sure?")){
+                return
+            }
+            var reserve = scout.reservationId
+            console.log(reserve)
+            var scout = {
+                "scout":
+                {
+                    "id": id,
+                    "campId": "removed",
+                    "reservationId": "removed"
+                }
+            }
+            abService.editScout(id, scout, function (res) {
+                console.log(res)
+                ad.reservation.splice(index, 1)
+            }, function (res) {
+                console.error(res)
+            })
+        }
+
+
+    }, ['$interval'])
+
 
     .component('admin', {
         controller: 'adController',
