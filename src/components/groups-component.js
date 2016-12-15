@@ -54,50 +54,53 @@ function GroupController(groupService, $http, $state, groupBuilder) {
         gc.currentCamp = camp[0];
     })
 
+    gc.sortBy = (x, y, z) => {
+        var fn = (a, b, x) => a[x] > b[x] ? 1 : a[x] < b[x] ? -1 : 0;
+        gc.scoutList = gc.scoutList.sort(
+            (a, b) => {
+                var rtn = fn(a, b, x)
+                if (rtn == 0) {
+                    if (!y) {
+                        rtn = fn(a, b, 'name')
+                        return rtn
+                    }
+                    rtn = fn(a, b, y)
+                    if (rtn == 0 && z) {
+                        rtn = fn(a, b, z)
+                    }
+                }
+                return rtn
+            }
+        )
+    }
+
     gc.listGroups = function (campId, cb) {
         groupService.getGroups(campId, cb)
     }
     gc.listGroups(gc.campId, function (list) {
         gc.scoutList = list;
-        gc.scoutList.forEach(scout=>{
+        gc.scoutList.forEach(scout => {
             scout.lastName = scout.name.split(" ")[1]
             return scout
         })
-        gc.initialSort(gc.scoutList);
+        gc.sortBy('packNum', 'lastName')
     });
 
     gc.groupCap = 16; //Need ng-model with front end, default=16
     gc.createGroups = function () {
         var numGroups = (gc.currentCamp.scoutLevels === 'all' ? 10 : 9);
         gc.scoutList = groupBuilder.build(gc.scoutList, numGroups, gc.groupCap);
-        gc.sortBy("color", "lastName");
         gc.saveGroupColorChanges(gc.scoutList, function () {
             return true; //Couldn't think of anything to do here
         })
-    }
-    gc.sortBy = (x, y)=>{
-        gc.scoutList = gc.scoutList.sort()
-        var fn = (a,b,x)=>a[x]>b[x]? 1 : a[x]<b[x]? -1 : 0;
-        gc.scoutList = gc.scoutList.sort(
-            (a,b)=>{
-            var rtn = fn(a,b,x)
-            if(rtn==0){
-                rtn = fn(a,b,y)
-            }
-            return rtn
-            }
-        )
     }
     gc.saveGroupColorChanges = function (scoutList, cb) {
         scoutList.forEach(function (scout) {
             groupService.updateGroup(scout.id, cb);
         });
-        gc.sortBy("color", "packNum");
+        gc.sortBy("color", "packNum", "lastName");
     }
 
-    gc.initialSort = function (scoutList) {
-        gc.sortBy("packNum", "lastName")
-    }
 }
 ///////GROUP BUILDER FUNCTION///////
 
