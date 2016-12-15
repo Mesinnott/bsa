@@ -76,6 +76,8 @@
                             ng-model="reservation.receiptNum" ng-switch-when="receiptNum" />
                         <input type="text" ng-change="vc.save(reservation.id, reservation, vc.resources[vc.resource].name)" class="form-control"
                             ng-model="reservation.paymentDate" ng-switch-when="paymentDate" />
+                        <input type="checkbox" class="form-control"
+                            ng-model="reservation.active" ng-switch-when="active" />
                         <input type="text" ng-change="vc.save(reservation.id, reservation, vc.resources[vc.resource].name)" class="form-control"
                             ng-model="reservation[prop.name]" ng-switch-default />
                     </div>
