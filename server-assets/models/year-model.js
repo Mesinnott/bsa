@@ -54,7 +54,7 @@ function editYear(rewrite, cb) {
 //     if (resource == 'year') {
 //         Year.find(id).then(cb).catch(cb)
 //     } else {
-//         reservationGetByAnyId(id, {}, function (response) {
+//         Reservation.reservationGetByAnyId(id, {}, function (response) {
 //             if (response && response.length < 1) {
 //                 response = response || [{ stack: 'something went very wrong' }];
 //                 return cb(response)
