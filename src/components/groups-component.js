@@ -67,7 +67,7 @@ function GroupController(groupService, $http, $state, groupBuilder) {
         debugger;
         var numGroups = (gc.currentCamp.scoutLevels === 'all' ? 10 : 9);
         gc.scoutList = groupBuilder.build(gc.scoutList, numGroups, gc.groupCap);
-        gc.colorPackSort(gc.scoutList);
+        gc.simplePackSort(gc.scoutList);
         gc.saveGroupColorChanges(gc.scoutList, function () {
             return true; //Couldn't think of anything to do here
         })
@@ -77,7 +77,18 @@ function GroupController(groupService, $http, $state, groupBuilder) {
         scoutList.forEach(function (scout) {
             groupService.updateGroup(scout.id, cb);
         });
-        gc.colorPackSort(gc.scoutList);
+        gc.simpleColorSort(gc.scoutList);
+    }
+
+    gc.simpleColorSort = function(scoutList) {
+        scoutList = scoutList.sort(function(a, b) {
+            return a.color - b.color;
+        })
+    }
+    gc.simplePackSort = function(scoutList) {
+        scoutList = scoutList.sort(function(a,b) {
+            return a.pack - b.pack;
+        })
     }
 
     gc.initialSort = function (scoutList) {
@@ -326,6 +337,7 @@ function GroupBuilder(masterArray, numGroups, hardGroupCap, colorArray) {
             scoutsWithColors.push(scout);
         }
     }
+    console.log(scoutsWithColors[0])
 
     return scoutsWithColors;
 
