@@ -31,7 +31,7 @@ function NavController(loginService, $document, $window, $scope, $state) {
             nc.auth = a;
             console.log('sssss ' + nc.auth);
             if (nc.auth == 'super' || nc.auth == 'reservation') {
-                $state.go('viewreg')
+                $state.go('viewreg', {'reservationId':'7c7973ae-eeee-4fcb-9ee5-a52222d99eda'})
             }
             else {
                 $state.go('faq')
@@ -63,7 +63,7 @@ function NavController(loginService, $document, $window, $scope, $state) {
             nc.auth = a;
             console.log('sssss ' + nc.auth);
             if (nc.auth == 'super' || nc.auth == 'admin') {
-                $state.go('admin')
+                $state.go('admin', {'resource':'hello'})
             }
             else {
                 $state.go('faq')
