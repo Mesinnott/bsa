@@ -218,7 +218,7 @@ app.use('/api', (req, res, next) => {
 // })
 
 // Models.editYear(year, ()=>{ // Pass in the following as a callback
-//   Models.reservationGetByAnyId(year.id).then(function (reservationList) {
+//   Models.Reservation.reservationGetByAnyId(year.id).then(function (reservationList) {
 //     Promise.all(reservationList.filter(function (reservation) { //Promise.all ensures all promises have returned before the code moves on
 //       if (reservation.init + 604800000 < timenow && reservation.paidInFull === false) { // 7 days and not paid in full
 //         Models.Scout.scoutGetByAnyId(reservation.id, reservation, function(scouts) { // find unpaid scouts

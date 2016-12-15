@@ -61,7 +61,7 @@ let reservationGetByAnyId = Reservation.reservationGetByAnyId
 
 function findYearForUpdate(resource, id, cb) {
     if (resource == 'year') {
-        DS.find("Year", id).then(cb).catch(cb)
+        DS.find("year", id).then(cb).catch(cb)
     } else {
         Reservation.reservationGetByAnyId(id, {}, function (response) {
             if (response && response.length < 1) {
