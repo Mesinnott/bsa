@@ -8,6 +8,19 @@ let uuid = dataAdapter.uuid,
 let Reservation = DS.defineResource({
     name: 'reservation',
     endpoint: 'api/reservations',
+    computed: {
+        paidInFull: function() {
+            DS.findAll('scout', {reservationId: reservationId}).then(function(scouts) {
+                var paid = true;
+                for (var i = 0; i < scouts.length; i++) {
+                    if (!scouts[i].paid) {
+                        paid = false;
+                    }
+                }
+                return paid;
+            })
+        }
+    },
     relations: {
         belongsTo: {
             camp: {

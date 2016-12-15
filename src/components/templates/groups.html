@@ -1,9 +1,9 @@
-<div class= "elevated-box">
-<div class="sort-buttons">
-    <button class="btn btn-primary btn-raised" ng-click="$ctrl.mcColorSort()">Sort by Color</button>
-    <button class="btn btn-success btn-raised" ng-click="$ctrl.packColorSort($ctrl.scoutList)">Sort by Unit</button>
-    <button class="btn btn-danger btn-raised" ng-click="$ctrl.nameSort($ctrl.scoutList)">Sort by Name</button>
-</div>
+<div class="elevated-box">
+    <div class="sort-buttons">
+        <button class="btn btn-primary btn-raised" ng-click="$ctrl.colorPackSort($ctrl.scoutList)">Sort by Color</button>
+        <button class="btn btn-success btn-raised" ng-click="$ctrl.packColorSort($ctrl.scoutList)">Sort by Unit</button>
+        <button class="btn btn-danger btn-raised" ng-click="$ctrl.nameSort($ctrl.scoutList)">Sort by Name</button>
+    </div>
 </div>
 <div class=" elevated-box group-button-well">
     <button class="group-button btn btn-raised btn-warning" ng-click="$ctrl.createGroups()">Sort Scouts into New Groups</button>
@@ -17,11 +17,12 @@
             <th>Camp Group</th>
         </tr>
         <tr data-ng-repeat="scout in $ctrl.scoutList">
-            <th>Pack {{ scout.packNum }}</th>
-            <th>{{ scout.name }}</th>
-            <th>
-                <label for=""><i class="material-icons">&#xE313;</i></label>
-                <select name="color" class="form-control inline" ng-show="scout.color" style="display:inline;" ng-model="scout.color" id="{{ scout.id }}">
+            <td>Pack {{ scout.packNum }}</td>
+            <td>{{ scout.name }}</td>
+            <td>
+                <div class="select-container">
+                    <i class="material-icons">&#xE313;</i>
+                    <select name="color" class="form-control inline" ng-show="scout.color" style="display:inline;" ng-model="scout.color" id="{{ scout.id }}">
                     <option value="red" style="background-color: #e71800">red</option>
                     <option value="orange" style="background-color: #de7206">orange</option>
                     <option value="yellow" style="background-color: #f3f016">yellow</option>
@@ -33,7 +34,8 @@
                     <option value="black" style="background-color: #1c1c1c">black</option>
                     <option ng-if="$ctrl.camp.scoutLevels == 'all'" value="brown" style="background-color: #643f25">brown</option>
                 </select>
-            </th>
+                </div>
+            </td>
         </tr>
     </table>
 </div>
