@@ -19,7 +19,8 @@ function addUser(user, cb) {
         admin: false,
         super: false,
         director: false,
-        reservation: false
+        reservation: false, 
+        reservationId: 'none'
     };
 
     User.create(userObj).then(cb).catch(cb)

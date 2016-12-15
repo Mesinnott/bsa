@@ -7,20 +7,78 @@ const Component = 'login'
 angular.module(`app.components.${Component}`, [])
 
     .factory('loginService', function($http, $state) {
+    
+    let currentUser=''
+    let currentId=''
+    let dbuser= ''
+    let currentAuth = 'none'
+
+        function checkAuth(){
+
+        currentUser = firebase.auth()
+        if(currentUser.currentUser == null){
+            console.log ('not logged in')
+        }
+        if(currentUser.currentUser){
+            console.log('someone is logged in')
+            console.log(currentUser)
+            console.log(currentUser.currentUser)
+            console.log(currentUser.currentUser.uid)
+            currentId=currentUser.currentUser.uid
+
+             getUser(currentId, function(res) {
+                    console.log(res)
+                    dbuser = res.data
+                    if(dbuser[0].super== true){
+                        // console.log('super')
+                        currentAuth = 'super'
+                    }else if(dbuser[0].admin==true){
+                        // console.log('admin')
+                        currentAuth = 'admin'
+                    }else if(dbuser[0].director == true){
+                        // console.log('director')
+                        currentAuth = "director"
+                    }else if (dbuser[0].reservation == true){
+                        // console.log("reservation")
+                        currentAuth = "reservation"
+                    }
+                    console.log("current authentication standard is " + currentAuth)
+                    return currentAuth
+             })
+          
+        }
+        }
+
+
+
+
+  
 
         function getUser(id, cb) {
             $http({
                 method: 'GET',
-                url: '/api/users/' + id
+                url: '/api/users?id=' + id
             }).then(function(res) {
                 // lc.user = res
-                return cb(res);
+                let hello =res
+                return cb(hello);
             })
         }
 
+        
+
         return {
-            getUser: getUser
+            getUser: getUser,
+            checkAuth:checkAuth,
+            currentUser: currentUser,
+            currentId: currentId,
+           dbuser: dbuser,
+           currentAuth: currentAuth
         };
+
+
+
+
 
     })
 
@@ -53,6 +111,8 @@ function LoginController(loginService, $state, $http) {
                 let newRef = firebase.database().ref('/users/').push();
 
                 newRef.key
+
+
             } else {
                 console.log('logged out')
             }
@@ -86,18 +146,67 @@ function LoginController(loginService, $state, $http) {
                 loginService.getUser(user.uid, function(res) {
                     lc.user = res.data
 
-                    if (lc.user.super == true) {
+
+                    debugger
+                    if (lc.user[0].super == true) {
+
                         lc.clearance = 'super'
                         $state.go("admin")
-                    } else if (lc.user.admin == true) {
+                        return
+                    } else if (lc.user[0].admin == true) {
                         lc.clearance = 'admin'
                         $state.go("admin")
+                        return
+                    } else if (lc.user[0].director == true) {
+                        lc.clearance = 'director'
+                        $state.go("director", { userId: user.uid })
+                        return
+                    } else if (lc.user[0].reservation == true) {
+                        lc.clearance = 'reservation'
+                        $state.go("viewreg", { reservationId: user.reservationId })
+                        return
+                    } else {
+                        lc.clearance = 'none'
+                        $state.go("home")
+                    }
+                })
+                lc.message = "You have Successfully Logged In"
+                console.log('logged in: ' + user.displayName);
+                console.log('clearance = ' + lc.clearance)
+            })
+            .catch((error) => {
+                lc.error = error.message
+                console.log(error);
+            })
+
+    }
+
+    lc.checkAuth = function(){
+
+        lc.auth = firebase.auth()
+        .then((user) => {
+        loginService.checkAuth(user.uid, function(res) {
+                    lc.user = res.data
+
+                    console.log(lc.user)
+
+                    debugger
+                    if (lc.user.super == true) {
+                        lc.clearance = 'super'
+                        // $state.go("admin")
+                        // return
+                    } if (lc.user.admin == true) {
+                        lc.clearance = 'admin'
+                        // $state.go("admin")
+                        // return
                     } else if (lc.user.director == true) {
                         lc.clearance = 'director'
                         $state.go("director", { userId: user.uid })
+                        return
                     } else if (lc.user.reservation == true) {
                         lc.clearance = 'reservation'
-                        // $state.go("admin", { id: user.uid })
+                        $state.go("viewreg", { reservationId: user.reservationId })
+                        return
                     } else {
                         lc.clearance = 'none'
                         $state.go("home")
@@ -112,8 +221,14 @@ function LoginController(loginService, $state, $http) {
                 lc.error = error.message
                 console.log(error);
             })
+    }
+
+
+    lc.getAuth = function(){
+        loginService.checkAuth()
 
     }
+
     lc.messageClear = function() {
         lc.message = false
     }
