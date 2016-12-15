@@ -13,6 +13,7 @@ import {navbar} from './navbar-component.js'
 import {faq} from './faq-component.js'
 import {viewreg} from './viewReg-component.js'
 
+
 // Import your components here
 
 let components = [

@@ -5,7 +5,7 @@ var config = require('../config');
 var opn = require('opn');
 var proxyMiddleware = require('http-proxy-middleware');
 var webpackConfig = require('./webpack.dev.conf');
-// MIkey added these
+// Mikey added these
 var routes = require('../server-assets/routes/index');
 var bodyParser = require('body-parser');
 var cors = require('cors');
@@ -81,18 +81,24 @@ app.use('/api', (req, res, next) => {
 
   Models.findYearForUpdate(resource, id, function (year) {
     if (year.stack) { return next() }  //If there's an error, don't bother going on
-
+    let frequency = 86400000; // 24hrs
+    let timeout = 604800000;
     var timenow = Date.now();
-    if (year.lastAccess + 86400000 < timenow || !year.lastAccess) { // 24 hours
+    if (year.lastAccess + frequency < timenow || !year.lastAccess) { // 24 hours
 
       year.lastAccess = timenow
 
       Models.Year.editYear(year, () => { // Pass in the following as a callback
         Models.Reservation.reservationGetByAnyId(year.id).then(function (reservationList) {
-          reservationList.forEach(function (reservation) {  // Is there a problem using forEach here? Ask Jake.
-            if (reservation.init + 604800000 < timenow && reservation.paidInFull === false) { // 7 days old and not paid in full
+
+          reservationList.forEach(function (reservation) { 
+             // Is there a problem using forEach here? Ask Jake.
+            if (reservation.init + timeout < timenow && reservation.paidInFull === false) { // 7 days old and not paid in full
+
               Models.Scout.scoutGetByAnyId(reservation.id, reservation, function (scouts) { // To find unpaid-for scouts
+
                 Promise.all(scouts.filter(function (scout) { // Promise.all ensures all promises have returned before the code moves on
+
                   if (!scout.paid) { // Kick them off reservation without disturbing paid-for packmates
                     scout.reservationId = null;
                     scout.campId = null;
@@ -114,39 +120,6 @@ app.use('/api', (req, res, next) => {
   })
 })
 
-// Models.editYear(year, ()=>{ // Pass in the following as a callback
-//   Models.reservationGetByAnyId(year.id).then(function (reservationList) {
-//     Promise.all(reservationList.filter(function (reservation) { //Promise.all ensures all promises have returned before the code moves on
-//       if (reservation.init + 604800000 < timenow && reservation.paidInFull === false) { // 7 days and not paid in full
-//         Models.Scout.scoutGetByAnyId(reservation.id, reservation, function(scouts) { // find unpaid scouts
-//           Promise.all(scouts.filter(function(scout) { // duplicating above construction
-//             if (!scout.paid) { //Kick them off reservation without disturbing paid-for packmates
-//               scout.reservationId = null;
-//               scout.campId = null;
-//               return Models.Scout.editScout(scout)
-//             }
-//           }))
-//         })
-
-
-//         reservation.active = false;
-//         return Models.editReservation(reservation)
-//       }
-//     })).then((data)=>{
-//       console.log(data)
-//       next()
-//     })
-//   }).catch((error)=>{
-//     console.log(error)
-//     next()
-//   })
-// })
-//     }
-
-
-//     else{ next() } // every endpoint of this function MUST run next()
-//   })
-// })
 app.use('/api', cors(handlers.corsOptions), routes.router)
 app.use('/', handlers.defaultErrorHandler)
 
