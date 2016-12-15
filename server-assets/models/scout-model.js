@@ -76,6 +76,7 @@ function scoutGetByAnyId(queryId, query, cb) {
 function editScout(rewrite, cb) {
     Scout.find(rewrite.id).then(function (scout) {
         Scout.update(scout.id, rewrite).then((data) => {
+            Models.Reservation.checkPaidStatus(scout.reservationId, cb);
             if (cb) { cb(data) }
         }).catch((error) => {
             if (cb) { cb(error) }
