@@ -17,7 +17,7 @@ angular.module(`app.components.${Component}`, [])
         nc.test= "test"
         nc.auth = 'i'
 
-       nc.auth= loginService.checkAuth()
+       nc.auth = loginService.checkAuth()
 
        console.log("test "+ loginService.currentAuth)
        console.log("aauth= "+ nc.auth)
