@@ -94,18 +94,23 @@ angular.module(`app.components.${Component}`, [])
     //     }
 
 
-    .controller('adController', function (abService, $http, $state) {
+    .controller('adController', function (loginService, abService, $http, $state) {
         let ad = this;
         ad.test = 'testing 123'
         ad.reservation = ['']
         ad.prop = ''
         ad.resource = '0'
+        ad.currentAuth = 'none'
         ad.error = false
         ad.viewState = {
             table: {
                 editMode: false
             }
         }
+
+        ad.currentAuth = loginService.checkAuth()
+        console.log(ad.currentAuth)
+
 
         //template entry calling this function has been commented out 
         this.getYears = function () {
