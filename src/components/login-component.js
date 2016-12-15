@@ -21,13 +21,10 @@ angular.module(`app.components.${Component}`, [])
         }
         if(currentUser.currentUser){
             console.log('someone is logged in')
-            console.log(currentUser)
-            console.log(currentUser.currentUser)
-            console.log(currentUser.currentUser.uid)
             currentId=currentUser.currentUser.uid
 
              getUser(currentId, function(res) {
-                    console.log(res)
+                    // console.log(res)
                     dbuser = res.data
                     if(dbuser[0].super== true){
                         // console.log('super')
@@ -45,8 +42,9 @@ angular.module(`app.components.${Component}`, [])
                     console.log("current authentication standard is " + currentAuth)
                     return currentAuth
              })
-          
-        }
+             
+             }
+             
         }
 
 
@@ -191,19 +189,19 @@ function LoginController(loginService, $state, $http) {
                     console.log(lc.user)
 
                     debugger
-                    if (lc.user.super == true) {
+                    if (lc.user[0].super == true) {
                         lc.clearance = 'super'
                         // $state.go("admin")
                         // return
-                    } if (lc.user.admin == true) {
+                    } if (lc.user[0].admin == true) {
                         lc.clearance = 'admin'
                         // $state.go("admin")
                         // return
-                    } else if (lc.user.director == true) {
+                    } else if (lc.user[0].director == true) {
                         lc.clearance = 'director'
                         $state.go("director", { userId: user.uid })
                         return
-                    } else if (lc.user.reservation == true) {
+                    } else if (lc.user[0].reservation == true) {
                         lc.clearance = 'reservation'
                         $state.go("viewreg", { reservationId: user.reservationId })
                         return

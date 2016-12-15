@@ -10,10 +10,24 @@ angular.module(`app.components.${Component}`, [])
         template: template
     });
 
-    NavController.$inject = ['$document', '$window', '$scope'];
+    NavController.$inject = ['loginService', '$document', '$window', '$scope'];
 
-    function NavController($document, $window, $scope){
+    function NavController(loginService, $document, $window, $scope){
         let nc = this;
+        nc.test= "test"
+        nc.auth = 'i'
+
+        nc.getAuth = function(){
+       nc.auth= loginService.checkAuth()
+       console.log(nc.auth)
+        }
+        nc.getAuth()
+       console.log("test "+ loginService.currentAuth)
+       console.log("aauth= "+ nc.auth)
+    //    console.log(nc.auth)
+
+
+
         $document.on('scroll', function() {
             // do your things like logging the Y-axis
             console.log($window.scrollY);
