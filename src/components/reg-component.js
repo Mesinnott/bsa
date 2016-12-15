@@ -74,6 +74,7 @@ angular.module(`app.components.${Component}`, [])
     rc.healthBoxChecked = false;
     rc.campNum;
     rc.camp;
+    rc.password;
     (function(){
         $http.get('/api/camps/'+$state.params.campId)
             .then(function(camps){
@@ -217,11 +218,50 @@ angular.module(`app.components.${Component}`, [])
         console.log(rc.reg)
         rc.reg.contacts.forEach(c=>{
             c.reservation = true;
+            c.password = rc.password
         })
         let formattedData = {
-            
+            firstUser:rc.reg.contacts[0],
+            secondUser:rc.reg.contacts[1],
+            registration:{
+                packNum: rc.reg.packNum,
+                packId: "Set Below"
+                
+            }
+
         }
-        $http.post('/api/users', )
+        authService.createUser(formattedData.firstUser, 
+            firstUser=>{
+                    return authService.createUser(formattedData.secondUser,
+                        ()=>{
+                            $http.get('/api/packs?number=' + formattedData.registration.packNum)
+                                .then(
+                                    pack=>{
+                                        formattedData.registration.packId = pack.id
+                                    }
+                                )
+                                .catch(
+                                    error=>{
+                                        return (
+                                            $http.post('/api/packs', {
+                                                number:formattedData.registration.packNum,
+                                                charter:"Not Set",
+                                                districtId:"Not Set"
+                                            })
+                                        )
+                                    }
+                                )
+                                .then(
+                                    pack=>{
+                                        formattedData.registration.packId = pack.id
+                                    }
+                                )
+                                .then(
+                                    
+                                )
+                        })
+                })
+                
     }
             
     // rc.reg = {
