@@ -13,7 +13,7 @@ angular.module(`app.components.${Component}`, [])
         let dbuser = ''
         let currentAuth = 'none'
 
-        function checkAuth() {
+        function checkAuth(cb) {
 
             currentUser = firebase.auth()
             if (currentUser.currentUser == null) {
@@ -40,7 +40,9 @@ angular.module(`app.components.${Component}`, [])
                         currentAuth = "reservation"
                     }
                     console.log("current authentication standard is " + currentAuth)
+                    cb(currentAuth)
                     return currentAuth
+
                 })
             }
         }
