@@ -2,7 +2,10 @@ import angular from 'angular'
 import uiRouter from "angular-ui-router"
 import {dependencies} from './components/components'
 import styles from 'bootstrap-material-design'
-
+import PromisePolyfill from 'promise-polyfill'
+if(!window.Promise){
+    window.Promise = PromisePolyfill;
+}
 let App = angular.module('bsa', [
     ...dependencies, 
     uiRouter,

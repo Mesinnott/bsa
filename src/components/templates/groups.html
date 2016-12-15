@@ -1,15 +1,13 @@
 <div class="elevated-box">
     <div class="sort-buttons">
-        <button class="btn btn-primary btn-raised" ng-click="$ctrl.simpleColorSort($ctrl.scoutList)">Sort by Color</button>
-        <button class="btn btn-success btn-raised" ng-click="$ctrl.packColorSort($ctrl.scoutList)">Sort by Unit</button>
-        <button class="btn btn-danger btn-raised" ng-click="$ctrl.nameSort($ctrl.scoutList)">Sort by Name</button>
+        <button class="btn btn-primary btn-raised" ng-click="$ctrl.sortBy('color', 'packNum', 'lastName')">Sort by Color</button>
+        <button class="btn btn-success btn-raised" ng-click="$ctrl.sortBy('packNum', 'color', 'lastName')">Sort by Unit</button>
+        <button class="btn btn-danger btn-raised" ng-click="$ctrl.sortBy('lastName')">Sort by Name</button>
     </div>
 </div>
 <div class="elevated-box group-button-well">
     <button class="group-button btn btn-raised btn-warning" ng-click="$ctrl.createGroups()">Sort Scouts into New Groups</button>
-    Group size:
-    <input type="text" ng-model="$ctrl.groupCap"/>
-    <button class="save-button btn btn-raised btn-warning" ng-click="$ctrl.saveGroupColorChanges">Save Changes and Re-Order List</button>
+    <button class="save-button btn btn-raised btn-warning" ng-click="$ctrl.saveGroupColorChanges()">Save Changes and Re-Order List</button>
 </div>
 <div class="elevated-box scout-table">
     <table class='table'>
