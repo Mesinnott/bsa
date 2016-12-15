@@ -23,32 +23,34 @@ function getAnyByProp(resourceName, query, cb){
     let includeSyntax = {};
     let include = query.with ||''
     delete query.with
-    console.log("Query of" + JSON.stringify(query))
+    // console.log("Query of" + JSON.stringify(query))
     if(!!Object.keys(query).length){
         querySyntax = {where:{}}
-        console.log("Query is not blank")
+        // console.log("Query is not blank")
         for(var thing in query){
             querySyntax.where[thing] = {}
             if(typeof query[thing]=='string'){
                 query[thing] = [query[thing]]
             }
-            console.log(resourceName + "is current resource")
+            // console.log(resourceName + "is current resource")
             if(resourceName.includes("year")){
                 query[thing] = query[thing].map(str=>parseInt(str))
             }
             querySyntax.where[thing]['in'] = query[thing]
-            console.log(JSON.stringify(querySyntax))
+            // console.log(JSON.stringify(querySyntax))
             args.push(querySyntax)
         }
     }
     let w = formatQuery(include).with;
     if(!!w[0]){
-        console.log(w)
+        // console.log(w)
         includeSyntax.with = w
         args.push(includeSyntax)
     }
-    console.log(JSON.stringify(querySyntax))
-    console.log(JSON.stringify(args))
+    // console.log(JSON.stringify(querySyntax))
+    // console.log(JSON.stringify(args))
+    if(!cb) return DS.findAll(...args);
+
     DS.findAll(...args).then(cb).catch(cb)
 }
 
@@ -66,7 +68,7 @@ function findYearForUpdate(resource, id, cb) {
                 response = response || [{ stack: 'something went very wrong' }];
                 return cb(response)
             }
-            DS.find("Year", response[0].yearId).then(cb).catch(cb); //"find" returns an array
+            DS.find("year", response[0].yearId).then(cb).catch(cb); //"find" returns an array
         })
     }
 }

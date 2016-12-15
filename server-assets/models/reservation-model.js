@@ -10,7 +10,7 @@ let Reservation = DS.defineResource({
     endpoint: 'api/reservations',
     computed: {
         paidInFull: function() {
-            DS.findAll('scout', {reservationId: reservationId}).then(function(scouts) {
+            DS.findAll('scout', {reservationId: this.id}).then(function(scouts) {
                 var paid = true;
                 for (var i = 0; i < scouts.length; i++) {
                     if (!scouts[i].paid) {
@@ -96,7 +96,8 @@ function reservationGetByAnyId(queryId, query, cb) {
 }
 
 function editReservation(rewrite, cb) {
-    return Reservation.find(rewrite.id).then(function (reservation) { //starting this with "return" ensures the function returns a promise without changing its function
+    return Reservation.find(rewrite.id)
+    .then(function (reservation) { //starting this with "return" ensures the function returns a promise without changing its function
         Reservation.update(reservation.id, rewrite).then((data) => {
             if (cb) { cb(data) } //allows us to not pass in a callback if we don't want to
         }).catch((error) => {

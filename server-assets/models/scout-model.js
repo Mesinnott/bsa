@@ -38,7 +38,8 @@ function scoutCreate(scout, cb) {
             yearId: reservation.yearId,
             healthForm: false,
             paid: false,
-            shirtSize: scout.shirtSize
+            shirtSize: scout.shirtSize,
+            active:true,
         };
         // let error = schemator.validateSync('Scout', scout)
         // if (error){
@@ -52,7 +53,29 @@ function scoutCreate(scout, cb) {
 
 
 function scoutGetByAnyId(queryId, query, cb) {
-    Scout.findAll({
+    if(cb){
+        Scout.findAll({
+            where: {
+                'id': {
+                    '|===': queryId
+                },
+                'yearId': {
+                    '|===': queryId
+                },
+                'campId': {
+                    '|===': queryId
+                },
+                'reservationId': {
+                    '|===': queryId
+                },
+                'packId': {
+                    '|===': queryId
+                },
+            }
+        }).then(cb).catch(cb)
+        return
+    }
+    return Scout.findAll({
         where: {
             'id': {
                 '|===': queryId
@@ -70,19 +93,30 @@ function scoutGetByAnyId(queryId, query, cb) {
                 '|===': queryId
             },
         }
-    }).then(cb).catch(cb)
+    })
+
 }
 
 function editScout(rewrite, cb) {
-    Scout.find(rewrite.id).then(function (scout) {
-        Scout.update(scout.id, rewrite).then((data) => {
-            if (cb) { cb(data) }
+    if(cb){
+        Scout.find(rewrite.id)
+        .then(function (scout) {
+            Scout.update(scout.id, rewrite)
+            .then((data) => {
+                if (cb) { cb(data) }
+            }).catch((error) => {
+                if (cb) { cb(error) }
+            })
         }).catch((error) => {
             if (cb) { cb(error) }
         })
-    }).catch((error) => {
-        if (cb) { cb(error) }
-    })
+        return
+    }
+    return Scout.find(rewrite.id)
+        .then(
+            function (scout) {
+                return Scout.update(scout.id, rewrite)
+        })            
 }
 
 module.exports = {

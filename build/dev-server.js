@@ -67,8 +67,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // app.use('/', express.static('./'))
 
 app.use('/api', (req, res, next) => {
-    next();
-    return;
+    // next();
+    // return;
     console.log('active middleware');
     console.log(req.url);
     var urls = req.url.split('/') // Have to get the params straight from the url
@@ -76,82 +76,146 @@ app.use('/api', (req, res, next) => {
     var id = urls[2]
 
     if ((resource == 'year' || resource == 'camp' || resource == 'reservation') && id) { // Isn't attached to any yearId
+        console.log("still running")
         Models.findYearForUpdate(resource, id, function (year) {
-            if (year.stack) { return next() }  //If there's an error, don't bother going on
+            console.log("Still still running")
+            // if (year.stack) { return next() }  //If there's an error, don't bother going on
             let frequency = 86400000; // 24hrs
+            frequency = 1000
             let timeout = 604800000; // 7days
             var timenow = Date.now();
             if (year.lastAccess + frequency < timenow || !year.lastAccess) {
                 year.lastAccess = timenow;
-                Models.Year.editYear(year, function () {
-                    return true;
+                Models.Year.editYear(year, function (year) {
                 })
-                Promise.all(
-                    Models.Reservation.reservationGetByAnyId(year.id).then(function (reservationList) {
-                        console.log(reservationList);
-                        for (var i = 0; i < reservationList.length; i++) {
-                            var reservation = reservationList[i];
-                            if (reservation.init + timeout < timenow && !reservation.paidInFull) {
-                                Models.Scout.scoutGetByAnyId(reservation.id).then(function (scouts) {
-                                    Promise.all(function (scouts) {
-                                        for (var j = 0; j < scouts.length; j++) {
-                                            var scout = scouts[i];
-                                            if (!scout.paid) {
-                                                scout.reservationId = null;
-                                                scout.campId = null;
-                                                Models.Scout.editScout(scout)
+                console.log("YEAR ID :::: " + year )
+                Models.Reservation.reservationGetByAnyId(year.id, {})
+                    .then(function (reservationList) {
+                        console.log("Still still still running")
+                        console.log(JSON.stringify(reservationList))
+
+                        reservationList = reservationList.filter(
+                            res=>(reservation.init + timeout < timenow && !reservation.paidInFull)
+                        );
+
+                        Promise.all(reservationList.map(r=>Models.Scout.scoutGetByAnyId(r.id)))
+                            .then(
+                                scoutsArrs=>{
+
+                                    reservationList = reservationList.map(
+                                        (reservation, index)=>{
+                                            reservation.scouts = scoutArrs[index]
+                                            return reservation;
+                                        }
+                                    )
+                                    
+                                    return new Promise(
+                                        (resolve, reject)=>{
+                                            try{
+                                                resolve(reservationList)
+                                            }catch(error){
+                                                reject(error)
                                             }
                                         }
-                                    })
-                                }).then
+                                    )
+                                }
+                            )
+                            .then(
+                                reservationList=>{
+
+                                    return Promise.all(
+                                        reservationList.map(
+                                            r=>{
+                                                return Promise.all(
+                                                    r.scouts
+                                                        .filter(scout=>!scout.paid)
+                                                        .map(scout=>{
+                                                            scout.active = false;
+                                                            return Models.Scout.editScout(scout)
+                                                        })
+                                                )
+                                            })
+                                    )
+                                }
+                            )
+                            .then(inform)
+                            .catch(inform)
+                            function inform(stuff){
+                                console.log("IN TIMEOUT THING")
+                                console.log(stuff)
                             }
-                        }
-                    })
-                ).then(function () { return next() }).catch(function () { return next() })
-            }
-        })
-    }
+                        })
+                    }
+                }
+    )}
+
     next(); // MUST CALL NEXT in every eventuality
     return;
-
-    Models.findYearForUpdate(resource, id, function (year) {
-        if (year.stack) { return next() }  //If there's an error, don't bother going on
-        let frequency = 86400000; // 24hrs
-        let timeout = 604800000; // 7days
-        var timenow = Date.now();
-        if (year.lastAccess + frequency < timenow || !year.lastAccess) { // 24 hours
-            year.lastAccess = timenow
-            Models.Year.editYear(year, () => { // Pass in the following as a callback
-                Models.Reservation.reservationGetByAnyId(year.id).then(function (reservationList) {
-
-                    reservationList.forEach(function (reservation) {
-                        // Is there a problem using forEach here? Ask Jake.
-                        if (reservation.init + timeout < timenow && reservation.paidInFull === false) { // 7 days old and not paid in full
-
-                            Models.Scout.scoutGetByAnyId(reservation.id, reservation, function (scouts) { // To find unpaid-for scouts
-
-                                Promise.all(scouts.filter(function (scout) { // Promise.all ensures all promises have returned before the code moves on
-
-                                    if (!scout.paid) { // Kick them off reservation without disturbing paid-for packmates
-                                        scout.reservationId = null;
-                                        scout.campId = null;
-                                        return Models.Scout.editScout(scout)
-                                    }
-                                })).then((data) => {
-                                    console.log(data);
-                                    next();
-                                })
-                            })
-                        }
-                    })
-                }).catch((error) => {
-                    console.log(error);
-                    next();
-                })
             })
-        } else { next() } // every endpoint of this function MUST run next()
-    })
-})
+
+
+
+
+                        
+        //                 for (var i = 0; i < reservationList.length; i++) {
+        //                     var reservation = reservationList[i];
+        //                     if (reservation.init + timeout < timenow && !reservation.paidInFull) {
+        //                         Models.Scout.scoutGetByAnyId(reservation.id).then(function (scouts) {
+        //                             Promise.all(function (scouts) {
+        //                                 for (var j = 0; j < scouts.length; j++) {
+        //                                     var scout = scouts[i];
+        //                                     if (!scout.paid) {
+        //                                         scout.reservationId = null;
+        //                                         scout.campId = null;
+        //                                         Models.Scout.editScout(scout)
+        //                                     }
+        //                                 }
+        //                             })
+        //                         }).then
+        //                     }
+        //                 }
+        //             }).then(function () { return next() }).catch(function () { return next() })
+            // }
+
+
+//     Models.findYearForUpdate(resource, id, function (year) {
+//         if (year.stack) { return next() }  //If there's an error, don't bother going on
+//         let frequency = 86400000; // 24hrs
+//         let timeout = 604800000; // 7days
+//         var timenow = Date.now();
+//         if (year.lastAccess + frequency < timenow || !year.lastAccess) { // 24 hours
+//             year.lastAccess = timenow
+//             Models.Year.editYear(year, () => { // Pass in the following as a callback
+//                 Models.Reservation.reservationGetByAnyId(year.id).then(function (reservationList) {
+
+//                     reservationList.forEach(function (reservation) {
+//                         // Is there a problem using forEach here? Ask Jake.
+//                         if (reservation.init + timeout < timenow && reservation.paidInFull === false) { // 7 days old and not paid in full
+
+//                             Models.Scout.scoutGetByAnyId(reservation.id, reservation, function (scouts) { // To find unpaid-for scouts
+
+//                                 Promise.all(scouts.filter(function (scout) { // Promise.all ensures all promises have returned before the code moves on
+
+//                                     if (!scout.paid) { // Kick them off reservation without disturbing paid-for packmates
+//                                         scout.reservationId = null;
+//                                         scout.campId = null;
+//                                         return Models.Scout.editScout(scout)
+//                                     }
+//                                 })).then((data) => {
+//                                     console.log(data);
+//                                     next();
+//                                 })
+//                             })
+//                         }
+//                     })
+//                 }).catch((error) => {
+//                     console.log(error);
+//                     next();
+//                 })
+//             })
+//         } else { next() } // every endpoint of this function MUST run next()
+//     })
+// })
 
 // Models.editYear(year, ()=>{ // Pass in the following as a callback
 //   Models.reservationGetByAnyId(year.id).then(function (reservationList) {
@@ -186,6 +250,8 @@ app.use('/api', (req, res, next) => {
 //     else{ next() } // every endpoint of this function MUST run next()
 //   })
 // })
+// }
+// }
 app.use('/api', cors(handlers.corsOptions), routes.router)
 app.use('/', handlers.defaultErrorHandler)
 
@@ -198,4 +264,5 @@ module.exports = app.listen(port, function (err) {
     var uri = 'http://localhost:' + port
     console.log('Listening at ' + uri + '\n')
     // opn(uri)
+
 })
