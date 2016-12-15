@@ -1,36 +1,35 @@
-var path = require('path');
-var express = require('express');
-var webpack = require('webpack');
-var config = require('../config');
-var opn = require('opn');
-var proxyMiddleware = require('http-proxy-middleware');
-var webpackConfig = require('./webpack.dev.conf');
-// Mikey added these
-var routes = require('../server-assets/routes/index');
-var bodyParser = require('body-parser');
-var cors = require('cors');
-var handlers = require('./utils/handlers');
+var path = require('path'),
+    express = require('express'),
+    webpack = require('webpack'),
+    config = require('../config'),
+    opn = require('opn'),
+    proxyMiddleware = require('http-proxy-middleware'),
+    webpackConfig = require('./webpack.dev.conf'),
+    // Mikey added these
+    routes = require('../server-assets/routes/index'),
+    bodyParser = require('body-parser'),
+    cors = require('cors'),
+    handlers = require('./utils/handlers'),
+    customWare = require('./custom-middleware'),
 
-var Models = require('../server-assets/models/models');
+    // default port where dev server listens for incoming traffic
+    port = process.env.PORT || config.dev.port,
+    // Define HTTP proxies to your custom API backend
+    // https://github.com/chimurai/http-proxy-middleware
+    proxyTable = config.dev.proxyTable,
 
-// default port where dev server listens for incoming traffic
-var port = process.env.PORT || config.dev.port
-// Define HTTP proxies to your custom API backend
-// https://github.com/chimurai/http-proxy-middleware
-var proxyTable = config.dev.proxyTable
+    app = express(),
+    compiler = webpack(webpackConfig),
 
-var app = express()
-var compiler = webpack(webpackConfig)
+    devMiddleware = require('webpack-dev-middleware')(compiler, {
+        publicPath: webpackConfig.output.publicPath,
+        stats: {
+            colors: true,
+            chunks: false
+        }
+    }),
 
-var devMiddleware = require('webpack-dev-middleware')(compiler, {
-    publicPath: webpackConfig.output.publicPath,
-    stats: {
-        colors: true,
-        chunks: false
-    }
-})
-
-var hotMiddleware = require('webpack-hot-middleware')(compiler)
+    hotMiddleware = require('webpack-hot-middleware')(compiler);
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
     compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
@@ -38,7 +37,6 @@ compiler.plugin('compilation', function (compilation) {
         cb()
     })
 })
-
 // proxy api requests
 Object.keys(proxyTable).forEach(function (context) {
     var options = proxyTable[context]
@@ -66,92 +64,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 // app.use('/', express.static('./'))
 
-app.use('/api', (req, res, next) => {
-    // next();
-    // return;
-    console.log('active middleware');
-    console.log(req.url);
-    var urls = req.url.split('/') // Have to get the params straight from the url
-    var resource = urls[1].slice(0, -1) // Slice off the "s"
-    var id = urls[2]
-
-    if ((resource == 'year' || resource == 'camp' || resource == 'reservation') && id) { // Isn't attached to any yearId
-        console.log("still running")
-        Models.findYearForUpdate(resource, id, function (year) {
-            console.log("Still still running")
-            // if (year.stack) { return next() }  //If there's an error, don't bother going on
-            let frequency = 86400000; // 24hrs
-            frequency = 1000
-            let timeout = 604800000; // 7days
-            var timenow = Date.now();
-            if (year.lastAccess + frequency < timenow || !year.lastAccess) {
-                year.lastAccess = timenow;
-                Models.Year.editYear(year, function (year) {
-                })
-                console.log("YEAR ID :::: " + year )
-                Models.Reservation.reservationGetByAnyId(year.id, {})
-                    .then(function (reservationList) {
-                        console.log("Still still still running")
-                        console.log(JSON.stringify(reservationList))
-
-                        reservationList = reservationList.filter(
-                            res=>(reservation.init + timeout < timenow && !reservation.paidInFull)
-                        );
-
-                        Promise.all(reservationList.map(r=>Models.Scout.scoutGetByAnyId(r.id)))
-                            .then(
-                                scoutsArrs=>{
-
-                                    reservationList = reservationList.map(
-                                        (reservation, index)=>{
-                                            reservation.scouts = scoutArrs[index]
-                                            return reservation;
-                                        }
-                                    )
-                                    
-                                    return new Promise(
-                                        (resolve, reject)=>{
-                                            try{
-                                                resolve(reservationList)
-                                            }catch(error){
-                                                reject(error)
-                                            }
-                                        }
-                                    )
-                                }
-                            )
-                            .then(
-                                reservationList=>{
-
-                                    return Promise.all(
-                                        reservationList.map(
-                                            r=>{
-                                                return Promise.all(
-                                                    r.scouts
-                                                        .filter(scout=>!scout.paid)
-                                                        .map(scout=>{
-                                                            scout.active = false;
-                                                            return Models.Scout.editScout(scout)
-                                                        })
-                                                )
-                                            })
-                                    )
-                                }
-                            )
-                            .then(inform)
-                            .catch(inform)
-                            function inform(stuff){
-                                console.log("IN TIMEOUT THING")
-                                console.log(stuff)
-                            }
-                        })
-                    }
-                }
-    )}
-
-    next(); // MUST CALL NEXT in every eventuality
-    return;
-            })
+app.use(...customWare.expireReservations)
 
 
 

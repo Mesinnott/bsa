@@ -21,10 +21,10 @@ function getAnyByProp(resourceName, query, cb){
     let args = [resourceName]
     let querySyntax = {};
     let includeSyntax = {};
-    let include = query.with ||''
+    let include = query.with || ''
     delete query.with
-    // console.log("Query of" + JSON.stringify(query))
-    if(!!Object.keys(query).length){
+    console.log("Query of" + JSON.stringify(query))
+    if(!!Object.keys(query).length){ // if the query is not blank
         querySyntax = {where:{}}
         // console.log("Query is not blank")
         for(var thing in query){
@@ -49,7 +49,7 @@ function getAnyByProp(resourceName, query, cb){
     }
     // console.log(JSON.stringify(querySyntax))
     // console.log(JSON.stringify(args))
-    if(!cb) return DS.findAll(...args);
+    if(!cb) return DS.findAll(...args); // Returns Promise if no callback
 
     DS.findAll(...args).then(cb).catch(cb)
 }

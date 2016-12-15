@@ -80,6 +80,22 @@ function reservationCreate(reservation, cb) {
 }
 
 function reservationGetByAnyId(queryId, query, cb) {
+    if (!cb){
+        return Reservation.findAll({ //starting this with "return" ensures the function returns a promise without changing its function
+            where: {
+                'id': {
+                    '|===': queryId
+                },
+                'yearId': {
+                    '|===': queryId
+                },
+                'campId': {
+                    '|===': queryId
+                },
+            }
+        })
+    }
+
     return Reservation.findAll({ //starting this with "return" ensures the function returns a promise without changing its function
         where: {
             'id': {

@@ -53,7 +53,7 @@ function scoutCreate(scout, cb) {
 
 
 function scoutGetByAnyId(queryId, query, cb) {
-    if(cb){
+    if(!!cb){
         Scout.findAll({
             where: {
                 'id': {
