@@ -89,7 +89,7 @@ function GroupController(groupService, $http, $state, groupBuilder) {
         gc.sortBy('packNum', 'lastName')
     });
 
-    gc.groupCap = 16; //Need ng-model with front end, default=16
+    gc.groupCap = 16; //Need ng-model with front end, default=16, to make this extendable.  Easy to do upon request.
     gc.createGroups = function () {
         var numGroups = (gc.currentCamp.scoutLevels === 'all' ? 10 : 9);
         gc.scoutList = groupBuilder.build(gc.scoutList, numGroups, gc.groupCap);
