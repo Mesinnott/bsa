@@ -16,9 +16,9 @@ angular.module(`app.components.${Component}`, [])
         let nc = this;
         nc.test= "test"
         nc.auth = 'i'
-
-       nc.auth= loginService.checkAuth()
-
+        console.log(nc.auth)
+        loginService.checkAuth(a=>{nc.auth = a; console.log("AUTH::::::" + nc.auth)})
+       console.log("AUTH: " + nc.auth)
        console.log("test "+ loginService.currentAuth)
        console.log("aauth= "+ nc.auth)
     //    console.log(nc.auth)
