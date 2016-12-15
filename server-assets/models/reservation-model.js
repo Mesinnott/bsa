@@ -4,13 +4,13 @@ let uuid = dataAdapter.uuid,
     // schemator = dataAdapter.schemator,
     DS = dataAdapter.DS,
     formatQuery = dataAdapter.formatQuery;
-    
+
 let Reservation = DS.defineResource({
     name: 'reservation',
     endpoint: 'api/reservations',
     computed: {
-        paidInFull: function() {
-            DS.findAll('scout', {reservationId: reservationId}).then(function(scouts) {
+        paidInFull: function () {
+            DS.findAll('scout', { reservationId: reservationId }).then(function (scouts) {
                 var paid = true;
                 for (var i = 0; i < scouts.length; i++) {
                     if (!scouts[i].paid) {
@@ -62,11 +62,11 @@ function reservationCreate(reservation, cb) {
             email: reservation.email,
             init: Date.now(),
             pack: reservation.pack || null,
-            leader1:reservation.leader1,
-            leader2:reservation.leader2,
+            leader1: reservation.leader1,
+            leader2: reservation.leader2,
             accessKey: uuiDessert.Serve(),
-            goldCard:reservation.goldCard,
-            paymentDate:'',
+            goldCard: reservation.goldCard,
+            paymentDate: '',
             receiptNum: '',
             paidToDate: '0',
             balance: 'FIX THIS',
@@ -107,16 +107,21 @@ function editReservation(rewrite, cb) {
     })
 }
 
-function checkPaidStatus(reservationId, cb) {
-    DS.findAll('scout', {reservationId: reservationId}).then(function(scoutList) {
-        var paidInFull = true;
-        for (var i = 0; i < scoutList.length; i++) {
-            if (scoutList[i].paid === false) {
-                paidInFull = false;
+function checkPaidStatus(id, cb) {
+    Reservation.find(id).then(function (reservation) {
+        DS.findAll('scout', { reservationId: reservation.id }).then(function (scoutList) {
+            var paidInFull = true; // flag
+            for (var i = 0; i < scoutList.length; i++) {
+                if (scoutList[i].paid === false) {
+                    paidInFull = false; // if any scouts unpaid, flag tripped
+                }
             }
-        }
-        reservation.paidInFull = paidInFull;
-        editReservation(reservation, cb);
+            if (reservation.paidInFull && !paidInFull) {
+                reservation.init = Date.now(); // When unpaid scouts added to paid reservation, 7-day counter is reset
+            }
+            reservation.paidInFull = paidInFull;
+            editReservation(reservation, cb); // PUT changes
+        }).catch(cb)
     }).catch(cb)
 }
 
