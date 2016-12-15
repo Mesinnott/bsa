@@ -23,7 +23,7 @@ angular.module(`app.components.${Component}`, [])
                 console.log('someone is logged in')
                 currentId = currentUser.currentUser.uid
 
-                getUser(currentId, function (res) {
+                return getUser(currentId, function (res) {
                     // console.log(res)
                     dbuser = res.data
                     if (dbuser[0].super == true) {
