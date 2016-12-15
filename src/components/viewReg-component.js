@@ -35,7 +35,7 @@ angular.module(`app.components.${Component}`, [])
                     vs.reservation = res.data
                     console.log(vs.reservation)
                 })
-            return vs.reservation
+            return vs.reservation // Doesn't this need to be inside the .then function?
         }
 
         vs.getScouts = (reservationId, cb) => {
