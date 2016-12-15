@@ -1,5 +1,5 @@
 <div class='elevated-box'>
-    <form ng-submit="ad.reservations(ad.reservationNum)">
+    <form ng-submit="ad.masterSearch(ad.query)">
         <div class="form-group">
 
             <label> I want to find ... (Scouts, Camps, etc.) </label>
@@ -27,7 +27,7 @@
                         </select>
             </div>
             <label for="reservation">With the value of...</label>
-            <input type="" class="form-control" id="reservation" placeholder="123, test@email.com, Johnny Q. Scout, etc." ng-model="ad.reservationNum">
+            <input type="" class="form-control" id="reservation" placeholder="123, test@email.com, Johnny Q. Scout, etc." ng-model="ad.query">
 
             <button type="submit" class="btn btn-primary btn-raised">View Query</button>
 

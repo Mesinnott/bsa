@@ -86,7 +86,6 @@ function LoginController(loginService, $state, $http) {
                 loginService.getUser(user.uid, function(res) {
                     lc.user = res.data
 
-                    debugger
                     if (lc.user.super == true) {
                         lc.clearance = 'super'
                         $state.go("admin")
@@ -105,6 +104,7 @@ function LoginController(loginService, $state, $http) {
                     }
                 })
                 lc.message = "You have Successfully Logged In"
+                console.info()
                 console.log('logged in: ' + user.displayName);
                 console.log('clearance = ' + lc.clearance)
             })

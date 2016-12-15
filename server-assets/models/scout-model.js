@@ -75,8 +75,14 @@ function scoutGetByAnyId(queryId, query, cb) {
 
 function editScout(rewrite, cb) {
     Scout.find(rewrite.id).then(function (scout) {
-        Scout.update(scout.id, rewrite).then(cb).catch(cb)
-    }).catch(cb)
+        Scout.update(scout.id, rewrite).then((data) => {
+            if (cb) { cb(data) }
+        }).catch((error) => {
+            if (cb) { cb(error) }
+        })
+    }).catch((error) => {
+        if (cb) { cb(error) }
+    })
 }
 
 module.exports = {

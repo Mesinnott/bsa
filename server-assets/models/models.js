@@ -52,7 +52,7 @@ function getAnyByProp(resourceName, query, cb){
     DS.findAll(...args).then(cb).catch(cb)
 }
 
-let reservationGetByAnyId = Reservation.reservationGetByAnyId
+// let reservationGetByAnyId = Reservation.reservationGetByAnyId
 
 
 

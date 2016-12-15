@@ -15,9 +15,8 @@ angular.module(`app.components.${Component}`, [])
         ab.scouts = [''];
         ab.reservation = [''];
         ab.getCurrentYears = (cb) => {
-            let currentYear = new Date().getFullYear()
-            currentYear = 2016
-            let nextYear = currentYear++
+            let currentYear = new Date().getFullYear();
+            let nextYear = currentYear++;
 
             $http.get(`/api/years?year=${currentYear}&year=${nextYear}`)
                 .then(function (res) {
@@ -37,7 +36,6 @@ angular.module(`app.components.${Component}`, [])
             return ab.camps
         }
         ab.getByAnyProp = (resource, param, value, cb) => {
-            // console.log("args..." +resource+param+value)
             $http.get('/api/' + resource + "?" + param + "=" + value)
                 .then(function (res) {
                     cb(res.data)
@@ -49,8 +47,8 @@ angular.module(`app.components.${Component}`, [])
 
 
 
-        ab.scoutGetByAnyId = (reservationId, cb) => {
-            $http.get('/api/scouts/' + reservationId)
+        ab.scoutGetByAnyId = (id, cb) => {
+            $http.get('/api/scouts/' + id)
                 .then(function (res) {
                     cb(res.data)
                     ab.scouts = res.data
@@ -70,7 +68,7 @@ angular.module(`app.components.${Component}`, [])
         }
 
         ab.editAny = (resource, id, body, resolve, reject) => {
-            $http.put('/api/'+resource+'s/' + id, body)
+            $http.put('/api/' + resource + 's/' + id, body)
                 .then(function (res) {
                     resolve(res)
                 }).catch(function (error) {
@@ -100,14 +98,14 @@ angular.module(`app.components.${Component}`, [])
         let ad = this;
         ad.test = 'testing 123'
         ad.reservation = ['']
-        ad.prop=''
-        ad.resource='0'
+        ad.prop = ''
+        ad.resource = '0'
         ad.error = false
         ad.loading = 100;
         ad.loadingDisplay = ad.loading;
         ad.viewState = {
-            table:{
-                editMode:false
+            table: {
+                editMode: false
             }
         }
         var interval;
@@ -134,7 +132,93 @@ angular.module(`app.components.${Component}`, [])
             )
         }
 
-        ad.resources=[
+        //template entry calling this function has been commented out 
+        this.getYears = function () {
+            abService.getCurrentYears(
+                function (years) {
+                    ad.years = years
+                    console.log(years)
+                }
+            )
+        }
+
+        this.getCamps = function () {
+
+            abService.getCampsByYear(
+                ad.yearId,
+                camps => {
+                    ad.camps = camps
+                }
+            )
+        }
+        ad.setResource = function (index) {
+            // console.log(ad.resources[index].name)
+            return ad.resources[index].name
+        }
+
+        ad.masterSearch = function (value) {
+
+            console.log('it\'s working...')
+            abService.getByAnyProp(ad.setResource(ad.resource), ad.prop, value, function (res) {
+                ad.reservation = res;
+            })
+
+            // abService.reservationGetById(value, function (reserv) {
+            //     ad.resDetails = reserv;
+            // })
+
+        }
+
+        ad.save = function (id, resource, name) {
+            name = name.split("")
+            name.pop()
+            name = name.join('')
+            let body = {}
+            body[name] = resource
+            // resource = { name: resource }
+            abService.editAny(name, id, body, function (save) {
+                console.log(save)
+            })
+        }
+
+        ad.saveAll = function (list) {
+            ad.error = "Your Changes Have been saved"
+            // for (var i = 0; i < list.length; i++) {
+            //     var scout = list[i]
+            //     var id = scout.id
+            //     console.log("id: " + id)
+            //     ad.save(id, scout)
+            //     console.log("updated " + (i + 1))
+            // }
+        }
+        ad.reset = function () {
+            ad.error = false
+        }
+        ad.remove = function (id, scout, index) {
+            if (!window.confirm("Are you sure?")) {
+                return
+            }
+            var reserve = scout.reservationId
+            console.log(reserve)
+            var scout = {
+                "scout":
+                {
+                    "id": id,
+                    "campId": "removed",
+                    "reservationId": "removed"
+                }
+            }
+            abService.editScout(id, scout, function (res) {
+                console.log(res)
+                ad.reservation.splice(index, 1)
+            }, function (res) {
+                console.error(res)
+            })
+        }
+
+        // List of things in first select menu in template
+        // props is the list of things to be in the second select menu
+        ad.resources = [
             {
                 name: "camps",
                 displayName: "Camps",
@@ -177,9 +261,9 @@ angular.module(`app.components.${Component}`, [])
                 ]
             },
             {
-                name:"scouts",
+                name: "scouts",
                 displayName: "Scouts",
-                props:[
+                props: [
                     {
                         name: "packNum",
                         displayName: "Pack Number"
@@ -199,9 +283,9 @@ angular.module(`app.components.${Component}`, [])
                 ]
             },
             {
-                name:"leaders",
+                name: "leaders",
                 displayName: "Leaders",
-                props:[
+                props: [
                     {
                         name: "packNum",
                         displayName: "Pack Number"
@@ -215,7 +299,7 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Reservation Number"
                     },
                     {
-                        name:"paidInFull",
+                        name: "paidInFull",
                         displayName: "Paid In Full"
                     },
                     {
@@ -225,10 +309,10 @@ angular.module(`app.components.${Component}`, [])
                 ]
 
             },
-             {
-                name:"chiefs",
+            {
+                name: "chiefs",
                 displayName: "Chiefs",
-                props:[
+                props: [
                     {
                         name: "packNum",
                         displayName: "Pack Number"
@@ -266,7 +350,7 @@ angular.module(`app.components.${Component}`, [])
             {
                 name: "reservations",
                 displayName: "Reservation",
-                props:[
+                props: [
                     {
                         name: "campNum",
                         displayName: "Camp Number"
@@ -288,7 +372,7 @@ angular.module(`app.components.${Component}`, [])
             {
                 name: "districts",
                 displayName: "Districts",
-                props:[
+                props: [
                     {
                         name: "name",
                         displayName: "Name"
@@ -311,17 +395,9 @@ angular.module(`app.components.${Component}`, [])
                 ]
             }
         ]
-        
-        let templates = {
-            healthForm: `<input type="checkbox" ng-change="ad.save(scout.id, scout)" class="form-control" ng-model="scout.healthForm">`,
-            paid:`<input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.paid">`,
-            super:`<input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.super">`,
-            admin:`<input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.admin">`,
-            director:`<input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.director">`,
-            leader:`<input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.leader">`,
-            goldCard:`<input ng-change="ad.save(scout.id, scout)" type="checkbox" class="form-control" ng-model="scout.goldCard">`
-        }
-        ad.tableProps=[
+
+        //table columns
+        ad.tableProps = [
             {
                 name: "camps",
                 displayName: "Camps",
@@ -343,32 +419,32 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Location"
                     },
                     {
-                        name:"locationName",
-                        displayName:"Location Name"
+                        name: "locationName",
+                        displayName: "Location Name"
                     },
                     {
-                        name:"date",
-                        displayName:"Start Date"
+                        name: "date",
+                        displayName: "Start Date"
                     },
                     {
-                        name:"endDate",
-                        displayName:"End Date"
+                        name: "endDate",
+                        displayName: "End Date"
                     },
                     {
                         name: "maxScouts",
                         displayName: "Max"
                     },
                     {
-                        name:"confirmedReservations",
+                        name: "confirmedReservations",
                         displayName: "Confirmed"
                     },
                     {
-                        name:"pendingReservations",
-                        displayName:"Pending"
+                        name: "pendingReservations",
+                        displayName: "Pending"
                     },
                     {
-                        name:"availability",
-                        displayName:"Availability"
+                        name: "availability",
+                        displayName: "Availability"
                     },
                 ]
             },
@@ -388,9 +464,9 @@ angular.module(`app.components.${Component}`, [])
                 ]
             },
             {
-                name:"scouts",
+                name: "scouts",
                 displayName: "Scouts",
-                props:[
+                props: [
                     {
                         name: "packNum",
                         displayName: "Pack Number"
@@ -413,14 +489,14 @@ angular.module(`app.components.${Component}`, [])
                     },
                     {
                         name: "paid",
-                        displayName:"Paid",
+                        displayName: "Paid",
                     }
                 ]
             },
             {
-                name:"leaders",
+                name: "leaders",
                 displayName: "Leaders",
-                props:[
+                props: [
                     {
                         name: "packNum",
                         displayName: "Pack Number"
@@ -443,20 +519,18 @@ angular.module(`app.components.${Component}`, [])
                     },
                     {
                         name: "healthForm",
-                        displayName: "Health Form",
-                        template: templates.healthForm
+                        displayName: "Health Form"
                     },
                     {
                         name: "paid",
-                        displayName:"Paid",
-                        template: templates.paid
+                        displayName: "Paid"
                     }
                 ]
 
-            },{
-                name:"chiefs",
+            }, {
+                name: "chiefs",
                 displayName: "Chiefs",
-                props:[
+                props: [
                     {
                         name: "packNum",
                         displayName: "Pack Number"
@@ -475,13 +549,11 @@ angular.module(`app.components.${Component}`, [])
                     },
                     {
                         name: "healthForm",
-                        displayName: "Health Form",
-                        template: templates.healthForm
+                        displayName: "Health Form"
                     },
                     {
                         name: "paid",
-                        displayName:"Paid",
-                        template: templates.paid
+                        displayName: "Paid"
                     }
                 ]
 
@@ -504,7 +576,7 @@ angular.module(`app.components.${Component}`, [])
             {
                 name: "reservations",
                 displayName: "Reservation",
-                props:[
+                props: [
                     {
                         name: "campNum",
                         displayName: "Camp Number"
@@ -518,20 +590,20 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Reservation Number"
                     },
                     {
-                        name:"location",
-                        displayName:"Camp Location"
+                        name: "location",
+                        displayName: "Camp Location"
                     },
                     {
                         name: "locationName",
                         displayName: "Location Name"
                     },
                     {
-                        name:"date",
-                        displayName:"Camp Date",
+                        name: "date",
+                        displayName: "Camp Date",
                     },
                     {
-                        name:  "goldCard",
-                        displayName:"Gold Card"
+                        name: "goldCard",
+                        displayName: "Gold Card"
                     },
                     {
                         name: "paidToDate",
@@ -542,19 +614,19 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Outstanding Balance"
                     },
                     {
-                        name:"paidInFull",
+                        name: "paidInFull",
                         displayName: "Paid In Full"
                     },
                     {
-                        name:"active",
-                        displayName:"Active"
+                        name: "active",
+                        displayName: "Active"
                     },
                     {
-                        name:"paymentDate",
-                        displayName:"Date Paid"
+                        name: "paymentDate",
+                        displayName: "Date Paid"
                     },
                     {
-                        name:  "receiptNum",
+                        name: "receiptNum",
                         displayName: "Receipt Number"
                     }
                 ]
@@ -562,7 +634,7 @@ angular.module(`app.components.${Component}`, [])
             {
                 name: "districts",
                 displayName: "Districts",
-                props:[
+                props: [
                     {
                         name: "name",
                         displayName: "Name"
@@ -583,25 +655,20 @@ angular.module(`app.components.${Component}`, [])
                     },
                     {
                         name: "super",
-                        displayName:"Super Admin Approved",
-                        template:templates.super
+                        displayName: "Super Admin Approved"
                     },
                     {
                         name: "admin",
-                        displayName:"Admin Approved",
-                        template:templates.admin
+                        displayName: "Admin Approved"
                     },
                     {
-                        name:"director",
-                        displayName:"Camp Director",
-                        template:templates.director
+                        name: "director",
+                        displayName: "Camp Director"
                     },
                     {
-                        name:"reservation",
-                        displayName:"Den Leader",
-                        template:templates.leader
+                        name: "reservation",
+                        displayName: "Den Leader"
                     }
-
                 ]
             }
         ]
@@ -708,17 +775,12 @@ angular.module(`app.components.${Component}`, [])
 
     }, ['$interval'])
 
+
     .component('admin', {
         controller: 'adController',
         controllerAs: 'ad',
         template: template
     })
-
-
-//   .component(Component, { 
-//     template: template,
-//     controller: 'adController'
-//   })
 
 exports[Component] = Component
 

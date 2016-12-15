@@ -215,10 +215,13 @@ angular.module(`app.components.${Component}`, [])
         rc.reg.campNum = rc.campNum;
         rc.reg.packNum = rc.packNum;
         console.log(rc.reg)
+        rc.reg.contacts.forEach(c=>{
+            c.reservation = true;
+        })
         let formattedData = {
-
+            
         }
-        $http.post()
+        $http.post('/api/users', )
     }
             
     // rc.reg = {

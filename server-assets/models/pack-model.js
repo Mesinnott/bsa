@@ -33,7 +33,7 @@ function packCreate(pack, cb) {
 
     Pack.create({
         id: uuid.v4(),
-        Number: pack.number,
+        number: pack.number,
         charter: pack.charter,
         districtId: pack.districtId
     }).then(cb).catch(cb)

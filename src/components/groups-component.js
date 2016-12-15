@@ -59,74 +59,44 @@ function GroupController(groupService, $http, $state, groupBuilder) {
     }
     gc.listGroups(gc.campId, function (list) {
         gc.scoutList = list;
+        gc.scoutList.forEach(scout=>{
+            scout.lastName = scout.name.split(" ")[1]
+            return scout
+        })
         gc.initialSort(gc.scoutList);
     });
 
     gc.groupCap = 16; //Need ng-model with front end, default=16
     gc.createGroups = function () {
-        debugger;
         var numGroups = (gc.currentCamp.scoutLevels === 'all' ? 10 : 9);
         gc.scoutList = groupBuilder.build(gc.scoutList, numGroups, gc.groupCap);
-        gc.colorPackSort(gc.scoutList);
+        gc.sortBy("color", "lastName");
         gc.saveGroupColorChanges(gc.scoutList, function () {
             return true; //Couldn't think of anything to do here
         })
     }
-
+    gc.sortBy = (x, y)=>{
+        gc.scoutList = gc.scoutList.sort()
+        var fn = (a,b,x)=>a[x]>b[x]? 1 : a[x]<b[x]? -1 : 0;
+        gc.scoutList = gc.scoutList.sort(
+            (a,b)=>{
+            var rtn = fn(a,b,x)
+            if(rtn==0){
+                rtn = fn(a,b,y)
+            }
+            return rtn
+            }
+        )
+    }
     gc.saveGroupColorChanges = function (scoutList, cb) {
         scoutList.forEach(function (scout) {
             groupService.updateGroup(scout.id, cb);
         });
-        gc.colorPackSort(gc.scoutList);
+        gc.sortBy("color", "packNum");
     }
 
     gc.initialSort = function (scoutList) {
-        scoutList = scoutList.sort(function (a, b) {
-            if (a.packNum == b.packNum) {
-                return gc.lastNameSort(a, b);
-            }
-            return gc.packSort(a, b);
-        });
-    }
-    gc.packColorSort = function (scoutList) {
-        scoutList = scoutList.sort(function (a, b) {
-            if (a.packNum == b.packNum) {
-                if (a.color == b.color) {
-                    return gc.lastNameSort(a, b);
-                }
-                return gc.colorSort(a, b);
-            }
-            return gc.packSort(a, b);
-        });
-    }
-    gc.colorPackSort = function (scoutList) {
-        scoutList = scoutList.sort(function (a, b) {
-            if (a.color == b.color) {
-                if (a.packNum == b.packNum) {
-                    return gc.lastNameSort(a, b);
-                }
-                return gc.packSort(a, b);
-            }
-            return gc.colorSort(a, b);
-        });
-    }
-    gc.nameSort = function (scoutList) {
-        scoutList = scoutList.sort(function(a, b) {
-            return gc.lastNameSort(a, b);
-        })
-    }
-
-
-    gc.lastNameSort = function (a, b) {
-        var nameA = a.name.split(' ');
-        var nameB = b.name.split(' ');
-        return nameA[nameA.length - 1] - nameB[nameB.length - 1];
-    }
-    gc.packSort = function (a, b) {
-        return a.packNum - b.packNum;
-    }
-    gc.colorSort = function (a, b) {
-        return a.groupColor - b.groupColor;
+        gc.sortBy("packNum", "lastName")
     }
 }
 ///////GROUP BUILDER FUNCTION///////
@@ -318,7 +288,6 @@ function GroupBuilder(masterArray, numGroups, hardGroupCap, colorArray) {
 
     // Return a single simple array of scout objects with colors added.
     var scoutsWithColors = [];
-    debugger;
     for (var i = 0; i < groupsByColor.length; i++) {
         for (var j = 0; j < groupsByColor[i].group.length; j++) {
             var scout = groupsByColor[i].group[j];

@@ -1,4 +1,5 @@
 let dataAdapter = require('./data-adapter')
+let uuiDessert = require('./uui-dessert.js')
 let uuid = dataAdapter.uuid,
     // schemator = dataAdapter.schemator,
     DS = dataAdapter.DS,
@@ -50,13 +51,14 @@ function reservationCreate(reservation, cb) {
             pack: reservation.pack || null,
             leader1:reservation.leader1,
             leader2:reservation.leader2,
-            reservationNum: reservation.reservationNum,
+            accessKey: uuiDessert.Serve(),
             goldCard:reservation.goldCard,
             paymentDate:'',
             receiptNum: '',
             paidToDate: '0',
             balance: 'FIX THIS',
-            active: true,
+            // active: true, --this functionality being transferred to individual scouts,
+            // to avoid timing out partially-paid-for reservations
             paidInFull: false
         }
 
@@ -92,8 +94,22 @@ function editReservation(rewrite, cb) {
     })
 }
 
+function checkPaidStatus(reservationId, cb) {
+    DS.findAll('scout', {reservationId: reservationId}).then(function(scoutList) {
+        var paidInFull = true;
+        for (var i = 0; i < scoutList.length; i++) {
+            if (scoutList[i].paid === false) {
+                paidInFull = false;
+            }
+        }
+        reservation.paidInFull = paidInFull;
+        editReservation(reservation, cb);
+    }).catch(cb)
+}
+
 module.exports = {
     reservationCreate,
     reservationGetByAnyId,
     editReservation,
+    checkPaidStatus
 }
