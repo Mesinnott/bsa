@@ -1,17 +1,24 @@
 <nav class="navbar navbar-default navbar-static-top">
 <div class="col-sm-12">
 
+<h1>test</h1>
+<h1 ng-bind='nc.auth'></h1>
+<h1>{{nc.auth}}</h1>
+
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <h1>howdy</h1>
-  <h1>  {{nc.test}}</h1>
-  <h1 ng-bind="nc.auth"></h1>
-  <h1>{{nc.auth}}</h1>
-  <h1 ng-if="nc.auth=='super'">I'M A SUPER USER</h1>
-            <button class="btn btn-info btn-raised" ng-if(nc.auth ==ui-sref="campavail">Home</button>
-            <button class="btn btn-success btn-raised" ui-sref="login">View your Reservation</button>
+
+            <button class="btn btn-info btn-raised"  ng-click="nc.test()">test</button>
+    
+            <button class="btn btn-info btn-raised"  ui-sref="campavail">Home</button>
+            <button class="btn btn-success btn-raised" ui-sref="login">Login</button>
+            <button class = "btn btn-success btn-raised"  ng-click= "nc.test()">View Your Reservation</button>
+            <button class = "btn btn-success btn-raised"  ng-click= "nc.director()">Camp Directors</button>
             <button class="btn btn-primary btn-raised" ui-sref="faq">FAQ</button>
-            <button class="btn btn-danger btn-raised" ui-sref="login">Admin</button>
+            <button class="btn btn-danger btn-raised" ng-click= "nc.admin()">Admin</button>
+
+
+            </span>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

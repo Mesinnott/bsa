@@ -134,7 +134,7 @@ angular.module(`app.components.${Component}`, [])
             )
         }
 
-        ad.currentAuth = loginService.checkAuth()
+        loginService.checkAuth(a=>{ad.currentAuth = a; console.log("AUTH::::::" + ad.currentAuth)})
         console.log(ad.currentAuth)
 
 
