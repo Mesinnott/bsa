@@ -6,72 +6,70 @@ const Component = 'login'
 // Use this as a template.
 angular.module(`app.components.${Component}`, [])
 
-    .factory('loginService', function($http, $state) {
-    
-    let currentUser=''
-    let currentId=''
-    let dbuser= ''
-    let currentAuth = 'none'
+    .factory('loginService', function ($http, $state) {
 
-        function checkAuth(){
+        let currentUser = ''
+        let currentId = ''
+        let dbuser = ''
+        let currentAuth = 'none'
 
-        currentUser = firebase.auth()
-        if(currentUser.currentUser == null){
-            console.log ('not logged in')
-        }
-        if(currentUser.currentUser){
-            console.log('someone is logged in')
-            currentId=currentUser.currentUser.uid
+        function checkAuth() {
 
-             getUser(currentId, function(res) {
+            currentUser = firebase.auth()
+            if (currentUser.currentUser == null) {
+                console.log('not logged in')
+            }
+            if (currentUser.currentUser) {
+                console.log('someone is logged in')
+                currentId = currentUser.currentUser.uid
+
+                getUser(currentId, function (res) {
                     // console.log(res)
                     dbuser = res.data
-                    if(dbuser[0].super== true){
+                    if (dbuser[0].super == true) {
                         // console.log('super')
                         currentAuth = 'super'
-                    }else if(dbuser[0].admin==true){
+                    } else if (dbuser[0].admin == true) {
                         // console.log('admin')
                         currentAuth = 'admin'
-                    }else if(dbuser[0].director == true){
+                    } else if (dbuser[0].director == true) {
                         // console.log('director')
                         currentAuth = "director"
-                    }else if (dbuser[0].reservation == true){
+                    } else if (dbuser[0].reservation == true) {
                         // console.log("reservation")
                         currentAuth = "reservation"
                     }
                     console.log("current authentication standard is " + currentAuth)
                     return currentAuth
-             })
-             
-             }
-             
+                })
+            }
         }
 
 
 
 
-  
+
 
         function getUser(id, cb) {
             $http({
                 method: 'GET',
                 url: '/api/users?id=' + id
-            }).then(function(res) {
+            }).then(function (res) {
                 // lc.user = res
-                let hello =res
+                let hello = res
                 return cb(hello);
             })
         }
 
-        
+
 
         return {
             getUser: getUser,
-            checkAuth:checkAuth,
+            checkAuth: checkAuth,
             currentUser: currentUser,
             currentId: currentId,
-           dbuser: dbuser,
-           currentAuth: currentAuth
+            dbuser: dbuser,
+            currentAuth: currentAuth
         };
 
 
@@ -100,7 +98,7 @@ function LoginController(loginService, $state, $http) {
     lc.user = {}
 
     firebase.auth()
-        .onAuthStateChanged(function(user) {
+        .onAuthStateChanged(function (user) {
             if (user) {
                 firebase.database().ref('/users/' + user.uid).once('value', (snapshot) => {
                     console.log('logged in:', snapshot.val());
@@ -116,20 +114,20 @@ function LoginController(loginService, $state, $http) {
             }
         })
 
-    lc.logOut = function() {
+    lc.logOut = function () {
         firebase.auth().signOut()
         lc.message = "You Have Been Logged Out"
     }
 
-    lc.lostPassword = function() {
+    lc.lostPassword = function () {
         var auth = firebase.auth();
         let email = lc.email
         console.log(email)
 
-        auth.sendPasswordResetEmail(email).then(function() {
+        auth.sendPasswordResetEmail(email).then(function () {
             // Email sent.
             lc.message = "An Email has Been Sent To Reset Your Password"
-        }, function(error) {
+        }, function (error) {
             // An error happened.
             lc.error = error.message
         });
@@ -137,11 +135,11 @@ function LoginController(loginService, $state, $http) {
 
 
 
-    lc.login = function() {
+    lc.login = function () {
         firebase.auth().signInWithEmailAndPassword(lc.email, lc.password)
             .then((user) => {
                 // Need to get user object from db, not auth object.  then we need to compare ids to get proper user.
-                loginService.getUser(user.uid, function(res) {
+                loginService.getUser(user.uid, function (res) {
                     lc.user = res.data
 
 
@@ -179,11 +177,11 @@ function LoginController(loginService, $state, $http) {
 
     }
 
-    lc.checkAuth = function(){
+    lc.checkAuth = function () {
 
         lc.auth = firebase.auth()
-        .then((user) => {
-        loginService.checkAuth(user.uid, function(res) {
+            .then((user) => {
+                loginService.checkAuth(user.uid, function (res) {
                     lc.user = res.data
 
                     console.log(lc.user)
@@ -222,15 +220,15 @@ function LoginController(loginService, $state, $http) {
     }
 
 
-    lc.getAuth = function(){
+    lc.getAuth = function () {
         loginService.checkAuth()
 
     }
 
-    lc.messageClear = function() {
+    lc.messageClear = function () {
         lc.message = false
     }
-    lc.errorClear = function() {
+    lc.errorClear = function () {
         lc.error = false
     }
 }
