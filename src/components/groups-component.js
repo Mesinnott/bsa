@@ -23,10 +23,12 @@ angular.module(`app.components.${Component}`, [])
                 return cb(gs.scoutList);
             })
         }
-        gs.updateGroup = function (scoutId, cb) {
+        gs.updateGroup = function (scout, cb) {
+            console.log('group updated')
             $http({
                 method: 'PUT',
-                url: '/api/scouts/' + scoutId
+                data: { scout: scout },
+                url: '/api/scouts/' + scout.id
             }).then(cb);
         }
     })
@@ -80,13 +82,14 @@ function GroupController(groupService, $http, $state, groupBuilder) {
     gc.listGroups(gc.campId, function (list) {
         gc.scoutList = list;
         gc.scoutList.forEach(scout => {
-            scout.lastName = scout.name.split(" ")[1]
+            var fullName = scout.name.split(" ");
+            scout.lastName = fullname[fullname.length - 1];
             return scout
         })
         gc.sortBy('packNum', 'lastName')
     });
 
-    gc.groupCap = 16; //Need ng-model with front end, default=16
+    gc.groupCap = 16; //Need ng-model with front end, default=16, to make this extendable.  Easy to do upon request.
     gc.createGroups = function () {
         var numGroups = (gc.currentCamp.scoutLevels === 'all' ? 10 : 9);
         gc.scoutList = groupBuilder.build(gc.scoutList, numGroups, gc.groupCap);
@@ -96,7 +99,7 @@ function GroupController(groupService, $http, $state, groupBuilder) {
     }
     gc.saveGroupColorChanges = function (scoutList, cb) {
         scoutList.forEach(function (scout) {
-            groupService.updateGroup(scout.id, cb);
+            groupService.updateGroup(scout, cb);
         });
         gc.sortBy("color", "packNum", "lastName");
     }
