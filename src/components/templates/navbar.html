@@ -3,7 +3,11 @@
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <button class="btn btn-info btn-raised" ui-sref="campavail">Home</button>
+          <h1>howdy</h1>
+  <h1>  {{nc.test}}</h1>
+  <h1>{{nc.auth}}</h1>
+  <h1 ng-if="nc.auth=='super'">I'M A SUPER USER</h1>
+            <button class="btn btn-info btn-raised" ng-if(nc.auth ==ui-sref="campavail">Home</button>
             <button class="btn btn-success btn-raised" ui-sref="login">View your Reservation</button>
             <button class="btn btn-primary btn-raised" ui-sref="faq">FAQ</button>
             <button class="btn btn-danger btn-raised" ui-sref="login">Admin</button>

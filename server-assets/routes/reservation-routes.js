@@ -4,7 +4,7 @@ const Reservation = require('../models/models').Reservation;
 module.exports.mountPath = '/reservations'
 module.exports.router = router;
 
-router.route('/:id')
+router.route('/:id?')
   .get(function (req, res, next) {
     Reservation.reservationGetByAnyId(req.params.id, req.query.include, function (reservation) {
       if (reservation.stack) { return next(reservation) }

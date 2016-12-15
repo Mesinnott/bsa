@@ -20,8 +20,9 @@
     "fs": "0.0.1-security",
     "glob": "^7.1.1",
     "js-data": "^2.9.0",
-    "js-data-firebase": "^2.1.1",
-    "node-uuid": "^1.4.7"
+    "js-data-firebase": "2.1.1",
+    "node-uuid": "^1.4.7",
+    "promise-polyfill": "^6.0.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",

@@ -225,15 +225,19 @@ angular.module(`app.components.${Component}`, [])
             secondUser:rc.reg.contacts[1],
             registration:{
                 packNum: rc.reg.packNum,
-                packId: "Set Below"
-                
+                packId: "Set Below",
+                campId: rc.camp.id,
+                email:rc.reg.contacts[0].email,
+                goldCard: false
             }
 
         }
         authService.createUser(formattedData.firstUser, 
             firstUser=>{
-                    return authService.createUser(formattedData.secondUser,
-                        ()=>{
+                    formattedData.registration.leader1 = firstUser;
+                    authService.createUser(formattedData.secondUser,
+                        secondUser=>{
+                            formattedData.registration.leader2 = secondUser;
                             $http.get('/api/packs?number=' + formattedData.registration.packNum)
                                 .then(
                                     pack=>{
@@ -253,11 +257,21 @@ angular.module(`app.components.${Component}`, [])
                                 )
                                 .then(
                                     pack=>{
-                                        formattedData.registration.packId = pack.id
+                                        formattedData.registration.packId = pack.id;
+                                        return(
+                                            $http.post('/api/reservations', formattedData.registration)
+                                        )
                                     }
                                 )
                                 .then(
-                                    
+                                    reservation=>{
+                                        console.log("Your spot is reserved.")
+                                    }
+                                )
+                                .catch(
+                                    error=>{
+                                        console.error(error)
+                                    }
                                 )
                         })
                 })
