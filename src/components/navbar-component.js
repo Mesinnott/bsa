@@ -10,24 +10,24 @@ angular.module(`app.components.${Component}`, [])
         template: template
     });
 
-NavController.$inject = ['loginService', '$document', '$window', '$scope', '$state'];
+NavController.$inject = ['sessionService', '$document', '$window', '$scope', '$state'];
 
-function NavController(loginService, $document, $window, $scope, $state) {
+function NavController(sessionService, $document, $window, $scope, $state) {
     let nc = this;
     nc.test = "test"
-    nc.auth = 'i'
+    nc.auth = $scope.auth
 
     console.log(nc.auth)
-    loginService.checkAuth(a => { nc.auth = a; console.log("AUTH::::::" + nc.auth) })
+    sessionService.checkAuth(a => { nc.auth = a; console.log("AUTH::::::" + nc.auth) })
     //    console.log("AUTH: " + nc.auth)
 
-    //    console.log("test "+ loginService.currentAuth)
+    //    console.log("test "+ sessionService.currentAuth)
     //    console.log("aauth= "+ nc.auth)
     //    console.log(nc.auth)
 
     nc.test = function () {
         console.log('working')
-        loginService.checkAuth(a => {
+        sessionService.checkAuth(a => {
             nc.auth = a;
             console.log('sssss ' + nc.auth);
             if (nc.auth == 'super' || nc.auth == 'reservation') {
@@ -43,7 +43,7 @@ function NavController(loginService, $document, $window, $scope, $state) {
 
     nc.director = function () {
         console.log('working')
-        loginService.checkAuth(a => {
+        sessionService.checkAuth(a => {
             nc.auth = a;
             console.log('sssss ' + nc.auth);
             if (nc.auth == 'super' || nc.auth == 'director') {
@@ -59,7 +59,7 @@ function NavController(loginService, $document, $window, $scope, $state) {
 
     nc.admin = function () {
         console.log('working')
-        loginService.checkAuth(a => {
+        sessionService.checkAuth(a => {
             nc.auth = a;
             console.log('sssss ' + nc.auth);
             if (nc.auth == 'super' || nc.auth == 'admin') {
@@ -74,16 +74,16 @@ function NavController(loginService, $document, $window, $scope, $state) {
     }
 
 
-    $document.on('scroll', function () {
-        // do your things like logging the Y-axis
-        console.log($window.scrollY);
+    // $document.on('scroll', function () {
+    //     // do your things like logging the Y-axis
+    //     console.log($window.scrollY);
 
-        // or pass this to the scope
-        $scope.$apply(function () {
-            $scope.pixelsScrolled = $window.scrollY;
+    //     // or pass this to the scope
+    //     $scope.$apply(function () {
+    //         $scope.pixelsScrolled = $window.scrollY;
 
-        })
-    });
+    //     })
+    // });
 }
 
 exports[Component] = Component;

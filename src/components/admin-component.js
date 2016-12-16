@@ -94,7 +94,7 @@ angular.module(`app.components.${Component}`, [])
     //     }
 
 
-    .controller('adController', function (loginService, abService, $http, $state) {
+    .controller('adController', function (sessionService, abService, $http, $state) {
 
         let ad = this;
         ad.test = 'testing 123'
@@ -134,7 +134,7 @@ angular.module(`app.components.${Component}`, [])
             )
         }
 
-        loginService.checkAuth(a=>{ad.currentAuth = a; console.log("AUTH::::::" + ad.currentAuth)})
+        sessionService.checkAuth(a=>{ad.currentAuth = a; console.log("AUTH::::::" + ad.currentAuth)})
         console.log(ad.currentAuth)
 
 

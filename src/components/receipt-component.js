@@ -7,11 +7,21 @@ angular.module(`app.components.${Component}`, [])
     template: template,
     controller: RecController
   })
+  .service('accountingService', Accounting)
 
-  function RecController(){
+  function RecController(accountingService){
+      let rc = this;
+      rc.getCamperCost
+  }
+
+  function Accounting(){
       var totalCost = 0;
+      return {
+          getCamperCost,
+          getAdultCost
+      }
 
-    this.getCamperCost = function(registration){
+    function getCamperCost(registration){
         var camperCost = 0;  
         var cps = 30; //cps = cost per scout
         var campers = registration.campers
@@ -41,7 +51,7 @@ angular.module(`app.components.${Component}`, [])
         totalCost += camperCost;
     }
 
-    this.getAdultCost = function(registration){
+    function getAdultCost(registration){
         var adultCost = 0;
         var adult = regisration.leader
         for(var i = 0; i < adults.length; i++){

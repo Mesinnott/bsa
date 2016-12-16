@@ -7,7 +7,54 @@ angular.module(`app.components.${Component}`, [])
         controller: RegisterController,
         controllerAs: 'rc',
         template: template
-    });
+    })
+    .factory('userService', 
+        function(){
+            
+            return{
+                createUser,
+
+            }
+            function createUser(email, password, fullName, isReservation) {
+                // $state.transitionTo('my.state', {arg:''})
+                firebase.auth().createUserWithEmailAndPassword(email, password)
+                    .then((newUser) => {
+                        // rc.message="You have successfully created a User account.  Check your email for verification, and please login"
+                        firebase.database().ref('/api/users/' + newUser.uid).set({
+                            id: newUser.uid,
+                            email: newUser.email,
+                            displayName: fullName,
+                            super: false,
+                            admin: false,
+                            director: false,
+                            reservation: !!isReservation,
+
+                        })
+
+                        var user = firebase.auth().currentUser;
+
+
+                        user.updateProfile({
+                            displayName: fullName,
+                        }).then(function () {
+                            newUser.sendEmailVerification();
+                            console.log(newUser);
+                            // Update successful.
+                        }, function (error) {
+                            // An error happened.
+                            console.error(error)
+                        });
+                        let message="You have successfully created a User account, and are logged in.  Please get an administrator to give you Authorizations."
+                        $state.go('home')
+                    })
+                    .catch((error) => {
+                        rc.error=error.message;
+                        console.error(error);
+                    });
+
+
+        }
+    })
 
 RegisterController.$inject = ['$state'];
 

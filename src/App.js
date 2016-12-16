@@ -10,8 +10,8 @@ let App = angular.module('bsa', [
     ...dependencies, 
     uiRouter,
     ])
-App.config(function ($urlRouterProvider, $stateProvider) {
-            
+App.config(function ($urlRouterProvider, $stateProvider, $qProvider) {
+            $qProvider.errorOnUnhandledRejections(false);
             $stateProvider
                 .state({
                     name:'home',
@@ -80,7 +80,23 @@ App.config(function ($urlRouterProvider, $stateProvider) {
                 .state({
                     name:'admin',
                     url:'/admin?:resource?:parameter?:query?',
-                    template:'<admin></admin>'
+                    template:'<admin></admin>',
+                    resolve: {
+                        auth:function(sessionService, $state){
+                            console.log("running")
+                            sessionService.checkAuth(
+                                auth=>{
+                                    console.log('running')
+                                    console.log(auth)
+                                    let level = auth? !(/(super)|(admin)/).test(auth) : false;
+                                    if(level){ // if you're not an admin or super admin, you can't sit with us
+                                        console.log("running")
+                                        $state.go('home')
+                                    }
+                                }
+                            )
+                        }
+                    }
                 })
             $urlRouterProvider.otherwise('/'); // we may want to change this
             // $locationProvider.hashPrefix('!');

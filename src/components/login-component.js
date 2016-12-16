@@ -6,18 +6,25 @@ const Component = 'login'
 // Use this as a template.
 angular.module(`app.components.${Component}`, [])
 
-    .factory('loginService', function ($http, $state) {
+    .factory('sessionService', function ($http, $state) {
 
         let currentUser = ''
         let currentId = ''
         let dbuser = ''
-        let currentAuth = 'none'
+        let currentAuth = null
+
+        function logOut(){
+            firebase.auth().signOut().then(console.log).catch(console.log)
+            lc.message = "You Have Been Logged Out"
+        }
 
         function checkAuth(cb) {
 
             currentUser = firebase.auth()
-            if (currentUser.currentUser == null) {
+            if (!currentUser.currentUser) {
                 console.log('not logged in')
+                cb(false)
+                return false;
             }
             if (currentUser.currentUser) {
                 console.log('someone is logged in')
@@ -48,10 +55,6 @@ angular.module(`app.components.${Component}`, [])
         }
 
 
-
-
-
-
         function getUser(id, cb) {
             $http({
                 method: 'GET',
@@ -61,8 +64,10 @@ angular.module(`app.components.${Component}`, [])
                 let hello = res
                 return cb(hello);
             })
+            .catch(
+                console.error
+            )
         }
-
 
 
         return {
@@ -71,8 +76,10 @@ angular.module(`app.components.${Component}`, [])
             currentUser: currentUser,
             currentId: currentId,
             dbuser: dbuser,
-            currentAuth: currentAuth
+            currentAuth: currentAuth,
+            logOut: logOut,
         };
+
 
 
 
@@ -87,9 +94,9 @@ angular.module(`app.components.${Component}`, [])
     });
 
 
-LoginController.$inject = ['loginService', '$state', '$http'];
+LoginController.$inject = ['sessionService', '$state', '$http'];
 
-function LoginController(loginService, $state, $http) {
+function LoginController(sessionService, $state, $http) {
     let lc = this;
 
     lc.email = '';
@@ -141,7 +148,7 @@ function LoginController(loginService, $state, $http) {
         firebase.auth().signInWithEmailAndPassword(lc.email, lc.password)
             .then((user) => {
                 // Need to get user object from db, not auth object.  then we need to compare ids to get proper user.
-                loginService.getUser(user.uid, function (res) {
+                sessionService.getUser(user.uid, function (res) {
                     lc.user = res.data
 
 
@@ -183,7 +190,7 @@ function LoginController(loginService, $state, $http) {
 
         lc.auth = firebase.auth()
             .then((user) => {
-                loginService.checkAuth(user.uid, function (res) {
+                sessionService.checkAuth(user.uid, function (res) {
                     lc.user = res.data
 
                     console.log(lc.user)
@@ -223,7 +230,7 @@ function LoginController(loginService, $state, $http) {
 
 
     lc.getAuth = function () {
-        loginService.checkAuth()
+        sessionService.checkAuth()
 
     }
 
