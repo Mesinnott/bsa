@@ -23,7 +23,7 @@ function getAnyByProp(resourceName, query, cb){
     let includeSyntax = {};
     let include = query.with || ''
     delete query.with
-    console.log("Query of" + JSON.stringify(query))
+    // console.log("Query of" + JSON.stringify(query))
     if(!!Object.keys(query).length){ // if the query is not blank
         querySyntax = {where:{}}
         // console.log("Query is not blank")

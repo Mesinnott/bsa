@@ -103,15 +103,24 @@ function editScout(rewrite, cb) {
         .then(function (scout) {
             Scout.update(scout.id, rewrite)
             .then((data) => {
-                if (cb) { cb(data) }
+                cb(data)
+                DS.update("reservation", scout.reservationId, {init: Date.now()}) 
             }).catch((error) => {
-                if (cb) { cb(error) }
+                cb(error)
             })
-        }).catch((error) => {
-            if (cb) { cb(error) }
         })
-        return
+        return;
     }
+    // Scout.find(rewrite.id).then(function (scout) {
+    //     Scout.update(scout.id, rewrite).then((data) => {
+    //         Models.Reservation.checkPaidStatus(scout.reservationId, cb);
+    //         if (cb) { cb(data) }
+    //     }).catch((error) => {
+    //         if (cb) { cb(error) }
+    //     })
+    //     return
+    // }
+    // }
     return Scout.find(rewrite.id)
         .then(
             function (scout) {

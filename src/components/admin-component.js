@@ -157,6 +157,7 @@ angular.module(`app.components.${Component}`, [])
                 }
             )
         }
+        
         ad.setResource = function (index) {
             // console.log(ad.resources[index].name)
             return ad.resources[index].name
@@ -200,6 +201,7 @@ angular.module(`app.components.${Component}`, [])
         ad.reset = function () {
             ad.error = false
         }
+        
         ad.remove = function (id, scout, index) {
             if (!window.confirm("Are you sure?")) {
                 return
@@ -679,35 +681,7 @@ angular.module(`app.components.${Component}`, [])
             }
         ]
 
-
-
-
-
-
-        this.getYears = function () {
-            abService.getCurrentYears(
-                function (years) {
-                    ad.years = years
-                    console.log(years)
-                }
-            )
-        }
-
-        this.getCamps = function () {
-
-            abService.getCampsByYear(
-                ad.yearId,
-                camps => {
-                    ad.camps = camps
-                }
-            )
-        }
-        ad.setResource=function(index){
-            // console.log(ad.resources[index].name)
-            return ad.resources[index].name
-
-
-        }
+        
 
         ad.reservations = function (value) {
             // debugger
@@ -724,61 +698,6 @@ angular.module(`app.components.${Component}`, [])
             // })
 
         }
-
-        ad.save = function (id, resource, name) {
-            name = name.split("")
-            name.pop()
-            name=name.join('')
-            let body= {}
-            body[name]=resource
-            // resource = { name: resource }
-            abService.editAny(name, id, body, function (save) {
-                console.log(save)
-
-            })
-        }
-
-        ad.saveAll = function (list) {
-            ad.error="Your Changes Have been saved"
-
-
-
-            // for (var i = 0; i < list.length; i++) {
-            //     var scout = list[i]
-            //     var id = scout.id
-            //     console.log("id: " + id)
-            //     ad.save(id, scout)
-            //     console.log("updated " + (i + 1))
-            // }
-
-        }
-        ad.reset= function(){
-            ad.error=false
-        }
-        ad.remove = function (id, scout, index) {
-            // debugger
-            if(!window.confirm("Are you sure?")){
-                return
-            }
-            var reserve = scout.reservationId
-            console.log(reserve)
-            var scout = {
-                "scout":
-                {
-                    "id": id,
-                    "campId": "removed",
-                    "reservationId": "removed"
-                }
-            }
-            abService.editScout(id, scout, function (res) {
-                console.log(res)
-                ad.reservation.splice(index, 1)
-            }, function (res) {
-                console.error(res)
-            })
-        }
-
-
     }, ['$interval'])
 
 
