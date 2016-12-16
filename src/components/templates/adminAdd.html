@@ -1,0 +1,27 @@
+<div class='elevated-box'>
+    <form ng-submit="ac.addSomething()">
+        <div class="form-group">
+            <label> I want to add...</label>
+            <div class="select-container">
+                <i class="material-icons">&#xE313;</i>
+                <select class="form-control" ng-model='ac.resource'>
+                    <option  value="years">Year</option>
+                    <option value="camps">Camp</option>
+                </select>
+            </div>
+        </div>
+
+    <div ng-if="ac.resource == 'years'" class="form-group">
+        <h1>Years</h1>
+        <input type="text" class="form-control" ng-model='ac.object' placeholder="2020">
+          <button type="submit" class="btn btn-primary btn-raised">Make a new YEAR!</button>
+
+    </div>
+    <div ng-if="ac.resource == 'camps'" class="form-group">
+        <h1>Camps</h1>
+        <input type="text" class="form-control" ng-model='ac.object' placeholder="camp">
+          <button type="submit" class="btn btn-primary btn-raised">Make a new CAMP!</button>
+
+    </div>
+    </form>
+</div>

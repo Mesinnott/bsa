@@ -681,7 +681,21 @@ angular.module(`app.components.${Component}`, [])
             }
         ]
 
-        
+           ad.add = function () {
+        console.log('working')
+        loginService.checkAuth(a => {
+            ad.currentAuth = a;
+            console.log('sssss ' + ad.currentAuth);
+            if (ad.currentAuth == 'super' || ad.currentAuth == 'admin') {
+                $state.go('adminadd')
+            }
+            else {
+                ad.error = "You are not authorized to view this page";
+                console.log('fail')
+            }
+        })
+        // nc.message = "You do not have proper clearance to go there"
+    }
 
         ad.reservations = function (value) {
             // debugger
