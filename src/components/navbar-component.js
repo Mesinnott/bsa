@@ -16,6 +16,7 @@ function NavController(loginService, $document, $window, $scope, $state) {
     let nc = this;
     nc.test = "test"
     nc.auth = 'i'
+    nc.error= false
 
     console.log(nc.auth)
     loginService.checkAuth(a => { nc.auth = a; console.log("AUTH::::::" + nc.auth) })
@@ -29,12 +30,12 @@ function NavController(loginService, $document, $window, $scope, $state) {
         console.log('working')
         loginService.checkAuth(a => {
             nc.auth = a;
-            console.log('sssss ' + nc.auth);
             if (nc.auth == 'super' || nc.auth == 'reservation') {
                 $state.go('viewreg', {'reservationId':'7c7973ae-eeee-4fcb-9ee5-a52222d99eda'})
             }
             else {
                 $state.go('faq')
+                nc.error = "You are not authorized to view this page";
                 console.log('fail')
             }
         })
@@ -51,6 +52,7 @@ function NavController(loginService, $document, $window, $scope, $state) {
             }
             else {
                 $state.go('faq')
+                nc.error = "You are not authorized to view this page";
                 console.log('fail')
             }
         })
@@ -67,12 +69,16 @@ function NavController(loginService, $document, $window, $scope, $state) {
             }
             else {
                 $state.go('faq')
+                nc.error = "You are not authorized to view this page";
                 console.log('fail')
             }
         })
         // nc.message = "You do not have proper clearance to go there"
     }
 
+nc.reset = function(){
+    nc.error=false
+}
 
     $document.on('scroll', function () {
         // do your things like logging the Y-axis
