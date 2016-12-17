@@ -23,8 +23,9 @@ angular.module(`app.components.${Component}`, [])
             currentUser = firebase.auth()
             if (!currentUser.currentUser) {
                 console.log('not logged in')
-                cb(false)
-                return false;
+                currentAuth = null
+                cb(currentAuth)
+                return currentAuth
             }
             if (currentUser.currentUser) {
                 console.log('someone is logged in')
@@ -125,6 +126,7 @@ function LoginController(sessionService, $state, $http) {
 
     lc.logOut = function () {
         firebase.auth().signOut()
+        currentAuth = 'none'
         lc.message = "You Have Been Logged Out"
     }
 

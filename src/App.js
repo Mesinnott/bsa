@@ -78,6 +78,11 @@ App.config(function ($urlRouterProvider, $stateProvider, $qProvider) {
                     template:'<i class="fa fa-spinner" aria-hidden="true"></i>'
                 })
                 .state({
+                    name:'adminadd',
+                    url:'/adminadd',
+                    template:'<adminadd></adminadd>'
+                })
+                .state({
                     name:'admin',
                     url:'/admin?:resource?:parameter?:query?',
                     template:'<admin></admin>',

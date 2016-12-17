@@ -12,6 +12,7 @@ import {admin} from './admin-component'
 import {navbar} from './navbar-component.js'
 import {faq} from './faq-component.js'
 import {viewreg} from './viewReg-component.js'
+import {adminadd} from './adminAdd-component.js'
 
 
 // Import your components here
@@ -30,7 +31,8 @@ let components = [
   admin,
   navbar,
   faq,
-  viewreg
+  viewreg,
+  adminadd
 ]
 
 

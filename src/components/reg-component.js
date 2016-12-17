@@ -66,7 +66,7 @@ angular.module(`app.components.${Component}`, [])
     template: template
   })
 
-  function RegController($http, $state, $scope){
+  function RegController($http, $state, $scope, userService){
     let rc = this
 
 
@@ -131,27 +131,23 @@ angular.module(`app.components.${Component}`, [])
     rc.selectedResource = ''
 
     function Adult(first, last, shirt){
-        this.first = first;
-        this.last = last;
+        this.name = first + ' ' + last;
         this.shirt = shirt;
     }
 
     function RegAdult(first, last, date, shirt){
-        this.first = first;
-        this.last = last;
+        this.name = first + ' ' + last;
         this.date = date;
         this.shirt = shirt;
     }
 
     function Camper(first, last, shirt){
-        this.first = first;
-        this.last = last;
+        this.name = first + ' ' + last;
         this.shirt = shirt;
     }
 
     function Contact(first, last, position, email, phone){
-        this.first = first;
-        this.last = last;
+        this.displayName = first + ' ' + last;
         this.position = position;
         this.email = email;
         this.phone = phone;
@@ -200,7 +196,7 @@ angular.module(`app.components.${Component}`, [])
     }
     rc.removeCamper = function(index){
         if(window.confirm(`Are you sure you want to delete this?`)){
-            // DO SOMETHING
+            rc.reg.campers.splice(index, 1)
         }
     }
        
@@ -232,49 +228,61 @@ angular.module(`app.components.${Component}`, [])
             }
 
         }
-        authService.createUser(formattedData.firstUser, 
-            firstUser=>{
-                    formattedData.registration.leader1 = firstUser;
-                    authService.createUser(formattedData.secondUser,
-                        secondUser=>{
-                            formattedData.registration.leader2 = secondUser;
-                            $http.get('/api/packs?number=' + formattedData.registration.packNum)
-                                .then(
-                                    pack=>{
-                                        formattedData.registration.packId = pack.id
-                                    }
-                                )
-                                .catch(
-                                    error=>{
-                                        return (
-                                            $http.post('/api/packs', {
-                                                number:formattedData.registration.packNum,
-                                                charter:"Not Set",
-                                                districtId:"Not Set"
-                                            })
-                                        )
-                                    }
-                                )
-                                .then(
-                                    pack=>{
-                                        formattedData.registration.packId = pack.id;
-                                        return(
-                                            $http.post('/api/reservations', formattedData.registration)
-                                        )
-                                    }
-                                )
-                                .then(
-                                    reservation=>{
-                                        console.log("Your spot is reserved.")
-                                    }
-                                )
-                                .catch(
-                                    error=>{
-                                        console.error(error)
-                                    }
-                                )
-                        })
-                })
+        userService.createUser(formattedData.firstUser, "isReservation")
+            .then(
+                firstUser=>{
+                        formattedData.registration.leader1 = firstUser;
+                        userService.createUser(formattedData.secondUser, "isReservation")
+                        .then(
+                            secondUser=>{
+                                formattedData.registration.leader2 = secondUser;
+                                $http.get('/api/packs?number=' + formattedData.registration.packNum)
+                                    .then(
+                                        pack=>{
+                                            formattedData.registration.packId = pack.data.id;
+                                            return new Promise(
+                                                (resolve, reject)=>{
+                                                    try{
+                                                        resolve(pack)
+                                                    }catch(error){
+                                                        reject(error)
+                                                    }
+                                                }
+                                            )
+                                        }
+                                    )
+                                    .catch(
+                                        error=>{
+                                            return (
+                                                $http.post('/api/packs', {
+                                                    number:formattedData.registration.packNum,
+                                                    charter:"Not Set",
+                                                    districtId:"Not Set"
+                                                })
+                                            )
+                                        }
+                                    )
+                                    .then(
+                                        pack=>{
+                                            formattedData.registration.packId = pack.data.id;
+                                            return(
+                                                $http.post('/api/reservations', formattedData.registration)
+                                            )
+                                        }
+                                    )
+                                    .then(
+                                        reservation=>{
+                                            console.log("Your spot is reserved.")
+                                        }
+                                    )
+                                    .catch(
+                                        error=>{
+                                            console.error(error)
+                                        }
+                                    )
+                            })
+                    })
+                
                 
     }
             

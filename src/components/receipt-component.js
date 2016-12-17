@@ -11,7 +11,9 @@ angular.module(`app.components.${Component}`, [])
 
   function RecController(accountingService){
       let rc = this;
-      rc.getCamperCost
+      rc.getCamperCost = accountingService.getCamperCost
+      rc.getAdultCost = accountingService.getAdultCost
+
   }
 
   function Accounting(){
@@ -21,8 +23,12 @@ angular.module(`app.components.${Component}`, [])
           getAdultCost
       }
 
+    function getDataToDisplay(){
+
+    }
+
     function getCamperCost(registration){
-        var camperCost = 0;  
+        var camperCost = 0;
         var cps = 30; //cps = cost per scout
         var campers = registration.campers
         

@@ -9,33 +9,36 @@ angular.module(`app.components.${Component}`, [])
         template: template
     })
     .factory('userService', 
-        function(){
-            
+        function($state){
+
             return{
                 createUser,
 
             }
-            function createUser(email, password, fullName, isReservation) {
+            function createUser(freshUser, isReservation) {
                 // $state.transitionTo('my.state', {arg:''})
-                firebase.auth().createUserWithEmailAndPassword(email, password)
+                return firebase.auth().createUserWithEmailAndPassword(freshUser.email, freshUser.password)
                     .then((newUser) => {
-                        // rc.message="You have successfully created a User account.  Check your email for verification, and please login"
-                        firebase.database().ref('/api/users/' + newUser.uid).set({
-                            id: newUser.uid,
-                            email: newUser.email,
-                            displayName: fullName,
-                            super: false,
-                            admin: false,
-                            director: false,
-                            reservation: !!isReservation,
 
-                        })
+                        function formatUser(rawUser){
+                            let u = rawUser;
+                            delete u.password;
+                            u.id = newUser.uid;
+                            u.email = newUser.email;
+                            u.displayName = rawUser.displayName;
+                            u.super = false;
+                            u.admin = false;
+                            u.director = false;
+                            u.reservation = !!isReservation;
+                            return u;
+                        }
+                        // rc.message="You have successfully created a User account.  Check your email for verification, and please login"
 
                         var user = firebase.auth().currentUser;
 
 
-                        user.updateProfile({
-                            displayName: fullName,
+                        user.updateProfile({ // Firebase Virtual Auth User
+                            displayName: freshUser.displayName,
                         }).then(function () {
                             newUser.sendEmailVerification();
                             console.log(newUser);
@@ -46,9 +49,10 @@ angular.module(`app.components.${Component}`, [])
                         });
                         let message="You have successfully created a User account, and are logged in.  Please get an administrator to give you Authorizations."
                         $state.go('home')
+
+                        return firebase.database().ref('/api/users/' + newUser.uid).set(formatUser(freshUser)) // User accessible in DB // returns Promise
                     })
                     .catch((error) => {
-                        rc.error=error.message;
                         console.error(error);
                     });
 

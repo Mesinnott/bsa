@@ -1,9 +1,9 @@
 <nav class="navbar navbar-default navbar-static-top">
 <div class="col-sm-12">
-
-<h1>test</h1>
-<h1 ng-bind='nc.auth'></h1>
-<h1>{{nc.auth}}</h1>
+<div class="alert alert-danger alert-dismissable" ng-if="!!nc.error">
+        <button type="button" class="close" data-dismiss="alert" ng-click="nc.reset()">x</button>
+        <p>{{nc.error}}</p>
+    </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
