@@ -21,7 +21,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                    <tr  ng-repeat="person in rc.reg[resource.name + 's']" class="animation-grow-in" ng-show="false">
+                                    <tr  ng-repeat="person in rc.reg.campers" class="animation-grow-in" ng-show="false">
                                         <td>{{ resource.displayName }}</td>
                                         <td>{{ person.first }}</td>
                                         <td>{{ person.last }}</td>
@@ -31,7 +31,7 @@
                                     <tr  ng-repeat="person in rc.reg.campers" class="animation-grow-in">
                                         <td>Scout</td>
                                         <td>
-                                            <input type="text" class="form-control" ng-model="person.first">
+                                            <input type="text" class="form-control" ng-value="person.first" ng-model="person.first"/>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" ng-model="person.last">

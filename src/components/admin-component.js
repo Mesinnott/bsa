@@ -390,7 +390,7 @@ angular.module(`app.components.${Component}`, [])
                 displayName: "Districts",
                 props: [
                     {
-                        name:'',
+                        name:new String(),
                         displayName:'All'
                     },                    
                     {

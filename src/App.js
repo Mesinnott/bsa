@@ -110,13 +110,15 @@ App.config(function ($urlRouterProvider, $stateProvider, $qProvider) {
 App.component('app', {
   template: `
 
-      <navbar/>
+      <navbar ng-if="!$ctrl.isReceipt"/>
       <div class="container-fluid">
         <ui-view/>
       </div>
       
       `,
-  controller() { 
+  controller($location) { 
+    let app = this;
+    this.isReceipt = $location.$$url.includes('receipt')
     // $.material.init()
   }
 })

@@ -5,6 +5,7 @@
   const path = require('path');
   
   let router = require('express').Router();
+
   router.route('/:resourceName/:id?')
     .get(function (req, res, next) {
       // console.log(req.query)
@@ -21,6 +22,9 @@
       }
       next()
     })
+
+
+
   exports.router = router
 
   let files = fs.readdirSync(__dirname);

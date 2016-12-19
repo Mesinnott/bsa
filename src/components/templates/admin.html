@@ -19,12 +19,12 @@
                     <p></p>
                     <!--track by prop.name-->
                     <select name="propForm" class="form-control" ng-model="ad.prop">
-                                        <!--<option 
+                            <option 
                             ng-if="ad.resources[ad.resource].name == 'directors' || ad.resources[ad.resource].name == 'packs' || ad.resources[ad.resource].name == 'users' || ad.resources[ad.resource].name == 'districts'" 
                             value=''
                             >
                             All
-                            </option>-->
+                            </option>
                             
                             <option ng-repeat="prop in ad.resources[ad.resource].props" ng-value="prop.name">{{prop.displayName}}</option>
                             <!--<option value="id">Id</option>

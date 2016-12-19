@@ -62,9 +62,9 @@ angular.module(`app.components.${Component}`, [])
             template:actionBar
         }
     })
-  .component(Component,{ 
-    template: template
-  })
+    .component(Component,{ 
+        template: template
+    })
 
   function RegController($http, $state, $scope, userService){
     let rc = this
@@ -131,23 +131,27 @@ angular.module(`app.components.${Component}`, [])
     rc.selectedResource = ''
 
     function Adult(first, last, shirt){
-        this.name = first + ' ' + last;
+        this.first = first;
+        this.last = last;
         this.shirt = shirt;
     }
 
     function RegAdult(first, last, date, shirt){
-        this.name = first + ' ' + last;
+        this.first = first;
+        this.last = last;
         this.date = date;
         this.shirt = shirt;
     }
 
     function Camper(first, last, shirt){
-        this.name = first + ' ' + last;
+        this.first = first;
+        this.last = last;
         this.shirt = shirt;
     }
 
     function Contact(first, last, position, email, phone){
-        this.displayName = first + ' ' + last;
+        this.first = first
+        this.last = last
         this.position = position;
         this.email = email;
         this.phone = phone;
@@ -192,6 +196,7 @@ angular.module(`app.components.${Component}`, [])
             rc.adultNeeded = false
         }
         rc.healthBoxChecked = false;
+        console.log(rc.reg.campers)
         rc.currentCamper = {};
     }
     rc.removeCamper = function(index){
@@ -212,8 +217,15 @@ angular.module(`app.components.${Component}`, [])
         rc.reg.campNum = rc.campNum;
         rc.reg.packNum = rc.packNum;
         console.log(rc.reg)
+        rc.reg.adults.forEach(a=>{
+            a.name = a.first + " " + a.last 
+        })
+        rc.reg.campers.forEach(c=>{
+            c.name = a.first + " " + a.last
+        })
         rc.reg.contacts.forEach(c=>{
             c.reservation = true;
+            c.displayName = c.first + " " + c.last;
             c.password = rc.password
         })
         let formattedData = {

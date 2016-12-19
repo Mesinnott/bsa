@@ -17,34 +17,45 @@ angular.module(`app.components.${Component}`, [])
   }
 
   function Accounting(){
-      var totalCost = 0;
-      return {
-          getCamperCost,
-          getAdultCost
+      let a = this;
+      
+      a.setReservation = function(reservation){
+          a.reservation = reservation
+      }
+      a.setCamp = function(camp){
+          a.camp = camp;
+          a.camp.dayCount = a.camp.scoutLevels == "webelos"? 2 : 1;
+      }
+      a.setCampers = function(campers){
+          a.campers = campers
+      }
+      a.setAdults = function(adults){
+          a.adults = adults
       }
 
     function getDataToDisplay(){
 
     }
 
-    function getCamperCost(registration){
+    function getCamperCost(){
         var camperCost = 0;
         var cps = 30; //cps = cost per scout
-        var campers = registration.campers
-        
+        var camp = a.camp
+        var campers = a.campers
+        var reservation = a.reservation
         // calculates cost per scout based on weblo/gold card/early reg
-        if(registration.dayCount > 1){
+        if(camp.dayCount > 1){
             cps += 15;
         }
-        if(!registration.early){
+        if(!camp.early){
             cps += 5;
         }
-        if(registration.gold){
+        if(camp.gold){
             cps -= 5;
         }
         
         //cost without t shirts
-        camperCost += campers.length * cps 
+        camperCost += campers.length * cps
 
         for(var i = 0; i < campers.length; i++){
             var camper = campers[i]
@@ -54,12 +65,12 @@ angular.module(`app.components.${Component}`, [])
                 camperCost += 12
             }
         }
-        totalCost += camperCost;
+        return camperCost;
     }
 
-    function getAdultCost(registration){
+    function getAdultCost(){
         var adultCost = 0;
-        var adult = regisration.leader
+        var adults = a.reservation.adults
         for(var i = 0; i < adults.length; i++){
             if(adult.shirt < 7){
                 adultCost += 10;
@@ -67,11 +78,12 @@ angular.module(`app.components.${Component}`, [])
                 adultCost += 12;
             }
         }
-        totalCost += adultCost;
+        return adultCost;
     }
-    
 
-   
+    function getTotalCost(){
+        return getAdultCost() + getCamperCost();
+    }
 }
 
 
