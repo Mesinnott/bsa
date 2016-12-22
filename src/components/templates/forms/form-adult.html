@@ -10,7 +10,7 @@
                                 <label for="">Last Name</label>
                                 <input ng-model="rc.currentAdult.last" type="text" class="form-control" placeholder="Last Name" required>
                                 <label for="">Shirt Size</label>
-
+                                <shirt-select model="rc.currentAdult.shirt" required="false"/>
                                 <button type="button" ng-click="rc.addAdult(rc.currentAdult)" class="btn btn-primary"><i class="material-icons">person_add</i></button>
                         </div>
-                    </div>    
+                    </div>

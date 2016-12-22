@@ -62,19 +62,42 @@ angular.module(`app.components.${Component}`, [])
             template:actionBar
         }
     })
+    .component("shirtSelect", {
+            bindings: {
+                model:'=',
+                required:'='
+            },
+            template:`
+                                <div class="select-container">
+                                    <i class="material-icons">&#xE313;</i>
+                                    <select name="" id="" class="form-control" ng-change="console.log(model)" ng-model="ss.model" required="ss.required">
+                                        <option value="" ng-if="!ss.required">None</option>
+                                        <option ng-repeat="shirtSize in ss.shirtSizes" ng-value="shirtSize.name">
+                                            {{shirtSize.displayName}}
+                                        </option>
+                                    </select>
+                                </div>
+                      `,
+            controller:function($scope, bsaConstants){
+                let ss = this;
+                ss.shirtSizes = bsaConstants.shirtSizes;
+            },
+            controllerAs:'ss'
+    })
     .component(Component,{ 
         template: template
     })
 
-  function RegController($http, $state, $scope, userService){
+  function RegController($http, $state, $scope, userService, bsaConstants){
     let rc = this
 
-
+    rc.shirtSizes = bsaConstants.shirtSizes;
     rc.adultNeeded = false;
     rc.healthBoxChecked = false;
     rc.campNum;
     rc.camp;
     rc.password;
+
     (function(){
         $http.get('/api/camps/'+$state.params.campId)
             .then(function(camps){
@@ -180,6 +203,7 @@ angular.module(`app.components.${Component}`, [])
         rc.reg.adults.push(ca);
         rc.adultNeeded = false;
         rc.currentAdult = {};
+        console.log(rc.reg.adults)
     }
     rc.removeAdult = function(index){
         rc.reg.adults.splice(index, 1)
@@ -193,7 +217,7 @@ angular.module(`app.components.${Component}`, [])
         if(rc.reg.campers.length > 10 && rc.reg.campers.length % 5 == 1){
             rc.adultNeeded = true;
         }else{
-            rc.adultNeeded = false
+            rc.adultNeeded = false;
         }
         rc.healthBoxChecked = false;
         console.log(rc.reg.campers)
