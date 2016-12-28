@@ -78,16 +78,11 @@ angular.module(`app.components.${Component}`, [])
         })
 
         addService.getUsers(function (res) {
-            console.log('huzzah')
-            console.log(res)
             for (var i = 0; i < res.length; i++) {
-                console.log(i)
                 if(res[i].director==true){
                     ac.directors.push(res[i])
                 }
             }
-            console.log('butter')
-            console.log(ac.directors)
             return ac.directors
         })
 
