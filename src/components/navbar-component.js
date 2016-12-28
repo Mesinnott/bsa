@@ -20,6 +20,22 @@ function NavController(sessionService, $document, $window, $scope, $state) {
 
     console.log(nc.auth)
     sessionService.checkAuth(a => { nc.auth = a; console.log("AUTH::::::" + nc.auth) })
+    
+    // function resId (){
+    //     sessionService.checkAuth(a => {
+    //         nc.auth = a;
+    //         if (nc.auth == 'super' || nc.auth == 'reservation') {
+    //      $http.get(`/api/users?year=${currentYear}&year=${nextYear}`)
+    //             .then(function (res) {
+    //                 cb(res.data)
+    //             })
+
+
+
+
+    //         }
+    //     })
+    // }
     //    console.log("AUTH: " + nc.auth)
 
     //    console.log("test "+ sessionService.currentAuth)
@@ -28,10 +44,15 @@ function NavController(sessionService, $document, $window, $scope, $state) {
 
     nc.test = function () {
         console.log('working')
+        
         sessionService.checkAuth(a => {
             nc.auth = a;
             if (nc.auth == 'super' || nc.auth == 'reservation') {
-                $state.go('viewreg', {'reservationId':'7c7973ae-eeee-4fcb-9ee5-a52222d99eda'})
+                $state.go('key')
+
+                // let key = window.prompt('please enter your access key')
+                // console.log(key + " this is the key")
+                // $state.go('viewreg', {'reservationId':key})
             }
             else {
                 $state.go('faq')
@@ -76,7 +97,7 @@ function NavController(sessionService, $document, $window, $scope, $state) {
         // nc.message = "You do not have proper clearance to go there"
     }
 
-nc.reset = function(){
+kc.reset = function(){
     nc.error=false
 }
 

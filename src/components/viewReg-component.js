@@ -474,17 +474,13 @@ angular.module(`app.components.${Component}`, [])
             console.log("incoming!")
             obj['registrationId'] =  vc.reservationId
 
+
         }
 
 
 
     })
 
-    // function ViewRegController() {
-    //     let vc = this;
-
-
-    // }
 
     .component('viewreg', {
         controller: 'vrController',
