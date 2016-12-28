@@ -24,7 +24,7 @@ angular.module(`app.components.${Component}`, [])
         }
 
         vs.add = function(resource, body, cb){
-            $http.post('/api/'+ resource)
+            $http.post('/api/'+ resource, body)
         }
 
         vs.getByAnyProp = (resource, param, value, cb) => {

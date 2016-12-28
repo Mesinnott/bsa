@@ -148,15 +148,16 @@ angular.module(`app.components.${Component}`, [])
             )
         }
 
-        this.getCamps = function () {
+//I commented this out because i dont think it does anything right now...
+        // this.getCamps = function () {
 
-            abService.getCampsByYear(
-                ad.yearId,
-                camps => {
-                    ad.camps = camps
-                }
-            )
-        }
+        //     abService.getCampsByYear(
+        //         ad.yearId,
+        //         camps => {
+        //             ad.camps = camps
+        //         }
+        //     )
+        // }
         
         ad.setResource = function (index) {
             // console.log(ad.resources[index].name)
@@ -699,7 +700,7 @@ angular.module(`app.components.${Component}`, [])
 
            ad.add = function () {
         console.log('working')
-        loginService.checkAuth(a => {
+        sessionService.checkAuth(a => {
             ad.currentAuth = a;
             console.log('sssss ' + ad.currentAuth);
             if (ad.currentAuth == 'super' || ad.currentAuth == 'admin') {
