@@ -88,7 +88,7 @@ angular.module(`app.components.${Component}`, [])
         template: template
     })
 
-  function RegController($http, $state, $scope, userService, bsaConstants){
+  function RegController($http, $state, $scope, userService, bsaConstants, sessionService){
     let rc = this
 
     rc.shirtSizes = bsaConstants.shirtSizes;
@@ -97,6 +97,8 @@ angular.module(`app.components.${Component}`, [])
     rc.campNum;
     rc.camp;
     rc.password;
+
+    rc.isAdmin = sessionService.getAuth() == "admin"
 
     (function(){
         $http.get('/api/camps/'+$state.params.campId)

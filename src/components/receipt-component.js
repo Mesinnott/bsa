@@ -74,7 +74,7 @@ angular.module(`app.components.${Component}`, [])
 
   }
 
-  function Accounting(){
+  function Accounting(bsaConstants){
       let a = this;
       
       a.setReservation = function(reservation){
@@ -113,15 +113,11 @@ angular.module(`app.components.${Component}`, [])
         }
         
         //cost without t shirts
-        camperCost += campers.length * cps
+        camperCost += campers.length * cps;
 
         for(var i = 0; i < campers.length; i++){
             var camper = campers[i]
-            if(camper.shirt < 7){
-                camperCost += 10
-            }else{
-                camperCost += 12
-            }
+            camperCost += bsaConstants.shirtPrices[camper.shirt]
         }
         return camperCost;
     }
@@ -130,11 +126,7 @@ angular.module(`app.components.${Component}`, [])
         var adultCost = 0;
         var adults = a.reservation.adults
         for(var i = 0; i < adults.length; i++){
-            if(adult.shirt < 7){
-                adultCost += 10;
-            }else{
-                adultCost += 12;
-            }
+            adultCost += bsaConstants.shirtPrices[adults[i].shirt]
         }
         return adultCost;
     }

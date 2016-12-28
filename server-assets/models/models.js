@@ -30,6 +30,11 @@ function getAnyByProp(resourceName, query, cb){
         for(var thing in query){
             querySyntax.where[thing] = {}
             if(typeof query[thing]=='string'){
+                if(query[thing]=="true"){
+                    query[thing] = true;
+                }else if(query[thing]=="false"){
+                    query[thing] = false;
+                }
                 query[thing] = [query[thing]]
             }
             // console.log(resourceName + "is current resource")
