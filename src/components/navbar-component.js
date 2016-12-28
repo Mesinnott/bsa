@@ -97,7 +97,7 @@ function NavController(sessionService, $document, $window, $scope, $state) {
         // nc.message = "You do not have proper clearance to go there"
     }
 
-kc.reset = function(){
+nc.reset = function(){
     nc.error=false
 }
 
