@@ -20,7 +20,7 @@
                     <!--track by prop.name-->
                     <select name="propForm" class="form-control" ng-model="ad.prop">
                             <option 
-                            ng-if="ad.resources[ad.resource].name == 'directors' || ad.resources[ad.resource].name == 'packs' || ad.resources[ad.resource].name == 'users' || ad.resources[ad.resource].name == 'districts'" 
+                            ng-if="ad.resources[ad.resource].name == 'packs' || ad.resources[ad.resource].name == 'users' || ad.resources[ad.resource].name == 'districts'" 
                             value=''
                             >
                             All
@@ -32,7 +32,7 @@
                     </select>
                 </div>
                 <label for="reservation">With the value of...</label>
-                <input type="" class="form-control" id="reservation" placeholder="123, test@email.com, Johnny Q. Scout, etc." ng-model="ad.query">
+                <input type="" class="form-control" id="reservation" placeholder="123, test@email.com, Johnny Q. Scout, etc. Use 'true' for authentication searches" ng-model="ad.query">
 
                 <button type="submit" class="btn btn-primary btn-raised">View Query</button>
 

@@ -345,25 +345,21 @@ angular.module(`app.components.${Component}`, [])
                 ]
 
             },
-            {
-                name: "users",
-                displayName: "Camp Director",
-                props: [
-                    {
-                        name: 'director',
-                        displayName: "All"
-                    },
-                    {
-                        name: "email",
-                        displayName: "Email"
-                    },
-                    {
-                        name: "name",
-                        displayName: "Name"
-                    }
+            // {
+            //     name: "users",
+            //     displayName: "Camp Director",
+            //     props: [
+            //         {
+            //             name: "email",
+            //             displayName: "Email"
+            //         },
+            //         {
+            //             name: "name",
+            //             displayName: "Name"
+            //         }
 
-                ]
-            },
+            //     ]
+            // },
             {
                 name: "reservations",
                 displayName: "Reservation",
@@ -406,11 +402,11 @@ angular.module(`app.components.${Component}`, [])
                 props: [
                     {
                         name: 'reservation',
-                        displayName: 'Is Reservation'
+                        displayName: 'Reservation Ownership'
                     },
                     {
                         name: 'director',
-                        displayName: 'Is Camp Director'
+                        displayName: 'Camp Director'
                     },
                     {
                         name: "displayName",
@@ -587,21 +583,21 @@ angular.module(`app.components.${Component}`, [])
                 ]
 
             },
-            {
-                name: "directors",
-                displayName: "Camp Director",
-                props: [
-                    {
-                        name: "email",
-                        displayName: "Email"
-                    },
-                    {
-                        name: "displayName",
-                        displayName: "Name"
-                    }
+            // {
+            //     name: "directors",
+            //     displayName: "Camp Director",
+            //     props: [
+            //         {
+            //             name: "email",
+            //             displayName: "Email"
+            //         },
+            //         {
+            //             name: "displayName",
+            //             displayName: "Name"
+            //         }
 
-                ]
-            },
+            //     ]
+            // },
             {
                 name: "reservations",
                 displayName: "Reservation",
