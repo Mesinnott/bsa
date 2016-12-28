@@ -28,7 +28,14 @@
     <div ng-if="ac.resource == 'camps'" class="form-group">
         <h1>Camps</h1>
         <input type="text" class="form-control" ng-model='ac.object' required placeholder="camp">
-        <input type="text" class="form-control" ng-model='ac.userName' required placeholder="John Doe">
+        <div class="select-container">
+                <i class="material-icons">&#xE313;</i>
+                <select class="form-control" placeholder="direcotr" ng-model='ac.userName'>
+                    <option ng-repeat="director in $ctrl.directors"  ng-value="director.id" required placeholder="choose a director">{{director.displayName}}</option>
+                    
+                </select>
+            </div>
+        <!--<input type="text" class="form-control" ng-model='ac.userName' required placeholder="John Doe">-->
         <input type = "text" class="form-control" ng-model='ac.year' required placeholder="2017">
         <!--<select class="form-control" ng-model='ac.year'>
                     <option  value="All">All</option>

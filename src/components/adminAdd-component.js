@@ -36,6 +36,13 @@ angular.module(`app.components.${Component}`, [])
                 })
         }
 
+        ad.getUsers = (cb) => {
+            $http.get('/api/users')
+                .then(function (res) {
+                    cb(res.data)
+                })
+        }
+
 
 
     })
@@ -62,16 +69,27 @@ angular.module(`app.components.${Component}`, [])
         ac.message = false
         ac.error = false
         ac.userName = ''
+        ac.directors = []
 
-        // sessionService.getUserId(function(res){
-        //     ac.userId=res
-        //     console.log("got users Id "+ ac.userId)
-        // })
+ 
         sessionService.checkAuth(function (res) {
             ac.auth = res
             console.log("current Auth = " + ac.auth)
         })
 
+        addService.getUsers(function (res) {
+            console.log('huzzah')
+            console.log(res)
+            for (var i = 0; i < res.length; i++) {
+                console.log(i)
+                if(res[i].director==true){
+                    ac.directors.push(res[i])
+                }
+            }
+            console.log('butter')
+            console.log(ac.directors)
+            return ac.directors
+        })
 
 
         ac.addSomething = function (resource, obj, name, year, num, location, locName, date, end, levels, start, endTime, max) {
@@ -80,15 +98,10 @@ angular.module(`app.components.${Component}`, [])
                 if (resource == 'years') {
                     obj = { "year": obj }
                     addService.add(resource, obj)
-                    ac.message="You have succefully added a new year"
+                    ac.message = "You have succefully added a new year"
                     ac.object = ''
                 }
                 if (resource == 'camps') {
-
-                    addService.getByAnyProp('users', 'displayName', name, function (res) {
-                        if (res.length > 0) {
-
-                            ac.userId = res[0].id
                             addService.getYearId(year, function (res) {
                                 ac.yearId = res[0].id
 
@@ -99,7 +112,7 @@ angular.module(`app.components.${Component}`, [])
                                         "location": location,
                                         "locationName": locName,
                                         "yearId": ac.yearId,
-                                        "userId": ac.userId,
+                                        "userId": name,
                                         "date": date,
                                         "endDate": end,
                                         "scoutLevels": levels,
@@ -111,9 +124,7 @@ angular.module(`app.components.${Component}`, [])
                                 }
                                 addService.add(resource, obj)
                                 ac.message = 'You have successfully added a new camp'
-                            })
-                        }else{ac.error = 'That user cannot be found, you may have a spelling or capitalization error.'}
-                    })
+                     })
                 }
             } else {
                 ac.error = 'You are not authorized to add that'
