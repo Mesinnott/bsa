@@ -1,5 +1,6 @@
 import angular from 'angular'
 import template from './templates/navbar.html'
+import './stylesheets/navbar.scss'
 const Component = 'navbar'
 
 angular.module(`app.components.${Component}`, [])
