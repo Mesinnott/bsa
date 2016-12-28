@@ -23,8 +23,8 @@ angular.module(`app.components.${Component}`, [])
            if (!currentUser.currentUser) {
                 console.log('not logged in')
                 currentAuth = null
-                cb(currentAuth)
-                return currentAuth
+                // cb(currentAuth)
+                // return currentAuth
             }
             if (currentUser.currentUser) {
                 console.log('someone is logged in')

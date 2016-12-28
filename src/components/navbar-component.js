@@ -65,11 +65,13 @@ function NavController(sessionService, $document, $window, $scope, $state) {
 
     nc.director = function () {
         console.log('working')
+        sessionService.getUserId(b=>{
+            let userId = b
         sessionService.checkAuth(a => {
             nc.auth = a;
             console.log('sssss ' + nc.auth);
             if (nc.auth == 'super' || nc.auth == 'director') {
-                $state.go('director')
+                $state.go('director', {'userId': userId})
             }
             else {
                 $state.go('faq')
@@ -77,22 +79,26 @@ function NavController(sessionService, $document, $window, $scope, $state) {
                 console.log('fail')
             }
         })
+        })
         // nc.message = "You do not have proper clearance to go there"
     }
 
     nc.admin = function () {
         console.log('working')
+        sessionService.getUserId(b=>{
+            let userId = b
         sessionService.checkAuth(a => {
             nc.auth = a;
             console.log('sssss ' + nc.auth);
             if (nc.auth == 'super' || nc.auth == 'admin') {
-                $state.go('admin', {'resource':'hello'})
+                $state.go('admin', {'resource':userId})
             }
             else {
                 $state.go('faq')
                 nc.error = "You are not authorized to view this page";
                 console.log('fail')
             }
+        })
         })
         // nc.message = "You do not have proper clearance to go there"
     }

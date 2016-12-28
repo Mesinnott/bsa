@@ -18,9 +18,18 @@ angular.module(`app.components.${Component}`, [])
             // })
         }
 
+        ad.getByAnyProp = (resource, param, value, cb) => {
+            $http.get('/api/' + resource + "?" + param + "=" + value)
+                .then(function (res) {
+                    cb(res.data)
+                    // ad.reservation = res.data
+                    // console.log(ad.reservation)
+                })
+            // return ad.reservation
+        }
         ad.getYearId = (year, cb) => {
             let currentYear = year
-            console.log('current year = ' +currentYear)
+            console.log('current year = ' + currentYear)
             $http.get(`/api/years?year=${currentYear}`)
                 .then(function (res) {
                     cb(res.data)
@@ -35,7 +44,7 @@ angular.module(`app.components.${Component}`, [])
         let $ctrl = this;
         var ac = this;
 
-        ac.userId=''
+        ac.userId = ''
 
         ac.object = ''
         ac.num = ''
@@ -48,67 +57,74 @@ angular.module(`app.components.${Component}`, [])
         ac.endTime = ''
         ac.max = ''
         ac.yearId = ''
-        ac.year=''
-        ac.auth=''
+        ac.year = ''
+        ac.auth = ''
         ac.message = false
         ac.error = false
+        ac.userName = ''
 
-        sessionService.getUserId(function(res){
-            ac.userId=res
-            console.log("got users Id "+ ac.userId)
+        // sessionService.getUserId(function(res){
+        //     ac.userId=res
+        //     console.log("got users Id "+ ac.userId)
+        // })
+        sessionService.checkAuth(function (res) {
+            ac.auth = res
+            console.log("current Auth = " + ac.auth)
         })
-        sessionService.checkAuth(function(res){
-            ac.auth=res
-            console.log("current Auth = "+ac.auth)
-        })
 
 
-        
-        ac.addSomething = function (resource, obj, year, num, location, locName, date, end, levels, start, endTime, max) {
+
+        ac.addSomething = function (resource, obj, name, year, num, location, locName, date, end, levels, start, endTime, max) {
             console.log('hello ' + resource + ' ' + obj)
-            if(ac.auth=='admin' || ac.auth == 'super'){
+            if (ac.auth == 'admin' || ac.auth == 'super') {
+                if (resource == 'years') {
+                    obj = { "year": obj }
+                    addService.add(resource, obj)
+                    ac.message="You have succefully added a new year"
+                    ac.object = ''
+                }
+                if (resource == 'camps') {
 
+                    addService.getByAnyProp('users', 'displayName', name, function (res) {
+                        if (res.length > 0) {
 
-            if (resource == 'years') {
-                obj = { "year": obj }
-                 addService.add(resource, obj)
-                  ac.object = ''
-            }
-            if (resource == 'camps') {
-                addService.getYearId(year, function (res) {
-                    ac.yearId = res[0].id
+                            ac.userId = res[0].id
+                            addService.getYearId(year, function (res) {
+                                ac.yearId = res[0].id
 
-                    obj = {
-                        "camp": {
+                                obj = {
+                                    "camp": {
 
-                            "campNum": num,
-                            "location": location,
-                            "locationName": locName,
-                            "yearId": ac.yearId,
-                            "userId": ac.userId,
-                            "date": date,
-                            "endDate": end,
-                            "scoutLevels": levels,
-                            "startTime": start,
-                            "endTime": endTime,
-                            "maxScouts": max
-                        }
+                                        "campNum": num,
+                                        "location": location,
+                                        "locationName": locName,
+                                        "yearId": ac.yearId,
+                                        "userId": ac.userId,
+                                        "date": date,
+                                        "endDate": end,
+                                        "scoutLevels": levels,
+                                        "startTime": start,
+                                        "endTime": endTime,
+                                        "maxScouts": max
+                                    }
 
-                    }
-            addService.add(resource, obj)
-                })
-            }
-            ac.message =`You have successfully added a new item to ${resource}`
-            }else{
-                ac.error='You are not authorized to add that'
+                                }
+                                addService.add(resource, obj)
+                                ac.message = 'You have successfully added a new camp'
+                            })
+                        }else{ac.error = 'That user cannot be found, you may have a spelling or capitalization error.'}
+                    })
+                }
+            } else {
+                ac.error = 'You are not authorized to add that'
             }
         }
- ac.messageClear = function () {
-        ac.message = false
-    }
- ac.errorClear = function () {
-        ac.error = false
-    }
+        ac.messageClear = function () {
+            ac.message = false
+        }
+        ac.errorClear = function () {
+            ac.error = false
+        }
 
 
     })

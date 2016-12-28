@@ -7,7 +7,7 @@
     <button type="button" class="close" data-dismiss="alert" ng-click="$ctrl.errorClear()">x</button>
     <p>{{$ctrl.error}}</p>
   </div>
-    <form ng-submit="$ctrl.addSomething(ac.resource, ac.object, ac.year, ac.num, ac.location, ac.locName, ac.date, ac.end, ac.levels, ac.start, ac.endTime, ac.max)">
+    <form ng-submit="$ctrl.addSomething(ac.resource, ac.object, ac.userName, ac.year, ac.num, ac.location, ac.locName, ac.date, ac.end, ac.levels, ac.start, ac.endTime, ac.max)">
         <div class="form-group">
             <label> I want to add...</label>
             <div class="select-container">
@@ -28,6 +28,7 @@
     <div ng-if="ac.resource == 'camps'" class="form-group">
         <h1>Camps</h1>
         <input type="text" class="form-control" ng-model='ac.object' required placeholder="camp">
+        <input type="text" class="form-control" ng-model='ac.userName' required placeholder="John Doe">
         <input type = "text" class="form-control" ng-model='ac.year' required placeholder="2017">
         <!--<select class="form-control" ng-model='ac.year'>
                     <option  value="All">All</option>
