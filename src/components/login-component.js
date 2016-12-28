@@ -18,6 +18,22 @@ angular.module(`app.components.${Component}`, [])
             lc.message = "You Have Been Logged Out"
         }
 
+        function getUserId(cb){
+            currentUser =firebase.auth()
+           if (!currentUser.currentUser) {
+                console.log('not logged in')
+                currentAuth = null
+                // cb(currentAuth)
+                // return currentAuth
+            }
+            if (currentUser.currentUser) {
+                console.log('someone is logged in')
+                currentId = currentUser.currentUser.uid
+                cb(currentId)
+                return currentId
+            }
+        }
+
         function checkAuth(cb) {
 
             currentUser = firebase.auth()
@@ -79,6 +95,7 @@ angular.module(`app.components.${Component}`, [])
             dbuser: dbuser,
             currentAuth: currentAuth,
             logOut: logOut,
+            getUserId: getUserId
         };
 
 

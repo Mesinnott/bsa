@@ -27,6 +27,15 @@ angular.module(`app.components.${Component}`, [])
             $state.go("viewcamp", { campId: id });
         }
 
+        ds.getYearId = (year, cb) => {
+            let currentYear = year
+            console.log('current year = ' + currentYear)
+            $http.get(`/api/years?year=${currentYear}`)
+                .then(function (res) {
+                    cb(res.data)
+                })
+        }
+
         ds.getDirector = function (userId, cb) {
             $http({
                 method: 'GET',
@@ -38,22 +47,25 @@ angular.module(`app.components.${Component}`, [])
         }
     })
 
-    .controller('directorController', function (directorService, $http, $state) {
+    .controller('directorController', function (directorService, sessionService, $http, $state) {
         let $ctrl = this;
         var dc = this;
         dc.directNum = $state.params.userId || '';
-        
+
+
+
+
         this.goToCamp = function (campId) {
             directorService.goToCamp(campId)
         }
 
-        this.getDirector = function(userId){
-            directorService.getDirector(userId, function(dirObj){
+        this.getDirector = function (userId) {
+            directorService.getDirector(userId, function (dirObj) {
                 dc.dirObj = dirObj
             })
         }
         this.getDirector(dc.directNum)
-        
+
         this.getCamps = function (userId) {
             directorService.populateCamps(userId, function (list) {
                 dc.campList = list;
@@ -61,6 +73,10 @@ angular.module(`app.components.${Component}`, [])
             })
         }
         this.getCamps(dc.directNum);
+
+
+
+
     })
 
     .component('director', {

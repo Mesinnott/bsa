@@ -1,0 +1,15 @@
+<div class="elevated-box">
+    <div class="alert alert-danger alert-dismissable" ng-if="!!$ctrl.error">
+        <button type="button" class="close" data-dismiss="alert" ng-click="$ctrl.reset()">x</button>
+        <p>{{$ctrl.error}}</p>
+    </div>
+    <h1>Please Input Your Reservation Access Key</h1>
+     <form ng-submit="$ctrl.submit(kc.key)">
+        <div class="form-group">
+        <input type="text" class="form-control" ng-model='kc.key' required placeholder="test-test-1">
+          <button type="submit" class="btn btn-primary btn-raised">Submit!</button>
+
+    </div>
+    
+    </form>
+</div>

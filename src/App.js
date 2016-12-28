@@ -83,6 +83,11 @@ App.config(function ($urlRouterProvider, $stateProvider, $qProvider) {
                     template:'<adminadd></adminadd>'
                 })
                 .state({
+                    name:'key',
+                    url:'/key',
+                    template:'<key>/<key>'
+                })
+                .state({
                     name:'admin',
                     url:'/admin?:resource?:parameter?:query?',
                     template:'<admin></admin>',

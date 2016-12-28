@@ -8,7 +8,7 @@ const Component = 'admin'
 
 // Use this as a template.
 angular.module(`app.components.${Component}`, [])
-    
+
     .service('abService', function ($http, $state) {
         var ab = this;
         ab.camps = [''];
@@ -111,22 +111,22 @@ angular.module(`app.components.${Component}`, [])
             }
         }
         var interval;
-        function increaseLoadBarWidth(timePassed){
+        function increaseLoadBarWidth(timePassed) {
             console.log(timePassed)
-            let timeVar = timePassed/10
+            let timeVar = timePassed / 10
             ad.loading = Math.abs(
                 (
                     100
-                    ) / timePassed -100
-                );
-            ad.loadingDisplay=Math.floor(ad.loading)
+                ) / timePassed - 100
+            );
+            ad.loadingDisplay = Math.floor(ad.loading)
         }
         console.log("working")
-        ad.animateLoading = function(){
+        ad.animateLoading = function () {
             ad.loading = 1;
             var timePassed = 1;
             ad.loadingInterval = $interval(
-                function(){
+                function () {
                     console.log(ad.loading)
                     increaseLoadBarWidth(timePassed)
                     timePassed++;
@@ -134,7 +134,7 @@ angular.module(`app.components.${Component}`, [])
             )
         }
 
-        sessionService.checkAuth(a=>{ad.currentAuth = a; console.log("AUTH::::::" + ad.currentAuth)})
+        sessionService.checkAuth(a => { ad.currentAuth = a; console.log("AUTH::::::" + ad.currentAuth) })
         console.log(ad.currentAuth)
 
 
@@ -148,16 +148,17 @@ angular.module(`app.components.${Component}`, [])
             )
         }
 
-        this.getCamps = function () {
+        //I commented this out because i dont think it does anything right now...
+        // this.getCamps = function () {
 
-            abService.getCampsByYear(
-                ad.yearId,
-                camps => {
-                    ad.camps = camps
-                }
-            )
-        }
-        
+        //     abService.getCampsByYear(
+        //         ad.yearId,
+        //         camps => {
+        //             ad.camps = camps
+        //         }
+        //     )
+        // }
+
         ad.setResource = function (index) {
             // console.log(ad.resources[index].name)
             return ad.resources[index].name
@@ -201,7 +202,7 @@ angular.module(`app.components.${Component}`, [])
         ad.reset = function () {
             ad.error = false
         }
-        
+
         ad.remove = function (id, scout, index) {
             if (!window.confirm("Are you sure?")) {
                 return
@@ -258,8 +259,8 @@ angular.module(`app.components.${Component}`, [])
                 displayName: "Packs",
                 props: [
                     {
-                        name:'',
-                        displayName:'All'
+                        name: '',
+                        displayName: 'All'
                     },
                     {
                         name: "number",
@@ -349,8 +350,8 @@ angular.module(`app.components.${Component}`, [])
                 displayName: "Camp Director",
                 props: [
                     {
-                        name:'director=true&',
-                        displayName:"All"
+                        name: 'director=true&',
+                        displayName: "All"
                     },
                     {
                         name: "email",
@@ -390,9 +391,9 @@ angular.module(`app.components.${Component}`, [])
                 displayName: "Districts",
                 props: [
                     {
-                        name:new String(),
-                        displayName:'All'
-                    },                    
+                        name: new String(),
+                        displayName: 'All'
+                    },
                     {
                         name: "name",
                         displayName: "Name"
@@ -404,9 +405,9 @@ angular.module(`app.components.${Component}`, [])
                 displayName: "Users",
                 props: [
                     {
-                        name:'',
-                        displayName:'All'
-                    },                    
+                        name: '',
+                        displayName: 'All'
+                    },
                     {
                         name: "displayName",
                         displayName: "Name"
@@ -697,21 +698,21 @@ angular.module(`app.components.${Component}`, [])
             }
         ];
 
-           ad.add = function () {
-        console.log('working')
-        loginService.checkAuth(a => {
-            ad.currentAuth = a;
-            console.log('sssss ' + ad.currentAuth);
-            if (ad.currentAuth == 'super' || ad.currentAuth == 'admin') {
-                $state.go('adminadd')
-            }
-            else {
-                ad.error = "You are not authorized to view this page";
-                console.log('fail')
-            }
-        })
-        // nc.message = "You do not have proper clearance to go there"
-    }
+        ad.add = function () {
+            console.log('working')
+            sessionService.checkAuth(a => {
+                ad.currentAuth = a;
+                console.log('sssss ' + ad.currentAuth);
+                if (ad.currentAuth == 'super' || ad.currentAuth == 'admin') {
+                    $state.go('adminadd')
+                }
+                else {
+                    ad.error = "You are not authorized to view this page";
+                    console.log('fail')
+                }
+            })
+            // nc.message = "You do not have proper clearance to go there"
+        }
 
         ad.reservations = function (value) {
             // debugger

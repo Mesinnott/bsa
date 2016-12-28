@@ -1,5 +1,6 @@
 import {faq} from './faq-component'
 import {reg} from './reg-component'
+import {key} from './key-component'
 import {home} from './home-component'
 import {admin} from './admin-component'
 import {login} from './login-component'
@@ -32,7 +33,8 @@ let components = [
   navbar,
   faq,
   viewreg,
-  adminadd
+  adminadd, 
+  key
 ]
 
 
