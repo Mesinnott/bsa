@@ -350,7 +350,7 @@ angular.module(`app.components.${Component}`, [])
                 displayName: "Camp Director",
                 props: [
                     {
-                        name: 'director=true&',
+                        name: 'director',
                         displayName: "All"
                     },
                     {
@@ -405,8 +405,12 @@ angular.module(`app.components.${Component}`, [])
                 displayName: "Users",
                 props: [
                     {
-                        name: '',
-                        displayName: 'All'
+                        name: 'reservation',
+                        displayName: 'Is Reservation'
+                    },
+                    {
+                        name: 'director',
+                        displayName: 'Is Camp Director'
                     },
                     {
                         name: "displayName",
@@ -592,7 +596,7 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Email"
                     },
                     {
-                        name: "name",
+                        name: "displayName",
                         displayName: "Name"
                     }
 
