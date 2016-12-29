@@ -1,10 +1,10 @@
 <div class='elevated-box'>
     <div class="alert alert-success alert-dismissable" ng-if="!!$ctrl.message">
-        <button type="button" class="close" data-dismiss="alert" ng-click="$ctrl.messageClear()">x</button>
+        <button type="button" class="close" data-dismiss="alert" ng-click="$ctrl.messageClear()">X</button>
         <p>{{$ctrl.message}}</p>
     </div>
     <div class="alert alert-danger alert-dismissable" ng-if="!!$ctrl.error">
-        <button type="button" class="close" data-dismiss="alert" ng-click="$ctrl.errorClear()">x</button>
+        <button type="button" class="close" data-dismiss="alert" ng-click="$ctrl.errorClear()">X</button>
         <p>{{$ctrl.error}}</p>
     </div>
     <form ng-submit="$ctrl.addSomething(ac.resource, ac.object, ac.userName, ac.year, ac.num, ac.location, ac.locName, ac.date, ac.end, ac.levels, ac.start, ac.endTime, ac.max)">
