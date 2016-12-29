@@ -611,8 +611,8 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Pack Number"
                     },
                     {
-                        name: "reservationNum",
-                        displayName: "Reservation Number"
+                        name: "accessKey",
+                        displayName: "Reservation Key"
                     },
                     {
                         name: "location",
