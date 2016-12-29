@@ -286,8 +286,8 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Shirt Size"
                     },
                     {
-                        name: "reservationId",
-                        displayName: "Reservation Id"
+                        name: "accessKey",
+                        displayName: "Reservation Key"
                     },
                     {
                         name: "name",
@@ -335,8 +335,8 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Shirt Size"
                     },
                     {
-                        name: "reservationId",
-                        displayName: "Reservation Id"
+                        name: "accessKey",
+                        displayName: "Reservation Key"
                     },
                     {
                         name: "name",
@@ -501,8 +501,8 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Shirt Size"
                     },
                     {
-                        name: "reservationId",
-                        displayName: "Reservation Id"
+                        name: "accessKey",
+                        displayName: "Reservation Key"
                     },
                     {
                         name: "name",
@@ -531,8 +531,8 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Shirt Size"
                     },
                     {
-                        name: "reservationId",
-                        displayName: "Reservation Id"
+                        name: "accessKey",
+                        displayName: "Reservation Key"
                     },
                     {
                         name: "name",
@@ -565,8 +565,8 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Shirt Size"
                     },
                     {
-                        name: "reservationId",
-                        displayName: "Reservation Id"
+                        name: "accessKey",
+                        displayName: "Reservation Key"
                     },
                     {
                         name: "name",
