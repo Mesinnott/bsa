@@ -40,8 +40,16 @@ angular.module(`app.components.${Component}`, [])
             if (!currentUser.currentUser) {
                 console.log('not logged in')
                 currentAuth = null
-                cb(currentAuth)
-                return currentAuth
+                return new Promise(
+                    (res, rej)=>{
+                        try{
+                            res(currentAuth)
+                        }catch(error){
+                            rej(currentAuth)
+                        }
+                    }
+                )
+
             }
             if (currentUser.currentUser) {
                 console.log('someone is logged in')
@@ -64,8 +72,15 @@ angular.module(`app.components.${Component}`, [])
                         currentAuth = "reservation"
                     }
                     console.log("current authentication standard is " + currentAuth)
-                    cb(currentAuth)
-                    return currentAuth
+                    return new Promise(
+                        (res, rej)=>{
+                            try{
+                                res(currentAuth)
+                            }catch(error){
+                                rej(currentAuth)
+                            }
+                        }
+                    )
 
                 })
             }

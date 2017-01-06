@@ -98,8 +98,17 @@ angular.module(`app.components.${Component}`, [])
     rc.camp;
     rc.password;
 
-    rc.isAdmin = sessionService.getAuth() == "admin"
-
+    sessionService.checkAuth()
+        .then(
+            (res)=>{
+                rc.isAdmin = res;
+            }
+        )
+        .catch(
+            error=>{
+                
+            }
+        );
     (function(){
         $http.get('/api/camps/'+$state.params.campId)
             .then(function(camps){
@@ -247,7 +256,7 @@ angular.module(`app.components.${Component}`, [])
             a.name = a.first + " " + a.last 
         })
         rc.reg.campers.forEach(c=>{
-            c.name = a.first + " " + a.last
+            c.name = c.first + " " + c.last
         })
         rc.reg.contacts.forEach(c=>{
             c.reservation = true;

@@ -44,11 +44,6 @@ App.config(function ($urlRouterProvider, $stateProvider, $qProvider) {
                     template:'<login></login>'
                 })
                 .state({
-                    name:'receipt',
-                    url:'/receipt',
-                    template:'<receipt></receipt>'
-                })
-                .state({
                     name:'reg',
                     url:'/register/:campId?',
                     template:'<reg></reg>'
@@ -65,8 +60,13 @@ App.config(function ($urlRouterProvider, $stateProvider, $qProvider) {
                 })
                 .state({
                     name:'viewreg',
-                    url:'/viewreg/:reservationId',
+                    url:'/reservations/:reservationId',
                     template:'<viewreg></viewreg>'
+                })
+                .state({
+                    name:'receipt',
+                    url:'/reservations/:reservationId/receipt',
+                    template:'<receipt></receipt>'
                 })
                 .state({
                     name:'faq',
