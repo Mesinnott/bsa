@@ -1,48 +1,7 @@
-<!--<div class='elevated-box'>
-    <form ng-submit="vc.reservations(vc.reservationNum)">
-        <div class="form-group">
-
-            <Label> I want to view ... (Scouts, Camps, etc.) </label>
-            <select class="form-control" ng-model="vc.resource">
-                <option ng-repeat="resource in vc.resources" value=" {{$index}} ">{{resource.displayName}} </option>
-                </select>
-            <label> By their...</label>
-            <select class="form-control" ng-model="vc.prop">
-                <option 
-                ng-if="vc.resources[vc.resource].name == 'scouts' || vc.resources[vc.resource].name == 'leaders' || vc.resources[vc.resource].name == 'chiefs'" 
-                value=''
-                >
-                All
-                </option>
-                
-                <option ng-repeat="prop in vc.resources[vc.resource].props" value="{{prop.name}}">{{prop.displayName}}</option>
-               
-                
-                </select>
-
-            <label for="reservation">With the value of...</label>
-            <input type="" class="form-control" id="reservation" placeholder="123, test@email.com, Johnny Q. Scout, etc." ng-model="vc.reservationNum">
-
-            <button type="submit" class="btn btn-primary btn-raised">View Query</button>
-
-        </div>
-    </form>
-</div>-->
-
-
-
-<!--<div class="row">
-    <div class="col-sm-8 col-sm-offset-2" ng-controller="vcController as vc">
-        <div class="elevated-box">
-            <select name="" id="">
-                <option value="" ng-repeat="year in vc.years">{{year.year}}</option>
-            </select>
-        </div>-->
-
 
 <div class="elevated-box">
     <div class="alert alert-success alert-dismissable" ng-if="!!vc.error">
-        <button type="button" class="close" data-dismiss="alert" ng-click="vc.reset()">x</button>
+        <button type="button" class="close" data-dismiss="alert" ng-click="vc.reset()">X</button>
         <p>{{vc.error}}</p>
     </div>
     <table class='table' show-filter='true'>
@@ -55,7 +14,7 @@
         <tbody>
             <tr ng-repeat="reservation in vc.reservations">
                 <td ng-repeat="prop in vc.tableProps[3].props" ng-switch on="prop.name">
-                    <div ng-if="!vc.viewState.table.editMode">
+                    <!--<div ng-if="!vc.viewState.table.editMode">
                         <input type="checkbox" ng-change="vc.save(reservation.id, reservation, vc.resources[vc.resource].name)" class="form-control"
                             ng-model="reservation.healthForm" ng-switch-when="healthForm" />
                         <input type="checkbox" ng-change="vc.save(reservation.id, reservation, vc.resources[vc.resource].name)" class="form-control"
@@ -80,8 +39,8 @@
                             ng-model="reservation.active" ng-switch-when="active" />
                         <input type="text" ng-change="vc.save(reservation.id, reservation, vc.resources[vc.resource].name)" class="form-control"
                             ng-model="reservation[prop.name]" ng-switch-default />
-                    </div>
-                    <div ng-if="vc.viewState.table.editMode" ng-switch on="prop.name">
+                    </div>-->
+                    <!--<div ng-if="vc.viewState.table.editMode" ng-switch on="prop.name">-->
                         <span>
                         {{ !!reservation[prop.name]!==reservation[prop.name]? reservation[prop.name] : reservation[prop.name]? "Yes" : "No"}}
                         </span>
@@ -96,7 +55,7 @@
             </tr>
         </tbody>
     </table>
-    <button type="button" class="btn btn-primary btn-raised" ng-click="vc.saveAll(vc.reservation)">Save All Changes</button>
+    <!--<button type="button" class="btn btn-primary btn-raised" ng-click="vc.saveAll(vc.reservation)">Save All Changes</button>-->
 </div>
 </div>
 </div>
@@ -112,7 +71,7 @@
 
 <div class="elevated-box">
     <div class="alert alert-success alert-dismissable" ng-if="!!vc.error">
-        <button type="button" class="close" data-dismiss="alert" ng-click="vc.reset()">x</button>
+        <button type="button" class="close" data-dismiss="alert" ng-click="vc.reset()">X</button>
         <p>{{vc.error}}</p>
     </div>
     <table class='table' show-filter='true'>
@@ -195,7 +154,7 @@
 
 <div class="elevated-box">
     <div class="alert alert-success alert-dismissable" ng-if="!!vc.error">
-        <button type="button" class="close" data-dismiss="alert" ng-click="vc.reset()">x</button>
+        <button type="button" class="close" data-dismiss="alert" ng-click="vc.reset()">X</button>
         <p>{{vc.error}}</p>
     </div>
     <table class='table' show-filter='true'>

@@ -138,6 +138,7 @@ function LoginController(sessionService, $state, $http) {
     lc.message = false
     lc.error = false
     lc.user = {}
+    lc.currentAuth=sessionService.currentAuth
 
     firebase.auth()
         .onAuthStateChanged(function (user) {
@@ -158,7 +159,7 @@ function LoginController(sessionService, $state, $http) {
 
     lc.logOut = function () {
         firebase.auth().signOut()
-        currentAuth = 'none'
+        lc.currentAuth = 'none'
         lc.message = "You Have Been Logged Out"
     }
 
@@ -214,10 +215,11 @@ function LoginController(sessionService, $state, $http) {
                 console.log('clearance = ' + lc.clearance)
             })
             .catch((error) => {
+                // debugger
                 lc.error = error.message
-                console.log(error);
+                console.log(lc.error);
+                return lc.error
             })
-
     }
 
     lc.checkAuth = function () {

@@ -1,10 +1,10 @@
 <div class='elevated-box'>
     <div class="alert alert-success alert-dismissable" ng-if="!!$ctrl.message">
-        <button type="button" class="close" data-dismiss="alert" ng-click="$ctrl.messageClear()">x</button>
+        <button type="button" class="close" data-dismiss="alert" ng-click="$ctrl.messageClear()">X</button>
         <p>{{$ctrl.message}}</p>
     </div>
     <div class="alert alert-danger alert-dismissable" ng-if="!!$ctrl.error">
-        <button type="button" class="close" data-dismiss="alert" ng-click="$ctrl.errorClear()">x</button>
+        <button type="button" class="close" data-dismiss="alert" ng-click="$ctrl.errorClear()">X</button>
         <p>{{$ctrl.error}}</p>
     </div>
     <form ng-submit="$ctrl.addSomething(ac.resource, ac.object, ac.userName, ac.year, ac.num, ac.location, ac.locName, ac.date, ac.end, ac.levels, ac.start, ac.endTime, ac.max)">
@@ -13,7 +13,7 @@
             <div class="select-container">
                 <i class="material-icons">&#xE313;</i>
                 <select class="form-control" ng-model='ac.resource'>
-                    <option  value="years">Year</option>
+                    <option value="years">Year</option>
                     <option value="camps">Camp</option>
                 </select>
             </div>
@@ -27,8 +27,35 @@
         </div>
         <div ng-if="ac.resource == 'camps'" class="form-group">
             <h1>Camps</h1>
-            <label> Camp Name:</label>
-            <input type="text" class="form-control" ng-model='ac.object' required placeholder="Cub Scout Camp">
+            <label> Camp Year:</label>
+            <input type="text" class="form-control" ng-model='ac.year' required placeholder="2017">
+            <label> Camp Number:</label>
+            <input type="text" class="form-control" ng-model='ac.num' required placeholder="1">
+            <label> Max Number of Scouts</label>
+            <input type="text" class="form-control" ng-model='ac.max' required placeholder="160">
+            <div class="select-container">
+                <label> Ages Welcome:</label>
+                <i class="material-icons">&#xE313;</i>
+                <select class="form-control" required ng-model='ac.levels'>
+                    <option  value="All">Cubs and Webelos</option>
+                    <option value="Webelos">Webelos Only</option>
+                </select>
+            </div>
+            <!--<label> Camp Name:</label>
+            <input type="text" class="form-control" ng-model='ac.object' required placeholder="Cub Scout Camp">-->
+            <!--<input type="text" class="form-control" ng-model='ac.userName' required placeholder="John Doe">-->
+            <label> Camp Location:</label>
+            <input type="text" class="form-control" ng-model='ac.location' required placeholder="112 Main Street">
+            <label> Location Name:</label>
+            <input type="text" class="form-control" ng-model='ac.locName' required placeholder="Boise Town Square">
+            <label> Start Date:</label>
+            <input type="text" class="form-control" ng-model='ac.date' required placeholder="June 14th">
+            <label> End Date:</label>
+            <input type="text" class="form-control" ng-model='ac.end' placeholder="June 15th (not required for single-day camps)">
+            <label>Start Time:</label>
+            <input type="text" class="form-control" ng-model='ac.start' required placeholder="9:00 AM">
+            <label> End Time:</label>
+            <input type="text" class="form-control" ng-model='ac.endTime' required placeholder="7:00 PM">
             <div class="select-container">
                 <label> Camp Director:</label>
                 <i class="material-icons">&#xE313;</i>
@@ -36,35 +63,8 @@
                     <option ng-repeat="director in $ctrl.directors"  ng-value="director.id" required>{{director.displayName}}</option>      
                 </select>
             </div>
-            <!--<input type="text" class="form-control" ng-model='ac.userName' required placeholder="John Doe">-->
-            <label> Camp Year:</label>
-            <input type="text" class="form-control" ng-model='ac.year' required placeholder="2017">
-            <label> Camp Number:</label>
-            <input type="text" class="form-control" ng-model='ac.num' required placeholder="123">
-            <label> Camp Location:</label>
-            <input type="text" class="form-control" ng-model='ac.location' required placeholder="112 Main Street">
-            <label> Location Name:</label>
-            <input type="text" class="form-control" ng-model='ac.locName' required placeholder="Boise Town Square">
-            <label> Start Date:</label>
-            <input type="text" class="form-control" ng-model='ac.date' required placeholder="July 4th">
-            <label> End Date:</label>
-            <input type="text" class="form-control" ng-model='ac.end' required placeholder="July 6th">
-            <div class="select-container">
-                <label> Ages Welcome:</label>
-                <i class="material-icons">&#xE313;</i>
-                <select class="form-control" required ng-model='ac.levels'>
-                    <option  value="All">All</option>
-                    <option value="Webelo">Webelo</option>
-                </select>
-            </div>
-            <label>Start Time:</label>
-            <input type="text" class="form-control" ng-model='ac.start' required placeholder="9:00 AM">
-            <label> End Time:</label>
-            <input type="text" class="form-control" ng-model='ac.endTime' required placeholder="7:00 PM">
-            <label> Max Number od Scouts</label>
-            <input type="text" class="form-control" ng-model='ac.max' required placeholder="120">
-            <button type="submit" class="btn btn-primary btn-raised">Make a new CAMP!</button>
 
+            <button type="submit" class="btn btn-primary btn-raised">Make a new CAMP!</button>
         </div>
     </form>
 </div>

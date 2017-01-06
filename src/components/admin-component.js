@@ -286,8 +286,8 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Shirt Size"
                     },
                     {
-                        name: "reservationId",
-                        displayName: "Reservation Id"
+                        name: "accessKey",
+                        displayName: "Reservation Key"
                     },
                     {
                         name: "name",
@@ -335,8 +335,8 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Shirt Size"
                     },
                     {
-                        name: "reservationId",
-                        displayName: "Reservation Id"
+                        name: "accessKey",
+                        displayName: "Reservation Key"
                     },
                     {
                         name: "name",
@@ -345,25 +345,21 @@ angular.module(`app.components.${Component}`, [])
                 ]
 
             },
-            {
-                name: "users",
-                displayName: "Camp Director",
-                props: [
-                    {
-                        name: 'director=true&',
-                        displayName: "All"
-                    },
-                    {
-                        name: "email",
-                        displayName: "Email"
-                    },
-                    {
-                        name: "name",
-                        displayName: "Name"
-                    }
+            // {
+            //     name: "users",
+            //     displayName: "Camp Director",
+            //     props: [
+            //         {
+            //             name: "email",
+            //             displayName: "Email"
+            //         },
+            //         {
+            //             name: "name",
+            //             displayName: "Name"
+            //         }
 
-                ]
-            },
+            //     ]
+            // },
             {
                 name: "reservations",
                 displayName: "Reservation",
@@ -405,8 +401,12 @@ angular.module(`app.components.${Component}`, [])
                 displayName: "Users",
                 props: [
                     {
-                        name: '',
-                        displayName: 'All'
+                        name: 'reservation',
+                        displayName: 'Reservation Ownership'
+                    },
+                    {
+                        name: 'director',
+                        displayName: 'Camp Director'
                     },
                     {
                         name: "displayName",
@@ -501,8 +501,8 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Shirt Size"
                     },
                     {
-                        name: "reservationId",
-                        displayName: "Reservation Id"
+                        name: "accessKey",
+                        displayName: "Reservation Key"
                     },
                     {
                         name: "name",
@@ -531,8 +531,8 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Shirt Size"
                     },
                     {
-                        name: "reservationId",
-                        displayName: "Reservation Id"
+                        name: "accessKey",
+                        displayName: "Reservation Key"
                     },
                     {
                         name: "name",
@@ -565,8 +565,8 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Shirt Size"
                     },
                     {
-                        name: "reservationId",
-                        displayName: "Reservation Id"
+                        name: "accessKey",
+                        displayName: "Reservation Key"
                     },
                     {
                         name: "name",
@@ -583,21 +583,21 @@ angular.module(`app.components.${Component}`, [])
                 ]
 
             },
-            {
-                name: "directors",
-                displayName: "Camp Director",
-                props: [
-                    {
-                        name: "email",
-                        displayName: "Email"
-                    },
-                    {
-                        name: "name",
-                        displayName: "Name"
-                    }
+            // {
+            //     name: "directors",
+            //     displayName: "Camp Director",
+            //     props: [
+            //         {
+            //             name: "email",
+            //             displayName: "Email"
+            //         },
+            //         {
+            //             name: "displayName",
+            //             displayName: "Name"
+            //         }
 
-                ]
-            },
+            //     ]
+            // },
             {
                 name: "reservations",
                 displayName: "Reservation",
@@ -611,8 +611,8 @@ angular.module(`app.components.${Component}`, [])
                         displayName: "Pack Number"
                     },
                     {
-                        name: "reservationNum",
-                        displayName: "Reservation Number"
+                        name: "accessKey",
+                        displayName: "Reservation Key"
                     },
                     {
                         name: "location",
