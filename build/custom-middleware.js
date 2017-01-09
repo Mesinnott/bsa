@@ -82,6 +82,7 @@ let
                                     // WE MADE IT!!!!!! 🎉🎉🎉🍻🎊🎊🍾🍾🎆✌️👌👏🙌👊👊👊
                                 })
                                 .catch(function(error){ // catches any errors that happened anywhere in the Promise chain
+                                    console.error("Something has gone wrong in custom-middleware.js")
                                     console.error(error)
                                 })
                             })

@@ -20,12 +20,13 @@ App.config(function ($urlRouterProvider, $stateProvider, $qProvider) {
                 })
                 .state({
                     name:'campavail',
-                    url:'/campavail',
+                    url:'camps/availability',
                     template:'<campavail></campvail>'
                 })
                 .state({
                     name:'director',
-                    url:'/director/:userId',
+                    url:'/director',
+                    // this was previously ` url:'/director/:userId', ` but that doesn't really make sense for how it's going to be formatted. Because directors can have multiple camps, this would be the main portal where the director can see all their camps and edit/view them accordingly. We'll get the :userId from the sessionService instead. As for the admins, they can already look up camps by campId.
                     template:'<director></director>'
                 })
                 .state({
@@ -35,7 +36,7 @@ App.config(function ($urlRouterProvider, $stateProvider, $qProvider) {
                 })
                 .state({
                     name:'groups',
-                    url:'/groups/:campId',
+                    url:'camps/:campId/groups',
                     template:'<groups></groups>'
                 })
                 .state({
@@ -45,7 +46,7 @@ App.config(function ($urlRouterProvider, $stateProvider, $qProvider) {
                 })
                 .state({
                     name:'reg',
-                    url:'/register/:campId?',
+                    url:'/camps/:campId/reservations/new',
                     template:'<reg></reg>'
                 })
                 .state({

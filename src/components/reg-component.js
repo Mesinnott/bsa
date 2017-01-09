@@ -97,7 +97,6 @@ angular.module(`app.components.${Component}`, [])
     rc.campNum;
     rc.camp;
     rc.password;
-
     sessionService.checkAuth()
         .then(
             (res)=>{
@@ -110,6 +109,7 @@ angular.module(`app.components.${Component}`, [])
             }
         );
     (function(){
+        console.log($http)
         $http.get('/api/camps/'+$state.params.campId)
             .then(function(camps){
                 rc.camp = camps.data[0];
@@ -329,9 +329,7 @@ angular.module(`app.components.${Component}`, [])
                                     )
                             })
                     })
-                
-                
-    }
+        }
             
     // rc.reg = {
     //     campers: [],

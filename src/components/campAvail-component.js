@@ -11,7 +11,6 @@ angular.module(`app.components.${Component}`, [])
     // var url1 = 'https://bcw-getter.herokuapp.com/?url=http%3A%2F%2Fquotesondesign.com%2Fapi%2F3.0%2Fapi-3.0.json'
     av.getCurrentYears = (cb)=>{
       let currentYear = new Date().getFullYear()
-      currentYear = 2016
       let nextYear = currentYear++
       let route = `/api/years?year=${currentYear}&year=${nextYear}`
       console.log(route)

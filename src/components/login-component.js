@@ -55,34 +55,33 @@ angular.module(`app.components.${Component}`, [])
                 console.log('someone is logged in')
                 currentId = currentUser.currentUser.uid
 
-                return getUser(currentId, function (res) {
-                    // console.log(res)
-                    dbuser = res.data
-                    if (dbuser[0].super == true) {
-                        // console.log('super')
-                        currentAuth = 'super'
-                    } else if (dbuser[0].admin == true) {
-                        // console.log('admin')
-                        currentAuth = 'admin'
-                    } else if (dbuser[0].director == true) {
-                        // console.log('director')
-                        currentAuth = "director"
-                    } else if (dbuser[0].reservation == true) {
-                        // console.log("reservation")
-                        currentAuth = "reservation"
-                    }
-                    console.log("current authentication standard is " + currentAuth)
-                    return new Promise(
-                        (res, rej)=>{
+                return new Promise(
+                        (resolve, reject)=>{
                             try{
-                                res(currentAuth)
+                                getUser(currentId, function (res) {
+                                    // console.log(res)
+                                    dbuser = res.data
+                                    if (dbuser[0].super == true) {
+                                        // console.log('super')
+                                        currentAuth = 'super'
+                                    } else if (dbuser[0].admin == true) {
+                                        // console.log('admin')
+                                        currentAuth = 'admin'
+                                    } else if (dbuser[0].director == true) {
+                                        // console.log('director')
+                                        currentAuth = "director"
+                                    } else if (dbuser[0].reservation == true) {
+                                        // console.log("reservation")
+                                        currentAuth = "reservation"
+                                    }
+                                    console.log("current authentication standard is " + currentAuth)
+                                    resolve(currentAuth)
+                                })
                             }catch(error){
-                                rej(currentAuth)
+                                reject(error)
                             }
                         }
                     )
-
-                })
             }
         }
 
