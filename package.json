@@ -2,13 +2,13 @@
   "name": "codeworks-starter",
   "version": "1.0.0",
   "description": "CodeWorks Starter",
-  "author": "Jake Overall <joverall22@gmail.com>",
+  "author": "McCall Alexander, Mikey Sinnott, Jonathan Steenblik, Jake Overall",
   "private": true,
   "engine": "node 7.0.0",
   "scripts": {
-    "dev": "node --debug build/dev-server.js",
-    "build": "node build/build.js",
-    "lint": "eslint --ext .js,.vue src"
+    "dev": "gulp && node --debug build/dev-server.js",
+    "build": "gulp && node build/build.js",
+    "lint": "gulp && eslint --ext .js,.vue src"
   },
   "dependencies": {
     "angular": "^1.5.8",
@@ -19,6 +19,7 @@
     "firebase": "^2",
     "fs": "0.0.1-security",
     "glob": "^7.1.1",
+    "gulp": "^3.9.1",
     "js-data": "^2.9.0",
     "js-data-firebase": "2.1.1",
     "node-uuid": "^1.4.7",

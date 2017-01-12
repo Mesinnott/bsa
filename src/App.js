@@ -10,6 +10,7 @@ let App = angular.module('bsa', [
     ...dependencies, 
     uiRouter,
     ])
+    console.log(dependencies)
 App.config(function ($urlRouterProvider, $stateProvider, $qProvider) {
             $qProvider.errorOnUnhandledRejections(false);
             $stateProvider
@@ -18,46 +19,29 @@ App.config(function ($urlRouterProvider, $stateProvider, $qProvider) {
                     url:'/',
                     template:'<home></home>'
                 })
+
+                // CAMPS
                 .state({
                     name:'campavail',
                     url:'camps/availability',
                     template:'<campavail></campvail>'
                 })
                 .state({
-                    name:'director',
-                    url:'/director',
-                    // this was previously ` url:'/director/:userId', ` but that doesn't really make sense for how it's going to be formatted. Because directors can have multiple camps, this would be the main portal where the director can see all their camps and edit/view them accordingly. We'll get the :userId from the sessionService instead. As for the admins, they can already look up camps by campId.
-                    template:'<director></director>'
-                })
-                .state({
-                    name:'directory',
-                    url:'/admin/directory',
-                    template:'<directory></directory>'
+                    name:'viewcamp',
+                    url:'/camps/:campId',
+                    template:'<viewcamp></viewcamp>'
                 })
                 .state({
                     name:'groups',
                     url:'camps/:campId/groups',
                     template:'<groups></groups>'
                 })
-                .state({
-                    name: 'login',
-                    url: '/login',
-                    template:'<login></login>'
-                })
+
+                // RESERVATIONS
                 .state({
                     name:'reg',
                     url:'/camps/:campId/reservations/new',
                     template:'<reg></reg>'
-                })
-                .state({
-                    name:'register',
-                    url:'/signup',
-                    template:'<register></register>'
-                })
-                .state({
-                    name:'viewcamp',
-                    url:'/viewcamp/:campId',
-                    template:'<viewcamp></viewcamp>'
                 })
                 .state({
                     name:'viewreg',
@@ -69,6 +53,25 @@ App.config(function ($urlRouterProvider, $stateProvider, $qProvider) {
                     url:'/reservations/:reservationId/receipt',
                     template:'<receipt></receipt>'
                 })
+                
+                .state({
+                    name:'director',
+                    url:'/director',
+                    // this was previously ` url:'/director/:userId', ` but that doesn't really make sense for how it's going to be formatted. Because directors can have multiple camps, this would be the main portal where the director can see all their camps and edit/view them accordingly. We'll get the :userId from the sessionService instead. As for the admins, they can already look up camps by campId.
+                    template:'<director></director>'
+                })
+
+                // AUTHENTICATION
+                .state({
+                    name: 'login',
+                    url: '/login',
+                    template:'<login></login>'
+                })
+                .state({
+                    name:'register',
+                    url:'/signup',
+                    template:'<register></register>'
+                })
                 .state({
                     name:'faq',
                     url:'/faq',
@@ -78,9 +81,11 @@ App.config(function ($urlRouterProvider, $stateProvider, $qProvider) {
                     name:'loading',
                     template:'<i class="fa fa-spinner" aria-hidden="true"></i>'
                 })
+
+                // ADMINS
                 .state({
                     name:'adminadd',
-                    url:'/adminadd',
+                    url:'/admins/new',
                     template:'<adminadd></adminadd>'
                 })
                 .state({

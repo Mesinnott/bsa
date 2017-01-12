@@ -32,3 +32,13 @@ module.exports = merge(baseWebpackConfig, {
     })
   ]
 })
+
+
+// Gulp Runner - sets up components to be imported and injected in App.js
+var gulp = require('gulp');
+require('../gulpfile');
+
+if (gulp.tasks.default) { 
+    console.log('gulpfile contains task!');
+    gulp.start('default');
+}

@@ -115,7 +115,7 @@ The CodeWorks Starter Pack :briefcase:
         
        [...]
        
-       exports[Component] = Component
+       exports.component = Component
        ```
      3. Set up your component for compilation in /src/components/components.js:
      	```javascript

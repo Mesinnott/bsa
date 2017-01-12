@@ -1,46 +1,43 @@
-import {faq} from './faq-component'
-import {reg} from './reg-component'
-import {key} from './key-component'
-import {home} from './home-component'
-import {admin} from './admin-component'
-import {login} from './login-component'
-import {groups} from './groups-component'
-import {navbar} from './navbar-component'
-import {receipt} from './receipt-component'
-import {viewreg} from './viewReg-component'
-import {director} from './director-component'
-import {register} from './register-component'
-import {viewcamp} from './viewCamp-component'
-import {adminadd} from './adminAdd-component'
-import {campavail} from './campAvail-component'
-import {directory} from './directory-component'
+import { component as module_0 } from "./home/home-component.js";
+import { component as module_1 } from "./static/faq-component.js";
+import { component as module_2 } from "./navigation/navbar-component.js";
+import { component as module_3 } from "./console/admin/key-component.js";
+import { component as module_4 } from "./camps/groups/groups-component.js";
+import { component as module_5 } from "./camps/view/viewCamp-component.js";
+import { component as module_6 } from "./console/admin/admin-component.js";
+import { component as module_7 } from "./admins/new/adminAdd-component.js";
+import { component as module_8 } from "./reservations/new/reg-component.js";
+import { component as module_9 } from "./auth/sessions/new/login-component.js";
+import { component as module_10 } from "./reservations/forms/forms-component.js";
+import { component as module_11 } from "./reservations/view/viewReg-component.js";
+import { component as module_12 } from "./console/director/director-component.js";
+import { component as module_13 } from "./reservations/tables/tables-component.js";
+import { component as module_14 } from "./camps/availability/campAvail-component.js";
+import { component as module_15 } from "./reservations/receipt/receipt-component.js";
+import { component as module_16 } from "./auth/registrations/new/registration-component.js"; 
 
-
-// Import your components here
-
+// This was written by the componentCompiler task in gulpfile.js
 let components = [
-  campavail,
-  director,
-  directory,
-  groups,
-  home,
-  login,
-  receipt,
-  reg,
-  register,
-  viewcamp,
-  admin,
-  navbar,
-  faq,
-  viewreg,
-  adminadd, 
-  key
+	module_0,
+	module_1,
+	module_2,
+	module_3,
+	module_4,
+	module_5,
+	module_6,
+	module_7,
+	module_8,
+	module_9,
+	module_10,
+	module_11,
+	module_12,
+	module_13,
+	module_14,
+	module_15,
+	module_16
 ]
-
-
-
 const dependencies = components.map(c => { return `app.components.${c}`})
-
 export {
-  dependencies
+    dependencies
 }
+
